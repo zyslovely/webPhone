@@ -16,15 +16,14 @@ public class phoneController extends MultiActionController {
 	private MethodNameResolver methodNameResolver;
 
 	/**
-	 * ��ʼ��
+	 * 
 	 */
 	@PostConstruct
 	public void baseInit() {
 		super.setMethodNameResolver(methodNameResolver);
 	}
 
-	public ModelAndView SpringAction(HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView SpringAction(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("return");
 		return mv;
 	}

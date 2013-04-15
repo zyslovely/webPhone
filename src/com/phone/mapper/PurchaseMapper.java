@@ -5,7 +5,7 @@ import com.phone.meta.Purchase;
 public interface PurchaseMapper {
 
 	/**
-	 * Ìí¼ÓPurchase
+	 * æ·»åŠ Purchase
 	 * 
 	 * @param purchase
 	 */
