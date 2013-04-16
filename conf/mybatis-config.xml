@@ -2,9 +2,13 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="Test" type="com.phone.meta.Test" />
+		<typeAlias alias="Purchase" type="com.phone.meta.Purchase" />
+		<typeAlias alias="Selled" type="com.phone.meta.Selled" />
+		<typeAlias alias="Profit" type="com.phone.meta.Profit" />
 	</typeAliases>
 	<mappers>
-		<mapper resource="com/phone/mapper/xml/TestMapper.xml" />
+		<mapper resource="com/phone/mapper/xml/PurchaseMapper.xml" />
+		<mapper resource="com/phone/mapper/xml/SelledMapper.xml" />
+		<mapper resource="com/phone/mapper/xml/ProfitMapper.xml" />
 	</mappers>
 </configuration>
