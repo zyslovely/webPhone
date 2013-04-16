@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phone.mapper.SelledMapper">
+	<resultMap type="Selled" id="selledMap">
+		<id property="phoneid" column="phoneid" />
+		<result property="SelledPrice" column="SelledPrice" />
+		<result property="CreateTime" column="CreateTime" />
+	</resultMap>
+
+	<insert id="addSelled" parameterType="Selled">
+		INSERT INTO
+		TB_Phone_Selled(
+		phoneid,
+		SelledPrice,
+		CreateTime
+		)VALUES(
+		#{phoneid},
+		#{SelledPrice},
+		#{CreateTime}
+		)
+	</insert>
+
+	<select id="getSelledListByIds" resultMap="selledMap">
+		SELECT * TB_Phone_Selled where
+		phoneid in
+		<foreach item="item" collection="list" index="index" open="("
+			separator="," close=")">
+			#{item} 
+	     </foreach>
+	</select>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phone.mapper.ProfitMapper">
+	<resultMap type="Profit" id="profitMap">
+		<id property="phoneid" column="phoneid" />
+		<result property="purchasePrice" column="purchasePrice" />
+		<result property="DecideSellPrice" column="DecideSellPrice" />
+		<result property="SelledPrice" column="SelledPrice" />
+		<result property="profile" column="profile" />
+		<result property="CreateTime" column="CreateTime" />
+	</resultMap>
+
+	<insert id="addProfit" parameterType="Profit">
+		INSERT INTO
+		TB_Phone_Profit(
+		phoneid,
+		purchasePrice,
+		DecideSellPrice,
+		SelledPrice,
+		profile,
+		CreateTime
+		)VALUES(
+		#{phoneid},
+		#{purchasePrice},
+		#{DecideSellPrice},
+		#{SelledPrice},
+		#{profile},
+		#{CreateTime}
+		)
+	</insert>
+</mapper>

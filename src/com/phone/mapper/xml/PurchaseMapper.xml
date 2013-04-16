@@ -29,4 +29,10 @@
 		#{Status}
 		)
 	</insert>
+
+	<select id="getPurchaseList" parameterType="String" resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase
+		WHERE phoneModel like
+		CONCAT('${phoneModel}','%');
+	</select>
 </mapper>
