@@ -9,7 +9,11 @@ import com.phone.meta.Purchase;
 public interface PurchaseMapper {
 
 	/**
+<<<<<<< HEAD
 	 * ���Purchase
+=======
+	 * 添加Purchase
+>>>>>>> a85e592608014a1476691a5119e9151f30532af6
 	 * 
 	 * @param purchase
 	 */

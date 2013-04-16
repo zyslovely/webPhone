@@ -2,12 +2,12 @@ package com.phone.service;
 
 /**
  * @author yunshang_734 E-mail:yunshang_734@163.com
- * @version CreateTime£º2013-4-15 ÏÂÎç03:16:10 Class Description
+ * @version CreateTimeï¿½ï¿½2013-4-15 ï¿½ï¿½ï¿½ï¿½03:16:10 Class Description
  */
 public interface PurchaseService {
 
 	/**
-	 * Ìí¼ÓPurchase
+	 * æ·»åŠ Purchase
 	 * 
 	 * @param phoneCode
 	 * @param phoneModel

@@ -29,7 +29,7 @@ public class phoneController extends MultiActionController {
 	private PhoneService phoneService;
 
 	/**
-	 * ��ʼ��
+	 * 
 	 */
 	@PostConstruct
 	public void baseInit() {
