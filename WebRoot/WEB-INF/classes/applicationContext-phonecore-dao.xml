@@ -57,8 +57,16 @@
 		<aop:advisor pointcut-ref="servicePointcut" advice-ref="serviceAdvice" />
 	</aop:config>
 
-	<bean id="testMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<bean id="purchaseMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-		<property name="mapperInterface" value="com.phone.mapper.TestMapper" />
+		<property name="mapperInterface" value="com.phone.mapper.PurchaseMapper" />
+	</bean>
+	<bean id="selledMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="com.phone.mapper.SelledMapper" />
+	</bean>
+	<bean id="profitMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="com.phone.mapper.ProfitMapper" />
 	</bean>
 </beans>

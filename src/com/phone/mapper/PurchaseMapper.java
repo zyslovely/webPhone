@@ -9,13 +9,11 @@ import com.phone.meta.Purchase;
 public interface PurchaseMapper {
 
 	/**
-<<<<<<< HEAD
-	 * ���Purchase
-=======
-	 * 添加Purchase
->>>>>>> a85e592608014a1476691a5119e9151f30532af6
+	 * 添加购买
 	 * 
+	 * @auther zyslovely@gmail.com
 	 * @param purchase
+	 * @return
 	 */
 	public int addPurchase(Purchase purchase);
 
@@ -25,6 +23,5 @@ public interface PurchaseMapper {
 	 * @param phoneModel
 	 * @return
 	 */
-	public List<Purchase> getPuchaseList(
-			@Param(value = "phoneModel")String phoneModel);
+	public List<Purchase> getPurchaseList(@Param(value = "phoneModel") String phoneModel);
 }

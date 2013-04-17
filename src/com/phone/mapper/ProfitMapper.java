@@ -2,6 +2,8 @@ package com.phone.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.phone.meta.Profit;
 
 /**
@@ -17,5 +19,20 @@ public interface ProfitMapper {
 	 */
 	public int addProfit(Profit profit);
 
+	/**
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneid
+	 * @return
+	 */
 	public Profit getProfit(long phoneid);
+
+	/**
+	 * 获得利润列表
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneidList
+	 * @return
+	 */
+	public List<Profit> getProfitListByIds(@Param(value = "phoneidList") List<Long> phoneidList);
 }

@@ -2,15 +2,21 @@ package com.phone.service.impl;
 
 import java.util.Date;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import com.phone.mapper.PurchaseMapper;
 import com.phone.meta.Purchase;
 import com.phone.service.PurchaseService;
 
 /**
  * @author yunshang_734 E-mail:yunshang_734@163.com
- * @version CreateTime£º2013-4-15 ÏÂÎç03:17:06 Class Description
+ * @version CreateTime 2013-4-15 03:17:06 Class Description
  */
+@Service("purchaseServiceImpl")
 public class PurchaseServiceImpl implements PurchaseService {
+	@Resource
 	private PurchaseMapper purchaseMapper;
 
 	/*
@@ -19,8 +25,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * @see com.phone.service.PurchaseService#addPurchase(java.lang.String,
 	 * java.lang.String, double, double)
 	 */
-	public boolean addPurchase(String phoneCode, String phoneModel,
-			double purchasePrice, double DecideSellPrice) {
+	public boolean addPurchase(String phoneCode, String phoneModel, double purchasePrice, double DecideSellPrice) {
 		Purchase purchase = new Purchase();
 		purchase.setPhoneCode(phoneCode);
 		purchase.setPhoneModel(phoneModel);

@@ -7,8 +7,8 @@
     <script type="text/javascript" src="/js/base/jquery.easyui.min.js" charset="utf-8"></script>
     
 	<#switch pageName>
-    	<#case "index">
-    	
+    	<#case "phoneList">
+    	   <script type="text/javascript" src="/js/flexigrid/flexigrid.js" charset="utf-8"></script>
     	<#break>
     </#switch>
 </#if>

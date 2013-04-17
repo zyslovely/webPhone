@@ -2,6 +2,8 @@ package com.phone.meta;
 
 import java.io.Serializable;
 
+import com.phone.util.TimeUtil;
+
 /**
  * @author yunshang_734 E-mail:yunshang_734@163.com
  * @version CreateTime：2013-4-16 下午02:53:30 Class Description
@@ -55,7 +57,26 @@ public class Phone implements Serializable {
 	/**
 	 * 利润
 	 */
-	private double profile;
+	private double profit;
+	/**
+	 * 进货日期
+	 */
+	private String purchaseTimeStr;
+	/**
+	 * 出售日期
+	 */
+	private String selledTimeStr;
+	
+	
+	
+
+	public double getProfit() {
+		return profit;
+	}
+
+	public void setProfit(double profit) {
+		this.profit = profit;
+	}
 
 	public String getPhoneModel() {
 		return phoneModel;
@@ -94,6 +115,7 @@ public class Phone implements Serializable {
 	}
 
 	public void setPurchaseTime(long purchaseTime) {
+		purchaseTimeStr = TimeUtil.getFormatTime(purchaseTime);
 		PurchaseTime = purchaseTime;
 	}
 
@@ -114,18 +136,29 @@ public class Phone implements Serializable {
 	}
 
 	public long getSelledTime() {
+
 		return SelledTime;
 	}
 
 	public void setSelledTime(long selledTime) {
+		selledTimeStr = TimeUtil.getFormatTime(selledTime);
 		SelledTime = selledTime;
 	}
 
-	public double getProfile() {
-		return profile;
+	public String getPurchaseTimeStr() {
+		return purchaseTimeStr;
 	}
 
-	public void setProfile(double profile) {
-		this.profile = profile;
+	public void setPurchaseTimeStr(String purchaseTimeStr) {
+		this.purchaseTimeStr = purchaseTimeStr;
 	}
+
+	public String getSelledTimeStr() {
+		return selledTimeStr;
+	}
+
+	public void setSelledTimeStr(String selledTimeStr) {
+		this.selledTimeStr = selledTimeStr;
+	}
+
 }

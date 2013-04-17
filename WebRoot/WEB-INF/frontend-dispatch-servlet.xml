@@ -50,6 +50,7 @@
 		<property name="mappings">
 			<props>
 				<prop key="**/phone.do">phoneController</prop>
+				<prop key="**/phonePub.do">phonePubController</prop>
 			</props>
 		</property>
 	</bean>

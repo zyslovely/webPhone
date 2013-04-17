@@ -36,7 +36,7 @@ public class Profit implements Serializable {
 	/**
 	 * 利润
 	 */
-	private double profile;
+	private double profit;
 
 	/**
 	 * 记录创建时间
@@ -75,12 +75,12 @@ public class Profit implements Serializable {
 		SelledPrice = selledPrice;
 	}
 
-	public double getProfile() {
-		return profile;
+	public double getProfit() {
+		return profit;
 	}
 
-	public void setProfile(double profile) {
-		this.profile = profile;
+	public void setProfit(double profit) {
+		this.profit = profit;
 	}
 
 	public long getCreateTime() {

@@ -2,6 +2,8 @@ package com.phone.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.phone.meta.Selled;
 
 /**
@@ -23,5 +25,6 @@ public interface SelledMapper {
 	 * @param phoneidList
 	 * @return
 	 */
-	public List<Selled> getSelledListByIds(List<Long> phoneidList);
+	public List<Selled> getSelledListByIds(@Param("phoneidList") List<Long> phoneidList);
+
 }

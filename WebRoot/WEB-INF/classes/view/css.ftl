@@ -2,8 +2,8 @@
 <#if pageName?exists>
      <link type="text/css" rel="stylesheet" href="/css/base.css"/>
 	<#switch pageName>
-    	<#case "index">
-    	
+    	<#case "phoneList">
+    	    <link type="text/css" rel="stylesheet" href="/css/flexigrid.css" media="all"/>
     	<#break>
     	
     </#switch>

@@ -11,7 +11,7 @@ CREATE TABLE TB_Phone_Purchase (
 
 
 CREATE TABLE `TB_Phone_Selled` (
-  `phoneid` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `phoneid` bigint(20) NOT NULL DEFAULT '0' COMMENT 'id',
   `SelledPrice` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '实际卖出价格',
   `CreateTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '纪录创建时间',
   PRIMARY KEY (`phoneid`)
@@ -20,11 +20,11 @@ CREATE TABLE `TB_Phone_Selled` (
 
 
 CREATE TABLE `TB_Phone_Profit` (
-  `phoneid` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `phoneid` bigint(20) NOT NULL DEFAULT '0' COMMENT 'id',
   `purchasePrice` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '进货价格',
   `DecideSellPrice` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '计划卖出价格',
   `SelledPrice` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '实际卖出价格',
-  `profile` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '利润',
+  `profit` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '利润',
   `CreateTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '纪录创建时间',
   PRIMARY KEY (`phoneid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='手机利润表'
