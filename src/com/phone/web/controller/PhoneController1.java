@@ -22,7 +22,7 @@ import com.phone.service.PurchaseService;
  * @see Class Description
  */
 @Controller("phoneController")
-public class PhoneController extends AbstractBaseController {
+public class PhoneController1 extends AbstractBaseController {
 
 	@Resource
 	private PhoneService phoneService;
