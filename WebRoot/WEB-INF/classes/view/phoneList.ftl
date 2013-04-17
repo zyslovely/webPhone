@@ -12,6 +12,9 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 </style>
 	
 <body style="height:1000px;">
+
+<div style="margin-top:30px;"><h3>输入手机条形码</h3><input type="text" value="" id="phone_delete_text"/><input type="button" id="phone_delete" " value="删除"/></div>>
+
    <table id="phone_list_tb" >
 			<thead>
 				<tr>
@@ -24,6 +27,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<th width="50">实际卖出价格</th>
 					<th width="150">卖出日期</th>
 					<th width="50">利润</th>
+					<th width="操作">操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -39,6 +43,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${phone.SelledPrice!0}</td>
 					<td>${phone.selledTimeStr!0}</td>
 					<td>${phone.profit!0}</td>
+					<td><a href="javascript:void(0);;" class="phone_delete" data-id="${ridding.id!0}">删除</a></td>
 				</tr>
 			    </#list>
 			</#if>

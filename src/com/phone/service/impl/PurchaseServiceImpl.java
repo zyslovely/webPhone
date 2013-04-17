@@ -6,7 +6,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.phone.mapper.BrandMapper;
 import com.phone.mapper.PurchaseMapper;
+import com.phone.meta.Brand;
 import com.phone.meta.Purchase;
 import com.phone.service.PurchaseService;
 
@@ -18,6 +20,8 @@ import com.phone.service.PurchaseService;
 public class PurchaseServiceImpl implements PurchaseService {
 	@Resource
 	private PurchaseMapper purchaseMapper;
+	@Resource
+	private BrandMapper brandMapper;
 
 	/*
 	 * (non-Javadoc)
@@ -25,9 +29,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * @see com.phone.service.PurchaseService#addPurchase(java.lang.String,
 	 * java.lang.String, double, double)
 	 */
-	public boolean addPurchase(String phoneCode, String phoneModel, double purchasePrice, double DecideSellPrice) {
+	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPrice) {
+		Brand brand2 = new Brand();
+		brand2.setBrand(brand);
+		brandMapper.addBrand(brand2);
+
 		Purchase purchase = new Purchase();
 		purchase.setPhoneCode(phoneCode);
+		purchase.setBrandId(brand2.getId());
 		purchase.setPhoneModel(phoneModel);
 		purchase.setPurchasePrice(purchasePrice);
 		purchase.setDecideSellPrice(DecideSellPrice);

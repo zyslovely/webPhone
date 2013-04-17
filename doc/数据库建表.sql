@@ -1,5 +1,6 @@
 CREATE TABLE TB_Phone_Purchase (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `brandId` bigint(20) NOT NULL DEFAULT '0' COMMENT '品牌',
   `phoneCode` varchar(127) NOT NULL DEFAULT '' COMMENT '手机编码(唯一)',
   `phoneModel` varchar(127) NOT NULL DEFAULT '' COMMENT '手机型号',
   `purchasePrice` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '进货价格',
@@ -29,3 +30,9 @@ CREATE TABLE `TB_Phone_Profit` (
   PRIMARY KEY (`phoneid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='手机利润表'
 
+
+CREATE TABLE `TB_Phone_Brand` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `brand` varchar(127) NOT NULL DEFAULT '' COMMENT '手机品牌',
+  PRIMARY KEY (`phoneid`)
+) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='手机品牌表'

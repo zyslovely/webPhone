@@ -18,6 +18,10 @@ public class Purchase implements Serializable {
 	 * id
 	 */
 	private long id;
+	/**
+	 * 品牌id
+	 */
+	private long brandId;
 
 	/**
 	 * 手机编码（唯一）
@@ -134,4 +138,13 @@ public class Purchase implements Serializable {
 	public void setStatus(int status) {
 		Status = status;
 	}
+
+	public long getBrandId() {
+		return brandId;
+	}
+
+	public void setBrandId(long brandId) {
+		this.brandId = brandId;
+	}
+
 }

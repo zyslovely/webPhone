@@ -9,7 +9,17 @@ import org.springframework.stereotype.Service;
  */
 @Service("dwrWebPhoneBean")
 public class DwrWebPhoneBean {
+	/**
+	 * 删除手机
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneId
+	 * @return
+	 */
+	public boolean deletePhoneByCode(String phoneCode) {
+		return true;
+	}
+	
+	
 
-	
-	
 }

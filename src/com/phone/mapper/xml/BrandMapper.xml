@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phone.mapper.BrandMapper">
+	<resultMap type="Brand" id="brandMap">
+		<id property="id" column="id" />
+		<result property="brand" column="brand" />
+	
+	</resultMap>
+
+	<insert id="addBrand" parameterType="Brand">
+		INSERT INTO
+		TB_Phone_Brand(
+		brand
+		)VALUES(
+		#{brand}
+		)
+		<selectKey keyProperty="id" resultType="long">
+			SELECT
+			LAST_INSERT_ID() AS VALUE
+		</selectKey>
+	</insert>
+
+	<select id="getBrandListByIds" resultMap="brandMap"
+		parameterType="list">
+		SELECT * from TB_Phone_Profit where
+		phoneid in
+		<foreach item="item" collection="phoneidList" index="index"
+			open="(" separator="," close=")">
+			#{item} 
+	     </foreach>
+	</select>
+</mapper>

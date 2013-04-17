@@ -5,6 +5,8 @@
     	<#case "phoneList">
     	    <link type="text/css" rel="stylesheet" href="/css/flexigrid.css" media="all"/>
     	<#break>
-    	
+    	<#case "phoneAdd">
+    	    <link type="text/css" rel="stylesheet" href="/css/flexigrid.css" media="all"/>
+    	<#break>
     </#switch>
 </#if>

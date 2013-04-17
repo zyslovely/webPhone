@@ -3,6 +3,7 @@
 <mapper namespace="com.phone.mapper.PurchaseMapper">
 	<resultMap type="Purchase" id="purchaseMap">
 		<id property="id" column="id" />
+		<result property="brandId" column="brandId" />
 		<result property="phoneCode" column="phoneCode" />
 		<result property="phoneModel" column="phoneModel" />
 		<result property="purchasePrice" column="purchasePrice" />
@@ -14,6 +15,7 @@
 	<insert id="addPurchase" parameterType="Purchase">
 		INSERT INTO
 		TB_Phone_Purchase(
+		brandId,
 		phoneCode,
 		phoneModel,
 		purchasePrice,
@@ -21,6 +23,7 @@
 		CreateTime,
 		Status
 		)VALUES(
+		#{brandId},
 		#{phoneCode},
 		#{phoneModel},
 		#{purchasePrice},
@@ -37,6 +40,6 @@
 	<select id="getPurchaseList" parameterType="String" resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneModel like
-		CONCAT('${phoneModel}','%');
+		CONCAT('${phoneModel}','%') order by createtime desc;
 	</select>
 </mapper>

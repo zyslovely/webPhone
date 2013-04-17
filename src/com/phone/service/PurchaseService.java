@@ -14,5 +14,5 @@ public interface PurchaseService {
 	 * @param purchasePrice
 	 * @param DecideSellPirce
 	 */
-	public boolean addPurchase(String phoneCode, String phoneModel, double purchasePrice, double DecideSellPirce);
+	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPirce);
 }
