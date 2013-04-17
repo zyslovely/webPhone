@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="webphone" default="compile" basedir=".">
+        <property name="webapp.name"    value="WebPhone"/>
+        <property name="catalina.home" value="/root/code/tomcat6_1"/>
+        <property name="src.dir"      value="src"/>
+        <property name="conf.dir"   value="conf"/>
+        <property name="lib.dir"    value="lib"/>
+        <property name="webroot.dir" value="WebRoot"/>
+        <property name="class.dir"    value="WebRoot/WEB-INF/classes"/>
+        <property name="libclass.dir"    value="WebRoot/WEB-INF/lib"/>
+        <property name="webapps.dir" value="${catalina.home}/webapps"/>
+        <property name="js.dir" value="WebRoot/js"/>
+        <property name="webjs.dir" value="${catalina.home}/webapps/js" />
+        <!-- **********************************set classpath********************************** -->
+        <path id="compile.classpath">
+                <fileset dir="${catalina.home}/lib">
+                  <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${lib.dir}">
+                  <include name="*.jar"/>
+                </fileset>
+        </path>
+        <!-- **********************************init********************************** -->
+        <target name="init">
+                <mkdir dir="${conf.dir}"/>
+                <mkdir dir="${src.dir}"/>
+                <mkdir dir="${lib.dir}"/>
+        </target>
+
+        <!-- **********************************clean class********************************** -->
+        <target name="clean" description="Delete old build and dist directories">
+                <delete dir="${class.dir}"  includes="**/*.class"/>
+                <delete dir="${libclass.dir}" includes="*.jar"/>
+        </target>
+
+        <!-- **********************************compile java********************************** -->
+        <target name="compile" description="Compile Java sources" depends="clean">
+                <mkdir dir="${class.dir}"/>
+                <javac srcdir="${src.dir}"
+                          destdir="${class.dir}">
+                        <classpath refid="compile.classpath"/>
+                </javac>
+                <copy  todir="${class.dir}">
+                  <fileset dir="${src.dir}" excludes="**/*.java"/>
+                </copy>
+                <copy todir="${class.dir}" preservelastmodified="true">
+			<fileset dir="${conf.dir}">
+		    	<include name="**/*.key"/>
+		    	<include name="**/*.list"/>
+			<include name="**/*.test"/>
+			<include name="**/*.ftl"/>
+			<include name="**/*.xml"/>
+			<include name="**/*.deploy"/>
+		  	<include name="**/*.properties"/>
+                        <include name="**/*.p12"/>
+                        <exclude name="**/*.svn*"/>
+		  	</fileset>
+		</copy>
+                <copy file="${conf.dir}/deploy/mysql.properties"  tofile="${class.dir}/mysql.properties" overwrite="true" />  
+                <copy todir="${libclass.dir}" preservelastmodified="true">
+                           <fileset dir="${lib.dir}">
+		    	<include name="**/*.jar"/>
+		  	</fileset>
+                  </copy>
+                  <copy todir="${webjs.dir}" preservelastmodified="true">
+                        <fileset dir="${js.dir}">
+                              <include name="**/*.js"/>
+                        </fileset>
+                  </copy>
+        </target>
+
+        <!-- **********************************deploy   webapp********************************** -->
+        <target name="deploy" description="Install application to servlet container" depends="compile">
+                <delete dir="${webapps.dir}/${webapp.name}"/>
+                <mkdir dir="${webapps.dir}/${webapp.name}"/>
+                <copy todir="${webapps.dir}/${webapp.name}" preservelastmodified="true">
+			<fileset dir="${webroot.dir}">
+		    	<include name="**/**"/>
+		    	<exclude name="**/*.svn*"/>
+		  	</fileset>
+		</copy>
+
+<!--
+                <copy file="/root/friendTrack.mp4" tofile="/root/code/tomcat6/webapps/Ridding/app/friendTrack.mp4" overwrite="true" />
+-->    
+            <copy file="/root/ridding.mov" tofile="/root/code/tomcat6/webapps/Ridding/app/ridding.mov" overwrite="true" />
+<!--
+<copy file="/root/mapCreate.mov" tofile="/root/code/tomcat6/webapps/Ridding/app/mapCreate.mov" overwrite="true" />        
+-->
+</target>
+</project>
+
