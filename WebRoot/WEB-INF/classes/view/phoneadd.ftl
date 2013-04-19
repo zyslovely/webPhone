@@ -32,14 +32,18 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 </tbody>
 </table>
 
-<div style="margin-top:30px;"><h3 style="font-size: 20px;color: red;">输入手机条形码</h3><input type="text" value="" id="phone_delete_text"/><input type="button" id="phone_delete" " value="删除"/></div>
+<div style="margin-top:30px;">
+  <h3 style="font-size: 20px;color: red;">输入手机条形码:删除记录</h3>
+  <input type="text" value="" id="phone_delete_text"/>
+  <input type="button" id="phone_delete" " value="删除"/>
+</div>
 
-<div style="font-size: 20px;color: red;margin-top:30px;">${phoneModel!""}手机列表,phoneModel手机总量${phoneModelCount!0}部</div>
+
 
 
 
 <#if phoneList?exists>
-
+<div style="font-size: 20px;color: red;margin-top:30px;">${phoneModel!""}手机列表,${phoneModel!""}手机总量${phoneModelCount!0}部</div>
    <table id="phone_list_tb" >
 			<thead>
 				<tr>
