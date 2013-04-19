@@ -51,6 +51,7 @@
 			<props>
 				<prop key="**/phone.do">phoneController</prop>
 				<prop key="**/phonePub.do">phonePubController</prop>
+				<prop key="**/login.do">loginController</prop>
 			</props>
 		</property>
 	</bean>

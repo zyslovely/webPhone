@@ -12,28 +12,33 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 </style>
 	
 <body style="height:1000px;">
+<h2 style="font-size: 25px;color: blue;margin-bottom:30px;"><a href="/phone/index/">返回</a></h2>
+<h1 style="font-size: 20px;color: red;margin-bottom:30px;">手机查询页面</h1>
 
-<div style="margin-top:30px;"><h3>输入手机条形码</h3><input type="text" value="" id="phone_delete_text"/><input type="button" id="phone_delete" " value="删除"/></div>>
-
+<p>
+   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。
+   <#if extPage gt 0><a href="/phone/list/?toPage=${extPage!0}">上一页</a></#if>
+   <#if extPage lt totalPage><a href="/phone/list/?toPage=${nextPage!0}">下一页</a></#if>
+</p>
    <table id="phone_list_tb" >
 			<thead>
 				<tr>
-					<th width="50">手机型号</th>
+					<th width="100">手机型号</th>
 					<th width="150">手机编码</th>
-					<th width="50">进货价格</th>
+					<th width="100">进货价格</th>
 					<th width="150">进货日期</th>
-					<th width="50">计划卖出价格</th>
-					<th width="50">是否已经卖出</th>
-					<th width="50">实际卖出价格</th>
+					<th width="100">计划卖出价格</th>
+					<th width="100"">是否已经卖出</th>
+					<th width="100">实际卖出价格</th>
 					<th width="150">卖出日期</th>
-					<th width="50">利润</th>
+					<th width="100">利润</th>
 					<th width="操作">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 			<#if phoneList?exists>
 			   <#list phoneList as phone>
-				<tr>
+				<tr >
 					<td>${phone.phoneModel!""}</td>
 					<td>${phone.phoneCode!""}</td>
 					<td>${phone.purchasePrice!0}</td>
@@ -43,7 +48,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${phone.SelledPrice!0}</td>
 					<td>${phone.selledTimeStr!0}</td>
 					<td>${phone.profit!0}</td>
-					<td><a href="javascript:void(0);;" class="phone_delete" data-id="${ridding.id!0}">删除</a></td>
+					<td><a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a></td>
 				</tr>
 			    </#list>
 			</#if>
@@ -57,7 +62,15 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <script>
 //<![CDATA[
        jQuery(document).ready(function($) {
-			$('#phone_list_tb').flexigrid();
+			$('#phone_list_tb').flexigrid({
+				 buttons : [{
+				 name : '添加手机',
+				 width : 50,
+				 bclass : 'add',
+				 onpress : onpressAdd
+				 }],
+				 width : 'auto', 
+			});
 		});
 //]]>
 </script>

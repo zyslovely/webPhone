@@ -1,8 +1,15 @@
 $("#phone_delete").click(function(){
-	_phoneCode=$("#phone_delete_text").val();
-	dwr.engine._execute("http://127.0.0.1/WebPhone", 'WebPhoneBean', 'deletePhoneByCode',_phoneCode,submitCB);
+	
 });
 
+function phoneDelete(id){
+	
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'deletePhoneById',id,submitCB);
+};
+
+function onpressAdd(){
+	window.open("/purchase/add/show/");
+};
 
 function submitCB(_flag){
 	if(_flag){

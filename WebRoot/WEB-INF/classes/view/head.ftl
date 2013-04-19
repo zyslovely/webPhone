@@ -14,6 +14,8 @@
 	<!--[if IE]>
 		<script src="/js/base/html5.js"></script>
 	<![endif]-->
+	
+<#include "config.ftl">
 <#include "css.ftl">
 
 </head>

@@ -45,7 +45,7 @@ public class PhoneController extends AbstractBaseController {
 		ModelAndView mv = new ModelAndView("phoneadd");
 		if (purchaseService.addPurchase(brand, phoneCode, phoneModel, purchasePrice, DecideSellPirce)) {
 			try {
-				response.sendRedirect("phone.do?action=showAddPurchase&phoneModel=" + phoneModel);
+				response.sendRedirect("phone.do?action=showAddPurchase&phoneModel=" + phoneModel + "&phoneCode=" + phoneCode);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -64,12 +64,23 @@ public class PhoneController extends AbstractBaseController {
 	public ModelAndView showAddPurchase(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("phoneadd");
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
+		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "");
 		if (!StringUtils.isEmpty(phoneModel)) {
 			List<Phone> phoneList = phoneService.getPhoneList(phoneModel);
+			int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
+			// 返回总共有多少页,toPage返回第几页的数据，每页20条数据，toPage从1开始
+			int totalPage = 5;
+			mv.addObject("nowPage", toPage);
+			mv.addObject("extPage", toPage - 1);
+			mv.addObject("nextPage", toPage + 1);
+			mv.addObject("totalPage", totalPage);
+
 			mv.addObject("phoneModel", phoneModel);
+			
 			mv.addObject("phoneModelCount", phoneList.size());
 			mv.addObject("phoneList", phoneList);
 		}
+		mv.addObject("phoneCode", phoneCode);
 		return mv;
 	}
 
@@ -81,11 +92,45 @@ public class PhoneController extends AbstractBaseController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView queryPhone(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView showPhoneList(HttpServletRequest request, HttpServletResponse response) {
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
+		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
+
 		ModelAndView mv = new ModelAndView("phoneList");
 		List<Phone> phoneList = phoneService.getPhoneList(phoneModel);
 		mv.addObject("phoneList", phoneList);
+
+		// 返回总共有多少页,toPage返回第几页的数据，每页20条数据，toPage从1开始
+		int totalPage = 5;
+		mv.addObject("nowPage", toPage);
+		mv.addObject("extPage", toPage - 1);
+		mv.addObject("nextPage", toPage + 1);
+		mv.addObject("totalPage", totalPage);
 		return mv;
 	}
+
+	/**
+	 * 利润列表
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView showProfitList(HttpServletRequest request, HttpServletResponse response) {
+		return null;
+	}
+
+	/**
+	 * 手机管理系统管理首页
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView showPhoneIndex(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("phoneIndex");
+	}
+
 }
