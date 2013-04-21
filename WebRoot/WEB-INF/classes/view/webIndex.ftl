@@ -13,7 +13,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 	
 <body style="height:1000px;">
 
-<form action="/j_spring_security_check">
+<form action="/login/">
 <input type="text" value="" name="j_username"/>
 <input type="text" value="" name="j_password"/>
 <input type="checkbox" name="_spring_security_remember_me" />两周之内不必登陆<br/>

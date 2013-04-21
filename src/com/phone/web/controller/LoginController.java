@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 /**
  * @author zhengyisheng E-mail:zhengyisheng@gmail.com
@@ -13,7 +12,7 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
  * @see Class Description
  */
 @Controller("loginController")
-public class LoginController extends MultiActionController {
+public class LoginController extends AbstractBaseController {
 	/**
 	 * 显示首页
 	 * 
@@ -24,5 +23,17 @@ public class LoginController extends MultiActionController {
 	 */
 	public ModelAndView showIndex(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("webIndex");
+	}
+
+	/**
+	 * 登陆页面
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("phoneIndex");
 	}
 }
