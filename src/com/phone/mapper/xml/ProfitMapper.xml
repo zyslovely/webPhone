@@ -38,4 +38,8 @@
 			#{item} 
 	     </foreach>
 	</select>
+
+	<select id="getProfit" resultMap="profitMap" parameterType="long">
+		SELECT * from TB_Phone_Profit where phoneid=#{phoneid};
+	</select>
 </mapper>
