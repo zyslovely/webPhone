@@ -13,10 +13,7 @@ public class Phone implements Serializable {
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 4L;
-	/**
-	 * 手机id
-	 */
-	private long phoneId;
+
 	/**
 	 * 手机型号
 	 */
@@ -159,14 +156,6 @@ public class Phone implements Serializable {
 
 	public void setSelledTimeStr(String selledTimeStr) {
 		this.selledTimeStr = selledTimeStr;
-	}
-
-	public long getPhoneId() {
-		return phoneId;
-	}
-
-	public void setPhoneId(long phoneId) {
-		this.phoneId = phoneId;
 	}
 
 }

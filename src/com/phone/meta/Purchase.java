@@ -53,6 +53,11 @@ public class Purchase implements Serializable {
 	 */
 	private int Status;
 
+	/**
+	 * 操作人id
+	 */
+	private int operatorId;
+
 	public enum PurchaseStatus {
 		/**
 		 * 未卖出
@@ -147,4 +152,11 @@ public class Purchase implements Serializable {
 		this.brandId = brandId;
 	}
 
+	public int getOperatorId() {
+		return operatorId;
+	}
+
+	public void setOperatorId(int operatorId) {
+		this.operatorId = operatorId;
+	}
 }

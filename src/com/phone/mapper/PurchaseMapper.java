@@ -1,6 +1,7 @@
 package com.phone.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -23,5 +24,30 @@ public interface PurchaseMapper {
 	 * @param phoneModel
 	 * @return
 	 */
-	public List<Purchase> getPurchaseList(@Param(value = "phoneModel") String phoneModel);
+	public List<Purchase> getPurchaseList(
+			@Param(value = "phoneModel") String phoneModel);
+
+	/**
+	 * 通过phoneid查找Purchase
+	 * 
+	 * @param phoneid
+	 * @return
+	 */
+	public Purchase getPurchase(long phoneid);
+
+	/**
+	 * 通过phoneCode查找Purchase
+	 * 
+	 * @param phoneCode
+	 * @return
+	 */
+	public Purchase getPurchaseByPhoneCode(String phoneCode);
+
+	/**
+	 * 更新Purchase
+	 * 
+	 * @param purchase
+	 * @return
+	 */
+	public int updatePurchase(Map<String, Object> hashMap);
 }

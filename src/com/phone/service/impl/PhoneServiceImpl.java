@@ -79,7 +79,7 @@ public class PhoneServiceImpl implements PhoneService {
 			if (profit != null) {
 				phone.setProfit(profit.getProfit());
 			}
-			phone.setPhoneId(purchase.getId());
+
 			phone.setPhoneCode(purchase.getPhoneCode());
 			phone.setPhoneModel(purchase.getPhoneModel());
 			phone.setPurchasePrice(purchase.getPurchasePrice());

@@ -5,6 +5,7 @@
 		<id property="phoneid" column="phoneid" />
 		<result property="SelledPrice" column="SelledPrice" />
 		<result property="CreateTime" column="CreateTime" />
+		<result property="operatorId" column="operatorId" />
 	</resultMap>
 
 	<insert id="addSelled" parameterType="Selled">
@@ -12,11 +13,13 @@
 		TB_Phone_Selled(
 		phoneid,
 		SelledPrice,
-		CreateTime
+		CreateTime,
+		operatorId
 		)VALUES(
 		#{phoneid},
 		#{SelledPrice},
-		#{CreateTime}
+		#{CreateTime},
+		#{operatorId}
 		)
 	</insert>
 

@@ -43,6 +43,11 @@ public class Profit implements Serializable {
 	 */
 	private long CreateTime;
 
+	/**
+	 * 操作人id
+	 */
+	private int operatorId;
+
 	public long getPhoneid() {
 		return phoneid;
 	}
@@ -89,5 +94,13 @@ public class Profit implements Serializable {
 
 	public void setCreateTime(long createTime) {
 		CreateTime = createTime;
+	}
+
+	public int getOperatorId() {
+		return operatorId;
+	}
+
+	public void setOperatorId(int operatorId) {
+		this.operatorId = operatorId;
 	}
 }

@@ -8,6 +8,7 @@
 		<result property="SelledPrice" column="SelledPrice" />
 		<result property="profit" column="profit" />
 		<result property="CreateTime" column="CreateTime" />
+		<result property="operatorId" column="operatorId" />
 	</resultMap>
 
 	<insert id="addProfit" parameterType="Profit">
@@ -18,14 +19,16 @@
 		DecideSellPrice,
 		SelledPrice,
 		profit,
-		CreateTime
+		CreateTime,
+		operatorId
 		)VALUES(
 		#{phoneid},
 		#{purchasePrice},
 		#{DecideSellPrice},
 		#{SelledPrice},
 		#{profit},
-		#{CreateTime}
+		#{CreateTime},
+		#{operatorId}
 		)
 	</insert>
 
