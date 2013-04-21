@@ -57,4 +57,11 @@
 		WHERE
 		phoneid = #{phoneid};
 	</update>
+	
+	<select id="getPurchaseByPhoneCode" parameterType="String"
+		resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase
+		WHERE phoneCode
+		='${phoneCode}';
+	</select>
 </mapper>

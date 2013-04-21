@@ -42,4 +42,12 @@ public interface PurchaseMapper {
 	 * @return
 	 */
 	public Purchase getPurchase(long phoneid);
+	
+	/**
+	 * 通过phoneCode查找Purchase
+	 * 
+	 * @param phoneCode
+	 * @return
+	 */
+	public Purchase getPurchaseByPhoneCode(String phoneCode);
 }

@@ -67,13 +67,13 @@ public class PhoneController extends AbstractBaseController {
 	}
 
 	/**
-	 * 添加手机入库
+	 * 添加手机入库售出查询列表
 	 * 
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView showshowPhone(HttpServletRequest request,
+	public ModelAndView showPhone(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("showPhone");
 		String phoneModel = ServletRequestUtils.getStringParameter(request,

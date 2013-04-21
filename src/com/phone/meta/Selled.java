@@ -26,7 +26,7 @@ public class Selled implements Serializable {
 	 * 记录创建时间
 	 */
 	private long CreateTime;
-	
+
 	/**
 	 * 操作人id
 	 */
@@ -55,7 +55,7 @@ public class Selled implements Serializable {
 	public void setCreateTime(long createTime) {
 		CreateTime = createTime;
 	}
-	
+
 	public int getOperatorId() {
 		return operatorId;
 	}
