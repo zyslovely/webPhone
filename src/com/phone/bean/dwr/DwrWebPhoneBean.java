@@ -16,7 +16,10 @@ public class DwrWebPhoneBean {
 	 * @param phoneId
 	 * @return
 	 */
-	public boolean deletePhoneByCode(String phoneCode) {
+	public boolean deletePhoneById(long id) {
 		return true;
 	}
+	
+	
+
 }

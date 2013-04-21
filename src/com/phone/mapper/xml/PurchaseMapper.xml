@@ -10,7 +10,6 @@
 		<result property="DecideSellPrice" column="DecideSellPrice" />
 		<result property="CreateTime" column="CreateTime" />
 		<result property="Status" column="Status" />
-		<result property="operatorId" column="operatorId" />
 	</resultMap>
 
 	<insert id="addPurchase" parameterType="Purchase">
@@ -22,8 +21,7 @@
 		purchasePrice,
 		DecideSellPrice,
 		CreateTime,
-		Status,
-		operatorId
+		Status
 		)VALUES(
 		#{brandId},
 		#{phoneCode},
@@ -31,8 +29,7 @@
 		#{purchasePrice},
 		#{DecideSellPrice},
 		#{CreateTime},
-		#{Status},
-		#{operatorId}
+		#{Status}
 		)
 		<selectKey keyProperty="id" resultType="long">
 			SELECT
@@ -45,26 +42,4 @@
 		WHERE phoneModel like
 		CONCAT('${phoneModel}','%') order by createtime desc;
 	</select>
-
-	<select id="getPurchase" parameterType="long" resultMap="purchaseMap">
-		SELECT *
-		from TB_Phone_Purchase
-		WHERE phoneid=#{phoneid};
-	</select>
-
-	<select id="getPurchaseByPhoneCode" parameterType="String"
-		resultMap="purchaseMap">
-		SELECT * from TB_Phone_Purchase
-		WHERE phoneCode
-		='${phoneCode}';
-	</select>
-
-	<update id="updatePurchase" parameterType="hashMap" flushCache="true"
-		statementType="PREPARED">
-		UPDATE * from
-		TB_Phone_Purchae
-		set Status=#{Status}
-		WHERE
-		phoneid = #{phoneid};
-	</update>
 </mapper>

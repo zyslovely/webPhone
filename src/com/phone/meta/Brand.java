@@ -7,21 +7,13 @@ import java.io.Serializable;
  * @version CreateTime：2013-4-17 下午07:59:06
  * @see Class Description
  */
-public class Brand implements Serializable {
+public class Brand implements Serializable{
 
 	/**
-	 * serialVersionUID
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * id
-	 */
 	private long id;
-	
-	/**
-	 * 手机品牌
-	 */
 	private String brand;
 
 	public long getId() {

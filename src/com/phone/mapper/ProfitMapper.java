@@ -20,7 +20,6 @@ public interface ProfitMapper {
 	public int addProfit(Profit profit);
 
 	/**
-	 * 通过phoneid获取利润
 	 * 
 	 * @auther zyslovely@gmail.com
 	 * @param phoneid
@@ -35,6 +34,5 @@ public interface ProfitMapper {
 	 * @param phoneidList
 	 * @return
 	 */
-	public List<Profit> getProfitListByIds(
-			@Param(value = "phoneidList") List<Long> phoneidList);
+	public List<Profit> getProfitListByIds(@Param(value = "phoneidList") List<Long> phoneidList);
 }
