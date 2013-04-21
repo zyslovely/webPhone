@@ -40,24 +40,16 @@ public class PhoneController extends AbstractBaseController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView addPurchase(HttpServletRequest request,
-			HttpServletResponse response) {
-		String phoneCode = ServletRequestUtils.getStringParameter(request,
-				"phoneCode", "");
-		String brand = ServletRequestUtils.getStringParameter(request, "brand",
-				"");
-		String phoneModel = ServletRequestUtils.getStringParameter(request,
-				"phoneModel", "");
-		double purchasePrice = ServletRequestUtils.getDoubleParameter(request,
-				"purchasePrice", 0.00);
-		double DecideSellPirce = ServletRequestUtils.getDoubleParameter(
-				request, "DecideSellPrice", 0.00);
+	public ModelAndView showAddPurchase(HttpServletRequest request, HttpServletResponse response) {
+		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "");
+		String brand = ServletRequestUtils.getStringParameter(request, "brand", "");
+		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
+		double purchasePrice = ServletRequestUtils.getDoubleParameter(request, "purchasePrice", 0.00);
+		double DecideSellPirce = ServletRequestUtils.getDoubleParameter(request, "DecideSellPrice", 0.00);
 		ModelAndView mv = new ModelAndView("phoneadd");
-		if (purchaseService.addPurchase(brand, phoneCode, phoneModel,
-				purchasePrice, DecideSellPirce)) {
+		if (purchaseService.addPurchase(brand, phoneCode, phoneModel, purchasePrice, DecideSellPirce)) {
 			try {
-				response.sendRedirect("phone.do?action=showPhone&phoneModel="
-						+ phoneModel + "&phoneCode=" + phoneCode);
+				response.sendRedirect("/phone/list/?phoneModel=" + phoneModel + "&phoneCode=" + phoneCode);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -73,17 +65,13 @@ public class PhoneController extends AbstractBaseController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView showPhone(HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView showPhoneList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("showPhone");
-		String phoneModel = ServletRequestUtils.getStringParameter(request,
-				"phoneModel", "");
-		String phoneCode = ServletRequestUtils.getStringParameter(request,
-				"phoneCode", "");
+		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
+		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "");
 		if (!StringUtils.isEmpty(phoneModel)) {
 			List<Phone> phoneList = phoneService.getPhoneList(phoneModel);
-			int toPage = ServletRequestUtils.getIntParameter(request, "toPage",
-					0);
+			int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
 			// 返回总共有多少页,toPage返回第几页的数据，每页20条数据，toPage从1开始
 			int totalPage = 5;
 			mv.addObject("nowPage", toPage);
@@ -101,33 +89,6 @@ public class PhoneController extends AbstractBaseController {
 	}
 
 	/**
-	 * 手机查询接口
-	 * 
-	 * @auther zyslovely@gmail.com
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public ModelAndView showPhoneList(HttpServletRequest request,
-			HttpServletResponse response) {
-		String phoneModel = ServletRequestUtils.getStringParameter(request,
-				"phoneModel", "");
-		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
-
-		ModelAndView mv = new ModelAndView("phoneList");
-		List<Phone> phoneList = phoneService.getPhoneList(phoneModel);
-		mv.addObject("phoneList", phoneList);
-
-		// 返回总共有多少页,toPage返回第几页的数据，每页20条数据，toPage从1开始
-		int totalPage = 5;
-		mv.addObject("nowPage", toPage);
-		mv.addObject("extPage", toPage - 1);
-		mv.addObject("nextPage", toPage + 1);
-		mv.addObject("totalPage", totalPage);
-		return mv;
-	}
-
-	/**
 	 * 利润列表
 	 * 
 	 * @auther zyslovely@gmail.com
@@ -135,8 +96,7 @@ public class PhoneController extends AbstractBaseController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView showProfitList(HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView showProfitList(HttpServletRequest request, HttpServletResponse response) {
 		return null;
 	}
 
@@ -148,8 +108,7 @@ public class PhoneController extends AbstractBaseController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView showPhoneIndex(HttpServletRequest request,
-			HttpServletResponse response) {
+	public ModelAndView showPhoneIndex(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("phoneIndex");
 	}
 
@@ -160,21 +119,15 @@ public class PhoneController extends AbstractBaseController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView addSelled(HttpServletRequest request,
-			HttpServletResponse response) {
-		long phoneid = ServletRequestUtils.getLongParameter(request, "phoneid",
-				0L);
-		double selledPrice = ServletRequestUtils.getDoubleParameter(request,
-				"selledPrice", 0.00);
-		int operatorId = ServletRequestUtils.getIntParameter(request,
-				"operatorId", 0);
-		String phoneModel = ServletRequestUtils.getStringParameter(request,
-				"phoneModel", "");
+	public ModelAndView addSelled(HttpServletRequest request, HttpServletResponse response) {
+		long phoneid = ServletRequestUtils.getLongParameter(request, "phoneid", 0L);
+		double selledPrice = ServletRequestUtils.getDoubleParameter(request, "selledPrice", 0.00);
+		int operatorId = ServletRequestUtils.getIntParameter(request, "operatorId", 0);
 		ModelAndView mv = new ModelAndView("phoneselled");
 		if (selledService.addSelled(phoneid, selledPrice, operatorId)) {
 			try {
-				response.sendRedirect("phone.do?action=showPhone&phoneModel="
-						+ phoneModel);
+				// 销售列表
+				response.sendRedirect("/phone/list/?phoneModel=" + phoneModel + "&phoneCode=" + phoneCode);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
