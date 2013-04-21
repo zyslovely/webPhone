@@ -71,6 +71,15 @@ public class Purchase implements Serializable {
 			public int getValue() {
 				return 1;
 			}
+		},
+		/**
+		 * 删除
+		 */
+		Deleted {
+			@Override
+			public int getValue() {
+				return 2;
+			}
 		};
 		public abstract int getValue();
 

@@ -20,11 +20,20 @@ public interface SelledMapper {
 	public int addSelled(Selled selled);
 
 	/**
-	 * 通过phoneidList查找phoneList信息
+	 * 通过phoneidList查找selledList信息
 	 * 
 	 * @param phoneidList
 	 * @return
 	 */
-	public List<Selled> getSelledListByIds(@Param("phoneidList") List<Long> phoneidList);
+	public List<Selled> getSelledListByIds(
+			@Param("phoneidList") List<Long> phoneidList);
+
+	/**
+	 * 查找Selled
+	 * 
+	 * @param phoneid
+	 * @return
+	 */
+	public Selled getSelled(long phoneid);
 
 }

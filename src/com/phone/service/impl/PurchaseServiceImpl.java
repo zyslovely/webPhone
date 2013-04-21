@@ -1,6 +1,8 @@
 package com.phone.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -50,6 +52,30 @@ public class PurchaseServiceImpl implements PurchaseService {
 		purchase.setCreateTime(new Date().getTime());
 		purchase.setStatus(Purchase.PurchaseStatus.NotSold.getValue());
 		if (purchaseMapper.addPurchase(purchase) > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#getPurchase(long)
+	 */
+	public Purchase getPurchase(long phoneid) {
+		return purchaseMapper.getPurchase(phoneid);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#deletePurchase(long, int)
+	 */
+	public boolean deletePurchase(long phoneid) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneid", phoneid);
+		hashMap.put("Status", Purchase.PurchaseStatus.Deleted.getValue());
+		if (purchaseMapper.updatePurchase(hashMap) > 0) {
 			return true;
 		}
 		return false;
