@@ -29,13 +29,20 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * @see com.phone.service.PurchaseService#addPurchase(java.lang.String,
 	 * java.lang.String, double, double)
 	 */
-	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPrice) {
+	@Override
+	public boolean addPurchase(String brand, String phoneCode,
+			String phoneModel, double purchasePrice, double DecideSellPrice) {
 		Brand brand2 = new Brand();
 		brand2.setBrand(brand);
 		brandMapper.addBrand(brand2);
 
 		Purchase purchase = new Purchase();
 		purchase.setPhoneCode(phoneCode);
+
+		if (purchaseMapper.getPurchaseByPhoneCode(phoneCode) != null) {
+			return false;
+		}
+
 		purchase.setBrandId(brand2.getId());
 		purchase.setPhoneModel(phoneModel);
 		purchase.setPurchasePrice(purchasePrice);
