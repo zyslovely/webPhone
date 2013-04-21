@@ -123,6 +123,8 @@ public class PhoneController extends AbstractBaseController {
 		long phoneid = ServletRequestUtils.getLongParameter(request, "phoneid", 0L);
 		double selledPrice = ServletRequestUtils.getDoubleParameter(request, "selledPrice", 0.00);
 		int operatorId = ServletRequestUtils.getIntParameter(request, "operatorId", 0);
+		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
+		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "");
 		ModelAndView mv = new ModelAndView("phoneselled");
 		if (selledService.addSelled(phoneid, selledPrice, operatorId)) {
 			try {
