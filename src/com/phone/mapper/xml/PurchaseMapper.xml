@@ -46,7 +46,7 @@
 	<select id="getPurchase" parameterType="long" resultMap="purchaseMap">
 		SELECT *
 		from TB_Phone_Purchase
-		WHERE id=#{phoneid} and and 2> status;
+		WHERE id=#{phoneid} and 2> status;
 	</select>
 
 	<update id="updatePurchase" parameterType="hashMap" flushCache="true"

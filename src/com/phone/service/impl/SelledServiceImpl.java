@@ -24,8 +24,7 @@ import com.phone.service.SelledService;
 @Service("selledServiceImpl")
 public class SelledServiceImpl implements SelledService {
 
-	private static final Logger logger = Logger
-			.getLogger(SelledServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(SelledServiceImpl.class);
 
 	@Resource
 	private SelledMapper selledMapper;
@@ -53,8 +52,7 @@ public class SelledServiceImpl implements SelledService {
 		return false;
 	}
 
-	private void updatePurchaseAndProfit(long phoneid, double selledPrice,
-			int operatorId) {
+	private void updatePurchaseAndProfit(long phoneid, double selledPrice, int operatorId) {
 		Purchase purchase = purchaseMapper.getPurchase(phoneid);
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", purchase.getId());
@@ -66,15 +64,13 @@ public class SelledServiceImpl implements SelledService {
 			profit.setPurchasePrice(purchase.getPurchasePrice());
 			profit.setDecideSellPrice(purchase.getDecideSellPrice());
 			profit.setSelledPrice(selledPrice);
-			profit.setProfit(selledPrice - purchase.getDecideSellPrice());
+			profit.setProfit(selledPrice - purchase.getPurchasePrice());
 			profit.setCreateTime(new Date().getTime());
 			profit.setOperatorId(operatorId);
 			if (profitMapper.addProfit(profit) > 0) {
 				logger.info("addProfit Successed!");
 			}
-			logger.error("addProfit Failed!");
 		}
-		logger.error("updatePurchase Failed!");
 	}
 
 	public Selled getSelled(long phoneid) {

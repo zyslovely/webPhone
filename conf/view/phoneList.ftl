@@ -56,6 +56,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${phone.selledTimeStr!0}</td>
 					<td>${phone.profit!0}</td>
 					<td><a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a></td>
+					<td><a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">卖出</a></td>
 				</tr>
 			    </#list>
 
