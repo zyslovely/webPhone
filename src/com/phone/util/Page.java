@@ -17,12 +17,52 @@ public final class Page {
 	private int pageEndRow; // 每页的终止数
 	private List<Phone> list;
 
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
 	public int getTotalPages() {
 		return totalPages;
 	}
 
 	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
+	}
+
+	public int getPageRows() {
+		return pageRows;
+	}
+
+	public void setPageRows(int pageRows) {
+		this.pageRows = pageRows;
+	}
+
+	public int getTotalRows() {
+		return totalRows;
+	}
+
+	public void setTotalRows(int totalRows) {
+		this.totalRows = totalRows;
+	}
+
+	public int getPageStartRow() {
+		return pageStartRow;
+	}
+
+	public void setPageStartRow(int pageStartRow) {
+		this.pageStartRow = pageStartRow;
+	}
+
+	public int getPageEndRow() {
+		return pageEndRow;
+	}
+
+	public void setPageEndRow(int pageEndRow) {
+		this.pageEndRow = pageEndRow;
 	}
 
 	/**

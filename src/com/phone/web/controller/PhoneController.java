@@ -91,11 +91,12 @@ public class PhoneController extends AbstractBaseController {
 			int toPage = ServletRequestUtils.getIntParameter(request, "toPage",
 					0);
 			Page page = new Page(phoneList, 20);
+			page.setCurrentPage(toPage);
 			List<Phone> realPhoneList = page.getCurrentPageList();
 			// 返回总共有多少页,toPage返回第几页的数据，每页20条数据，toPage从1开始
-			mv.addObject("nowPage", toPage);
-			mv.addObject("extPage", toPage - 1);
-			mv.addObject("nextPage", toPage + 1);
+			mv.addObject("nowPage", page.getCurrentPage());
+			mv.addObject("extPage", page.getPreviousPage());
+			mv.addObject("nextPage", page.getNextPage());
 			mv.addObject("totalPage", page.getTotalPages());
 
 			mv.addObject("phoneModel", phoneModel);
@@ -123,18 +124,19 @@ public class PhoneController extends AbstractBaseController {
 			List<Phone> phoneList = phoneService.getPhoneList(phoneModel);
 			int toPage = ServletRequestUtils.getIntParameter(request, "toPage",
 					0);
-			// 返回总共有多少页,toPage返回第几页的数据，每页20条数据，toPage从1开始
-			int totalPage = 5;
-			mv.addObject("nowPage", toPage);
-			mv.addObject("extPage", toPage - 1);
-			mv.addObject("nextPage", toPage + 1);
-			mv.addObject("totalPage", totalPage);
+			Page page = new Page(phoneList, 20);
+			page.setCurrentPage(toPage);
+			List<Phone> realPhoneList = page.getCurrentPageList();
+			mv.addObject("nowPage", page.getCurrentPage());
+			mv.addObject("extPage", page.getPreviousPage());
+			mv.addObject("nextPage", page.getNextPage());
+			mv.addObject("totalPage", page.getTotalPages());
 
 			mv.addObject("phoneModel", phoneModel);
 
 			mv.addObject("phoneModelCount",
 					ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
-			mv.addObject("phoneList", phoneList);
+			mv.addObject("phoneList", realPhoneList);
 		}
 		return mv;
 	}
