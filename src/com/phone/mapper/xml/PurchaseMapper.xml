@@ -40,28 +40,28 @@
 	<select id="getPurchaseList" parameterType="String" resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneModel like
-		CONCAT('${phoneModel}','%') order by createtime desc;
+		CONCAT('${phoneModel}','%') and 2> status  order by createtime desc;
 	</select>
 
 	<select id="getPurchase" parameterType="long" resultMap="purchaseMap">
 		SELECT *
 		from TB_Phone_Purchase
-		WHERE phoneid=#{phoneid};
+		WHERE id=#{phoneid} and and 2> status;
 	</select>
 
 	<update id="updatePurchase" parameterType="hashMap" flushCache="true"
 		statementType="PREPARED">
-		UPDATE * from
-		TB_Phone_Purchae
+		UPDATE 
+		TB_Phone_Purchase
 		set Status=#{Status}
 		WHERE
-		phoneid = #{phoneid};
+		id = #{phoneid};
 	</update>
 	
 	<select id="getPurchaseByPhoneCode" parameterType="String"
 		resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneCode
-		= #{phoneCode} ;
+		= #{phoneCode} and 2> status;
 	</select>
 </mapper>

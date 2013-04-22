@@ -16,6 +16,7 @@ import com.phone.meta.Phone;
 import com.phone.service.PhoneService;
 import com.phone.service.PurchaseService;
 import com.phone.service.SelledService;
+import com.phone.util.ListUtils;
 
 /**
  * @author zhengyisheng E-mail:zhengyisheng@gmail.com
@@ -34,7 +35,7 @@ public class PhoneController extends AbstractBaseController {
 	private SelledService selledService;
 
 	/**
-	 * 添加手机入库
+	 * 添加手机入库操作
 	 * 
 	 * @param request
 	 * @param response
@@ -52,7 +53,7 @@ public class PhoneController extends AbstractBaseController {
 		}
 		if (purchaseService.addPurchase(brand, phoneCode, phoneModel, purchasePrice, DecideSellPirce)) {
 			try {
-				response.sendRedirect("/phone/list/?phoneModel=" + phoneModel + "&phoneCode=" + phoneCode);
+				response.sendRedirect("/purchase/add/show/?phoneModel=" + phoneModel + "&phoneCode=" + phoneCode);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -62,14 +63,15 @@ public class PhoneController extends AbstractBaseController {
 	}
 
 	/**
-	 * 添加手机入库售出查询列表
+	 * 显示添加手机页面
 	 * 
+	 * @auther zyslovely@gmail.com
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView showPhoneList(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("phoneList");
+	public ModelAndView showAddPurchaseView(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView("phoneadd");
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "");
 		if (!StringUtils.isEmpty(phoneModel)) {
@@ -88,6 +90,34 @@ public class PhoneController extends AbstractBaseController {
 			mv.addObject("phoneList", phoneList);
 		}
 		mv.addObject("phoneCode", phoneCode);
+		return mv;
+	}
+
+	/**
+	 * 手机查询列表
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView showPhoneList(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView("phoneList");
+		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
+		if (!StringUtils.isEmpty(phoneModel)) {
+			List<Phone> phoneList = phoneService.getPhoneList(phoneModel);
+			int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
+			// 返回总共有多少页,toPage返回第几页的数据，每页20条数据，toPage从1开始
+			int totalPage = 5;
+			mv.addObject("nowPage", toPage);
+			mv.addObject("extPage", toPage - 1);
+			mv.addObject("nextPage", toPage + 1);
+			mv.addObject("totalPage", totalPage);
+
+			mv.addObject("phoneModel", phoneModel);
+
+			mv.addObject("phoneModelCount", ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
+			mv.addObject("phoneList", phoneList);
+		}
 		return mv;
 	}
 
