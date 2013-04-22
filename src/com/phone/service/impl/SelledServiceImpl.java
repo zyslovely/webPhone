@@ -2,6 +2,7 @@ package com.phone.service.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -24,7 +25,8 @@ import com.phone.service.SelledService;
 @Service("selledServiceImpl")
 public class SelledServiceImpl implements SelledService {
 
-	private static final Logger logger = Logger.getLogger(SelledServiceImpl.class);
+	private static final Logger logger = Logger
+			.getLogger(SelledServiceImpl.class);
 
 	@Resource
 	private SelledMapper selledMapper;
@@ -52,7 +54,8 @@ public class SelledServiceImpl implements SelledService {
 		return false;
 	}
 
-	private void updatePurchaseAndProfit(long phoneid, double selledPrice, int operatorId) {
+	private void updatePurchaseAndProfit(long phoneid, double selledPrice,
+			int operatorId) {
 		Purchase purchase = purchaseMapper.getPurchase(phoneid);
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", purchase.getId());
@@ -75,5 +78,9 @@ public class SelledServiceImpl implements SelledService {
 
 	public Selled getSelled(long phoneid) {
 		return selledMapper.getSelled(phoneid);
+	}
+
+	public List<Selled> getSelledList(List<Long> selledIdList) {
+		return selledMapper.getSelledListByIds(selledIdList);
 	}
 }

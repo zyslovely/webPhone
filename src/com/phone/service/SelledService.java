@@ -1,5 +1,7 @@
 package com.phone.service;
 
+import java.util.List;
+
 import com.phone.meta.Selled;
 
 /**
@@ -25,4 +27,12 @@ public interface SelledService {
 	 * @return
 	 */
 	public Selled getSelled(long phoneid);
+
+	/**
+	 * 利润排序获取Selled列表
+	 * 
+	 * @param phoneidList
+	 * @return
+	 */
+	public List<Selled> getSelledList(List<Long> selledIdList);
 }

@@ -1,6 +1,7 @@
 package com.phone.web.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.phone.meta.Phone;
+import com.phone.meta.Profit;
+import com.phone.meta.Selled;
 import com.phone.service.PhoneService;
+import com.phone.service.ProfitService;
 import com.phone.service.PurchaseService;
 import com.phone.service.SelledService;
 import com.phone.util.ListUtils;
@@ -34,6 +38,8 @@ public class PhoneController extends AbstractBaseController {
 
 	@Resource
 	private SelledService selledService;
+	@Resource
+	private ProfitService profitService;
 
 	/**
 	 * 添加手机入库操作
@@ -151,7 +157,29 @@ public class PhoneController extends AbstractBaseController {
 	 */
 	public ModelAndView showProfitList(HttpServletRequest request,
 			HttpServletResponse response) {
-		return null;
+		ModelAndView mv = new ModelAndView("showProfit");
+		long startTime = ServletRequestUtils.getLongParameter(request,
+				"startTime", 0L);
+		long endTime = ServletRequestUtils.getLongParameter(request, "endTime",
+				0L);
+		List<Profit> profitList = profitService.getProfitList(startTime,
+				endTime);
+		if (!ListUtils.isEmptyList(profitList)) {
+			List<Long> selledIdList = new ArrayList<Long>(profitList.size());
+			double saleTotal = 0, profitTotal = 0;
+			for (Profit profit : profitList) {
+				saleTotal += profit.getSelledPrice();
+				profitTotal += profit.getProfit();
+				selledIdList.add(profit.getPhoneid());
+			}
+			mv.addObject("selledPhoneNum", profitList.size());
+			mv.addObject("saleTotal", saleTotal);
+			mv.addObject("profitTotal", profitTotal);
+			mv.addObject("selledList",
+					selledService.getSelledList(selledIdList));
+			return mv;
+		}
+		return mv;
 	}
 
 	/**
