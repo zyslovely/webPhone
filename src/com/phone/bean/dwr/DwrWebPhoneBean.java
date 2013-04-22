@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.phone.meta.Purchase;
-import com.phone.meta.Selled;
+import com.phone.meta.Purchase.PurchaseStatus;
 import com.phone.service.PurchaseService;
 import com.phone.service.SelledService;
 
@@ -32,14 +32,10 @@ public class DwrWebPhoneBean {
 	 */
 	public boolean deletePhoneById(long id) {
 		Purchase purchase = purchaseService.getPurchase(id);
-		if (purchase != null) {
-			Selled selled = selledService.getSelled(id);
-			if (selled != null) {
-				return false;
-			}
-			return purchaseService.deletePurchase(id);
+		if (purchase == null || purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
+			return false;
 		}
-		return false;
+		return purchaseService.deletePurchase(id);
 	}
 
 }
