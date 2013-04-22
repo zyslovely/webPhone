@@ -1,6 +1,13 @@
 package com.phone.bean.dwr;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
+import com.phone.meta.Purchase;
+import com.phone.meta.Selled;
+import com.phone.service.PurchaseService;
+import com.phone.service.SelledService;
 
 /**
  * @author zhengyisheng E-mail:zhengyisheng@gmail.com
@@ -9,6 +16,13 @@ import org.springframework.stereotype.Service;
  */
 @Service("dwrWebPhoneBean")
 public class DwrWebPhoneBean {
+
+	@Resource
+	private PurchaseService purchaseService;
+
+	@Resource
+	private SelledService selledService;
+
 	/**
 	 * 删除手机
 	 * 
@@ -17,9 +31,15 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean deletePhoneById(long id) {
-		return true;
+		Purchase purchase = purchaseService.getPurchase(id);
+		if (purchase != null) {
+			Selled selled = selledService.getSelled(id);
+			if (selled != null) {
+				return false;
+			}
+			return purchaseService.deletePurchase(id);
+		}
+		return false;
 	}
-	
-	
 
 }

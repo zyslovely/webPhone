@@ -76,4 +76,8 @@ public class SelledServiceImpl implements SelledService {
 		}
 		logger.error("updatePurchase Failed!");
 	}
+
+	public Selled getSelled(long phoneid) {
+		return selledMapper.getSelled(phoneid);
+	}
 }

@@ -30,4 +30,8 @@
 	     </foreach>
 		;
 	</select>
+
+	<select id="getSelled" resultMap="selledMap" parameterType="long">
+		select * from TB_Phone_Selled where phoneid =#{phoneid};
+	</select>
 </mapper>
