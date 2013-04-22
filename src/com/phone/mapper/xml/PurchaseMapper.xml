@@ -62,6 +62,6 @@
 		resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneCode
-		='${phoneCode}';
+		= #{phoneCode} ;
 	</select>
 </mapper>

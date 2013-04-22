@@ -22,7 +22,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 </tr>
 </thead>
 <tbody>
-<form action="/WebPhone/phone.do?action=addPurchase" method="post" target="_self">
+<form action="/purchase/add/show/" method="post" target="_self">
 <th><input type="text" value="" name="phoneModel"/></th>
 <th><input type="text" value="" name="phoneCode"/></th>
 <th><input type="text" value="" name="brand"/></th>

@@ -14,7 +14,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <body style="height:1000px;">
 <h2 style="font-size: 25px;color: blue;margin-bottom:30px;"><a href="/phone/index/">返回</a></h2>
 <h1 style="font-size: 20px;color: red;margin-bottom:30px;">手机查询页面</h1>
-
+<#if phoneList?exists>
 <p>
    <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。
    <#if extPage gt 0><a href="/phone/list/?toPage=${extPage!0}">上一页</a></#if>
@@ -36,7 +36,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 				</tr>
 			</thead>
 			<tbody>
-			<#if phoneList?exists>
+			
 			   <#list phoneList as phone>
 				<tr >
 					<td>${phone.phoneModel!""}</td>
@@ -51,9 +51,10 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td><a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a></td>
 				</tr>
 			    </#list>
-			</#if>
+
 			</tbody>
 		</table>
+					</#if>
 </body>
 </html>
 </#escape>

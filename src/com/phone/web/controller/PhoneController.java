@@ -47,6 +47,9 @@ public class PhoneController extends AbstractBaseController {
 		double purchasePrice = ServletRequestUtils.getDoubleParameter(request, "purchasePrice", 0.00);
 		double DecideSellPirce = ServletRequestUtils.getDoubleParameter(request, "DecideSellPrice", 0.00);
 		ModelAndView mv = new ModelAndView("phoneadd");
+		if (StringUtils.isEmpty(phoneCode)) {
+			return mv;
+		}
 		if (purchaseService.addPurchase(brand, phoneCode, phoneModel, purchasePrice, DecideSellPirce)) {
 			try {
 				response.sendRedirect("/phone/list/?phoneModel=" + phoneModel + "&phoneCode=" + phoneCode);
@@ -66,7 +69,7 @@ public class PhoneController extends AbstractBaseController {
 	 * @return
 	 */
 	public ModelAndView showPhoneList(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("showPhone");
+		ModelAndView mv = new ModelAndView("phoneList");
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "");
 		if (!StringUtils.isEmpty(phoneModel)) {
