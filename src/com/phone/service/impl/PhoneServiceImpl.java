@@ -47,16 +47,16 @@ public class PhoneServiceImpl implements PhoneService {
 	 */
 	@Override
 	public List<Phone> getPhoneList(String phoneModel) {
-		List<Purchase> purchaseliList = purchaseMapper.getPurchaseList(phoneModel);
-		if (ListUtils.isEmptyList(purchaseliList)) {
+		List<Purchase> purchaseList = purchaseMapper.getPurchaseList(phoneModel);
+		if (ListUtils.isEmptyList(purchaseList)) {
 			return null;
 		}
-		List<Long> phoneIdList = new ArrayList<Long>(purchaseliList.size());
-		for (Purchase purchase : purchaseliList) {
+		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());
+		for (Purchase purchase : purchaseList) {
 			phoneIdList.add(purchase.getId());
 		}
-		List<Phone> phoneList = new ArrayList<Phone>(purchaseliList.size());
-		this.addProfitInfo(phoneList, phoneIdList, purchaseliList);
+		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
+		this.addProfitInfo(phoneList, phoneIdList, purchaseList);
 		return phoneList;
 	}
 
@@ -105,9 +105,22 @@ public class PhoneServiceImpl implements PhoneService {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.phone.service.PhoneService#getPhonesByPhoneCode(java.lang.String)
+	 */
 	@Override
-	public Phone getPhoneByPhoneCode(String phoneCode) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Phone> getPhonesByPhoneCode(String phoneCode) {
+		Purchase purchase = purchaseMapper.getPurchaseByPhoneCode(phoneCode);
+		List<Purchase> purchaseList = new ArrayList<Purchase>();
+		purchaseList.add(purchase);
+		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());
+		phoneIdList.add(purchase.getId());
+
+		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
+		this.addProfitInfo(phoneList, phoneIdList, purchaseList);
+		return phoneList;
 	}
 }

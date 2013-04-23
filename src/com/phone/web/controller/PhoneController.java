@@ -115,8 +115,10 @@ public class PhoneController extends AbstractBaseController {
 
 		List<Phone> phoneList = null;
 		if (!StringUtils.isEmpty(phoneCode)) {
-			phoneList = phoneService.getPhoneList(phoneModel);
+			
+			phoneList = phoneService.getPhonesByPhoneCode(phoneCode);
 		} else if (!StringUtils.isEmpty(phoneModel)) {
+			
 			phoneList = phoneService.getPhoneList(phoneModel);
 		}
 		if (!ListUtils.isEmptyList(phoneList)) {
@@ -128,10 +130,8 @@ public class PhoneController extends AbstractBaseController {
 			mv.addObject("extPage", page.getPreviousPage());
 			mv.addObject("nextPage", page.getNextPage());
 			mv.addObject("totalPage", page.getTotalPages());
-
-			mv.addObject("phoneModel", phoneModel);
-
 			mv.addObject("phoneTotalCount", ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
+			mv.addObject("phoneModel", phoneModel);
 			mv.addObject("phoneList", realPhoneList);
 		}
 		return mv;

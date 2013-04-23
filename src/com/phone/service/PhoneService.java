@@ -25,5 +25,5 @@ public interface PhoneService {
 	 * @param phoneCode
 	 * @return
 	 */
-	public Phone getPhoneByPhoneCode(String phoneCode);
+	public List<Phone> getPhonesByPhoneCode(String phoneCode);
 }
