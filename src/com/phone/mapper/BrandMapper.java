@@ -28,6 +28,6 @@ public interface BrandMapper {
 	 * @param brandId
 	 * @return
 	 */
-	public List<Brand> getBrandListByIds(@Param(value = "") List<Long> brandId);
+	public List<Brand> getBrandListByIds(@Param(value = "brandIdList") List<Long> brandIds);
 
 }

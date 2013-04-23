@@ -22,9 +22,9 @@
 
 	<select id="getBrandListByIds" resultMap="brandMap"
 		parameterType="list">
-		SELECT * from TB_Phone_Profit where
-		phoneid in
-		<foreach item="item" collection="phoneidList" index="index"
+		SELECT * from TB_Phone_Brand where
+		id in
+		<foreach item="item" collection="brandIdList" index="index"
 			open="(" separator="," close=")">
 			#{item} 
 	     </foreach>

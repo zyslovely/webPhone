@@ -30,6 +30,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
    <table id="phone_list_tb" >
 			<thead>
 				<tr>
+				    <th width="100">品牌</th>
 					<th width="100">手机型号</th>
 					<th width="150">手机编码</th>
 					<th width="100">进货价格</th>
@@ -46,6 +47,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 			
 			   <#list phoneList as phone>
 				<tr >
+				    <td>${phone.brand!""}</td>
 					<td>${phone.phoneModel!""}</td>
 					<td>${phone.phoneCode!""}</td>
 					<td>${phone.purchasePrice!0}</td>
@@ -55,8 +57,10 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${phone.selledPrice!0}</td>
 					<td>${phone.selledTimeStr!0}</td>
 					<td>${phone.profit!0}</td>
-					<td><a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a></td>
-					<td><a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">卖出</a></td>
+					<td>
+					   <a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a>
+					   <a href="javascript:void(0);"  onClick="phoneSell(${phone.phoneId},${phone.purchasePrice!0});">卖出</a>
+					</td>
 				</tr>
 			    </#list>
 

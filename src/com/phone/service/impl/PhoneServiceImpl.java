@@ -8,9 +8,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.phone.mapper.BrandMapper;
 import com.phone.mapper.ProfitMapper;
 import com.phone.mapper.PurchaseMapper;
 import com.phone.mapper.SelledMapper;
+import com.phone.meta.Brand;
 import com.phone.meta.Phone;
 import com.phone.meta.Profit;
 import com.phone.meta.Purchase;
@@ -34,6 +36,9 @@ public class PhoneServiceImpl implements PhoneService {
 
 	@Resource
 	private ProfitMapper profitMapper;
+
+	@Resource
+	private BrandMapper brandMapper;
 
 	/*
 	 * (non-Javadoc)
@@ -63,12 +68,18 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @param phoneIdList
 	 * @param purchaseliList
 	 */
-	private void addProfitInfo(List<Phone> phoneList, List<Long> phoneIdList, List<Purchase> purchaseliList) {
+	private void addProfitInfo(List<Phone> phoneList, List<Long> phoneIdList, List<Purchase> purchaseList) {
 		List<Selled> selledList = selledMapper.getSelledListByIds(phoneIdList);
 		Map<Long, Selled> selledMap = HashMapMaker.listToMap(selledList, "getPhoneid", Selled.class);
 		List<Profit> profitList = profitMapper.getProfitListByIds(phoneIdList);
 		Map<Long, Profit> profitMap = HashMapMaker.listToMap(profitList, "getPhoneid", Profit.class);
-		for (Purchase purchase : purchaseliList) {
+		List<Long> brandIds = new ArrayList<Long>();
+		for (Purchase purchase : purchaseList) {
+			brandIds.add(purchase.getBrandId());
+		}
+		List<Brand> brandList = brandMapper.getBrandListByIds(brandIds);
+		Map<Long, Brand> brandMap = HashMapMaker.listToMap(brandList, "getId", Brand.class);
+		for (Purchase purchase : purchaseList) {
 			Phone phone = new Phone();
 			Selled selled = selledMap.get(purchase.getId());
 			if (selled != null) {
@@ -78,6 +89,10 @@ public class PhoneServiceImpl implements PhoneService {
 			Profit profit = profitMap.get(purchase.getId());
 			if (profit != null) {
 				phone.setProfit(profit.getProfit());
+			}
+			Brand brand = brandMap.get(purchase.getBrandId());
+			if (brand != null) {
+				phone.setBrand(brand.getBrand());
 			}
 			phone.setPhoneId(purchase.getId());
 			phone.setPhoneCode(purchase.getPhoneCode());

@@ -18,6 +18,10 @@ public class Phone implements Serializable {
 	 */
 	private long phoneId;
 	/**
+	 * 手机品牌
+	 */
+	private String brand;
+	/**
 	 * 手机型号
 	 */
 	private String phoneModel;
@@ -167,6 +171,14 @@ public class Phone implements Serializable {
 
 	public void setPhoneId(long phoneId) {
 		this.phoneId = phoneId;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 }
