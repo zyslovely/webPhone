@@ -1,6 +1,7 @@
 package com.phone.web.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,10 +14,14 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.phone.meta.Phone;
+import com.phone.meta.Profit;
+import com.phone.meta.Selled;
 import com.phone.service.PhoneService;
+import com.phone.service.ProfitService;
 import com.phone.service.PurchaseService;
 import com.phone.service.SelledService;
 import com.phone.util.ListUtils;
+import com.phone.util.Page;
 
 /**
  * @author zhengyisheng E-mail:zhengyisheng@gmail.com
@@ -33,6 +38,8 @@ public class PhoneController extends AbstractBaseController {
 
 	@Resource
 	private SelledService selledService;
+	@Resource
+	private ProfitService profitService;
 
 	/**
 	 * 添加手机入库操作
@@ -77,17 +84,19 @@ public class PhoneController extends AbstractBaseController {
 		if (!StringUtils.isEmpty(phoneModel)) {
 			List<Phone> phoneList = phoneService.getPhoneList(phoneModel);
 			int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
+			Page page = new Page(phoneList, 20);
+			page.setCurrentPage(toPage);
+			List<Phone> realPhoneList = page.getCurrentPageList();
 			// 返回总共有多少页,toPage返回第几页的数据，每页20条数据，toPage从1开始
-			int totalPage = 5;
-			mv.addObject("nowPage", toPage);
-			mv.addObject("extPage", toPage - 1);
-			mv.addObject("nextPage", toPage + 1);
-			mv.addObject("totalPage", totalPage);
+			mv.addObject("nowPage", page.getCurrentPage());
+			mv.addObject("extPage", page.getPreviousPage());
+			mv.addObject("nextPage", page.getNextPage());
+			mv.addObject("totalPage", page.getTotalPages());
 
 			mv.addObject("phoneModel", phoneModel);
 
 			mv.addObject("phoneModelCount", phoneList.size());
-			mv.addObject("phoneList", phoneList);
+			mv.addObject("phoneList", realPhoneList);
 		}
 		mv.addObject("phoneCode", phoneCode);
 		return mv;
@@ -106,17 +115,18 @@ public class PhoneController extends AbstractBaseController {
 		if (!StringUtils.isEmpty(phoneModel)) {
 			List<Phone> phoneList = phoneService.getPhoneList(phoneModel);
 			int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
-			// 返回总共有多少页,toPage返回第几页的数据，每页20条数据，toPage从1开始
-			int totalPage = 5;
-			mv.addObject("nowPage", toPage);
-			mv.addObject("extPage", toPage - 1);
-			mv.addObject("nextPage", toPage + 1);
-			mv.addObject("totalPage", totalPage);
+			Page page = new Page(phoneList, 20);
+			page.setCurrentPage(toPage);
+			List<Phone> realPhoneList = page.getCurrentPageList();
+			mv.addObject("nowPage", page.getCurrentPage());
+			mv.addObject("extPage", page.getPreviousPage());
+			mv.addObject("nextPage", page.getNextPage());
+			mv.addObject("totalPage", page.getTotalPages());
 
 			mv.addObject("phoneModel", phoneModel);
 
 			mv.addObject("phoneModelCount", ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
-			mv.addObject("phoneList", phoneList);
+			mv.addObject("phoneList", realPhoneList);
 		}
 		return mv;
 	}
@@ -130,7 +140,25 @@ public class PhoneController extends AbstractBaseController {
 	 * @return
 	 */
 	public ModelAndView showProfitList(HttpServletRequest request, HttpServletResponse response) {
-		return null;
+		ModelAndView mv = new ModelAndView("showProfit");
+		long startTime = ServletRequestUtils.getLongParameter(request, "startTime", 0L);
+		long endTime = ServletRequestUtils.getLongParameter(request, "endTime", 0L);
+		List<Profit> profitList = profitService.getProfitList(startTime, endTime);
+		if (!ListUtils.isEmptyList(profitList)) {
+			List<Long> selledIdList = new ArrayList<Long>(profitList.size());
+			double saleTotal = 0, profitTotal = 0;
+			for (Profit profit : profitList) {
+				saleTotal += profit.getSelledPrice();
+				profitTotal += profit.getProfit();
+				selledIdList.add(profit.getPhoneid());
+			}
+			mv.addObject("selledPhoneNum", profitList.size());
+			mv.addObject("saleTotal", saleTotal);
+			mv.addObject("profitTotal", profitTotal);
+			mv.addObject("selledList", selledService.getSelledList(selledIdList));
+			return mv;
+		}
+		return mv;
 	}
 
 	/**
@@ -145,5 +173,4 @@ public class PhoneController extends AbstractBaseController {
 		return new ModelAndView("phoneIndex");
 	}
 
-	
 }

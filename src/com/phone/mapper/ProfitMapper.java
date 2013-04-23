@@ -1,6 +1,8 @@
 package com.phone.mapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -37,4 +39,12 @@ public interface ProfitMapper {
 	 */
 	public List<Profit> getProfitListByIds(
 			@Param(value = "phoneidList") List<Long> phoneidList);
+
+	/**
+	 * 通过时间查找Profit列表
+	 * 
+	 * @param hashMap
+	 * @return
+	 */
+	public List<Profit> getProfitList(Map<String, Object> hashMap);
 }

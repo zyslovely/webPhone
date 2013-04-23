@@ -42,4 +42,13 @@
 	<select id="getProfit" resultMap="profitMap" parameterType="long">
 		SELECT * from TB_Phone_Profit where phoneid=#{phoneid};
 	</select>
+
+	<select id="getProfitList" resultMap="profitMap" parameterType="hashMap">
+		SELECT * from TB_Phone_Profit
+		WHERE CreateTime
+		BETWEEN #{startTime}
+		AND
+		#{endTime}
+		order by profit desc;
+	</select>
 </mapper>
