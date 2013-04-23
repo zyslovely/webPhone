@@ -37,10 +37,13 @@
 		</selectKey>
 	</insert>
 
-	<select id="getPurchaseList" parameterType="String" resultMap="purchaseMap">
+	<select id="getPurchaseList" parameterType="hashMap" resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneModel like
-		CONCAT('${phoneModel}','%') and 2> status  order by createtime desc;
+		CONCAT('${phoneModel}','%') and 2> status
+		limit #{limit}
+		offset #{offset}
+		order by createtime desc;
 	</select>
 
 	<select id="getPurchase" parameterType="long" resultMap="purchaseMap">
@@ -51,17 +54,19 @@
 
 	<update id="updatePurchase" parameterType="hashMap" flushCache="true"
 		statementType="PREPARED">
-		UPDATE 
+		UPDATE
 		TB_Phone_Purchase
 		set Status=#{Status}
 		WHERE
-		id = #{phoneid};
+		id =
+		#{phoneid};
 	</update>
-	
+
 	<select id="getPurchaseByPhoneCode" parameterType="String"
 		resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneCode
-		= #{phoneCode} and 2> status;
+		= #{phoneCode}
+		and 2> status;
 	</select>
 </mapper>

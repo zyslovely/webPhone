@@ -24,8 +24,7 @@ public interface PurchaseMapper {
 	 * @param phoneModel
 	 * @return
 	 */
-	public List<Purchase> getPurchaseList(
-			@Param(value = "phoneModel") String phoneModel);
+	public List<Purchase> getPurchaseList(Map<String, Object> hashmMap);
 
 	/**
 	 * 更新Purchase
@@ -42,7 +41,7 @@ public interface PurchaseMapper {
 	 * @return
 	 */
 	public Purchase getPurchase(long phoneid);
-	
+
 	/**
 	 * 通过phoneCode查找Purchase
 	 * 
