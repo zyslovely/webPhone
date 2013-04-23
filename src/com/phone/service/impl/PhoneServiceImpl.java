@@ -104,4 +104,10 @@ public class PhoneServiceImpl implements PhoneService {
 			phoneList.add(phone);
 		}
 	}
+
+	@Override
+	public Phone getPhoneByPhoneCode(String phoneCode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

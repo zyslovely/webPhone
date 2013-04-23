@@ -17,4 +17,13 @@ public interface PhoneService {
 	 * @return
 	 */
 	public List<Phone> getPhoneList(String phoneModel);
+
+	/**
+	 * 通过条形码获取
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneCode
+	 * @return
+	 */
+	public Phone getPhoneByPhoneCode(String phoneCode);
 }

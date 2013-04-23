@@ -22,7 +22,7 @@ import com.phone.service.SelledService;
  * @author yunshang_734 E-mail:yunshang_734@163.com
  * @version CreateTime：2013-4-20 上午01:52:59 Class Description
  */
-@Service("selledServiceImpl")
+@Service("selledService")
 public class SelledServiceImpl implements SelledService {
 
 	private static final Logger logger = Logger

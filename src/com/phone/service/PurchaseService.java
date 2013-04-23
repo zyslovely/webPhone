@@ -8,7 +8,6 @@ import com.phone.meta.Purchase;
  * @author yunshang_734 E-mail:yunshang_734@163.com
  * @version CreateTime 2013-4-15 03:16:10 Class Description
  */
-@Service("purchaseService")
 public interface PurchaseService {
 
 	/**

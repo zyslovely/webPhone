@@ -18,9 +18,13 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <div>
    <span>输入手机型号:</span>
    <input type="text" value="" name="phoneModel"/>
+   <span> 或者 </span>
+   <span>手机条形码:</span>
+   <input type="text" value="" name="phoneCode"/>
    <input type="submit" value="确定"/>
 </div>
 </form>
+
 <#if phoneList?exists>
 <p>
    <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。

@@ -18,7 +18,7 @@ import com.phone.service.PurchaseService;
  * @author yunshang_734 E-mail:yunshang_734@163.com
  * @version CreateTime 2013-4-15 03:17:06 Class Description
  */
-@Service("purchaseServiceImpl")
+@Service("purchaseService")
 public class PurchaseServiceImpl implements PurchaseService {
 	@Resource
 	private PurchaseMapper purchaseMapper;

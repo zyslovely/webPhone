@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.phone.meta.Phone;
 import com.phone.meta.Profit;
-import com.phone.meta.Selled;
 import com.phone.service.PhoneService;
 import com.phone.service.ProfitService;
 import com.phone.service.PurchaseService;
@@ -112,8 +111,15 @@ public class PhoneController extends AbstractBaseController {
 	public ModelAndView showPhoneList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("phoneList");
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
-		if (!StringUtils.isEmpty(phoneModel)) {
-			List<Phone> phoneList = phoneService.getPhoneList(phoneModel);
+		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "");
+
+		List<Phone> phoneList = null;
+		if (!StringUtils.isEmpty(phoneCode)) {
+			phoneList = phoneService.getPhoneList(phoneModel);
+		} else if (!StringUtils.isEmpty(phoneModel)) {
+			phoneList = phoneService.getPhoneList(phoneModel);
+		}
+		if (!ListUtils.isEmptyList(phoneList)) {
 			int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
 			Page page = new Page(phoneList, 20);
 			page.setCurrentPage(toPage);
@@ -125,7 +131,7 @@ public class PhoneController extends AbstractBaseController {
 
 			mv.addObject("phoneModel", phoneModel);
 
-			mv.addObject("phoneModelCount", ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
+			mv.addObject("phoneTotalCount", ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
 			mv.addObject("phoneList", realPhoneList);
 		}
 		return mv;

@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.phone.mapper.ProfitMapper;
 import com.phone.meta.Profit;
 import com.phone.service.ProfitService;
@@ -15,10 +17,16 @@ import com.phone.service.ProfitService;
  * @author yunshang_734 E-mail:yunshang_734@163.com
  * @version CreateTime：2013-4-23 上午02:57:16 Class Description
  */
+@Service("profitService")
 public class ProfitServiceImpl implements ProfitService {
 	@Resource
 	private ProfitMapper profitMapper;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.ProfitService#getProfitList(long, long)
+	 */
 	@Override
 	public List<Profit> getProfitList(long startTime, long endTime) {
 		if (startTime < 0 || endTime < 0 || endTime > new Date().getTime()) {
