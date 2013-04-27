@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phone.mapper.ProfileMapper">
+	<resultMap type="Profile" id="profileMap">
+		<id property="UserId" column="UserId" />
+		<result property="UserName" column="UserName" />
+		<result property="Password" column="Password" />
+		<result property="CreateTime" column="CreateTime" />
+		<result property="level" column="level" />
+	</resultMap>
+
+	<insert id="addProfile" parameterType="Profile">
+		INSERT INTO
+		TB_Phone_Profile(
+		UserName,
+		Password,
+		CreateTime,
+		level
+		)VALUES(
+		#{UserName},
+		#{Password},
+		#{CreateTime},
+		#{level}
+		)
+	</insert>
+
+	<select id="getProfile" parameterType="long" resultMap="profiltMap">
+		SELECT *
+		from TB_Phone_Profile
+		WHERE UserId=#{UserId};
+	</select>
+
+	<select id="getProfileList" resultMap="profileMap">
+		SELECT * from
+		TB_Phone_Profile;
+	</select>
+</mapper>
