@@ -3,6 +3,8 @@ package com.phone.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.phone.meta.Purchase;
 
 public interface PurchaseMapper {
@@ -46,5 +48,13 @@ public interface PurchaseMapper {
 	 * @param phoneCode
 	 * @return
 	 */
-	public Purchase getPurchaseByPhoneCode(String phoneCode);
+	public Purchase getPurchaseByPhoneCode(Map<String, Object> hashmMap);
+
+	/**
+	 * 通过phoneModel查找Purchase
+	 * 
+	 * @param phoneModel
+	 * @return
+	 */
+	public List<Purchase> getPurchaseListByPhoneModel(@Param(value = "phoneModel") String phoneModel);
 }

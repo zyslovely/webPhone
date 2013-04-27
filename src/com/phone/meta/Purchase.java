@@ -53,6 +53,11 @@ public class Purchase implements Serializable {
 	 */
 	private int Status;
 
+	/**
+	 * 店铺id
+	 */
+	private long shopId;
+
 	public enum PurchaseStatus {
 		/**
 		 * 未卖出
@@ -156,4 +161,11 @@ public class Purchase implements Serializable {
 		this.brandId = brandId;
 	}
 
+	public long getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(long shopId) {
+		this.shopId = shopId;
+	}
 }

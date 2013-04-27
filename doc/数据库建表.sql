@@ -29,7 +29,8 @@ CREATE TABLE `TB_Phone_Profit` (
   `SelledPrice` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '实际卖出价格',
   `profit` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '利润',
   `CreateTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '纪录创建时间',
-  `operatorId` tinyint(4) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `operatorId` bigint(20) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `shopId` bigint(20) NOT NULL DEFAULT '0' COMMENT '店铺id',
   PRIMARY KEY (`phoneid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='手机利润表'
 

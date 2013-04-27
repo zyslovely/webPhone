@@ -70,6 +70,7 @@ public class SelledServiceImpl implements SelledService {
 			profit.setProfit(selledPrice - purchase.getPurchasePrice());
 			profit.setCreateTime(new Date().getTime());
 			profit.setOperatorId(operatorId);
+			profit.setShopId(purchase.getShopId());
 			if (profitMapper.addProfit(profit) > 0) {
 				logger.info("addProfit Successed!");
 			}

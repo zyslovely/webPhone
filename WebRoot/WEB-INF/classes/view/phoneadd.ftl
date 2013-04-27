@@ -18,7 +18,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <table border="1" cellspacing="0px">
 <thead>
 <tr>
-<th width="150">手机型号</th><th width="150">手机条形码</th><th width="150">手机品牌</th><th width="150">进货价格</th><th width="150">计划卖出价格</th><th width="150">操作</th>
+<th width="150">手机型号</th><th width="150">手机条形码</th><th width="150">手机品牌</th><th width="150">进货价格</th><th width="150">计划卖出价格</th><th width="150">店铺ID</th><th width="150">操作</th>
 </tr>
 </thead>
 <tbody>
@@ -28,6 +28,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <th><input type="text" value="" name="brand"/></th>
 <th><input type="text" value="" name="purchasePrice"/></th>
 <th><input type="text" value="" name="DecideSellPrice"/></th>
+<th><input type="text" value="" name="shopId"/></th>
 <th><input type="submit" value="提交"/></th>
 </form>
 </tbody>
@@ -47,6 +48,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<th width="100">实际卖出价格</th>
 					<th width="150">卖出日期</th>
 					<th width="100">利润</th>
+					<th width="100">店铺ID</th>
 					<th width="操作">操作</th>
 				</tr>
 			</thead>
@@ -62,6 +64,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${phone.selledPrice!0}</td>
 					<td>${phone.selledTimeStr!""}</td>
 					<td>${phone.profit!0}</td>
+					<td>${phone.shopId!0}</td>
 					<td><a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId!""});">删除</a></td>
 				</tr>
 			    </#list>

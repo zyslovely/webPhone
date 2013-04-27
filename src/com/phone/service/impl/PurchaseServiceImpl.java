@@ -33,7 +33,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 */
 	@Override
 	public boolean addPurchase(String brand, String phoneCode,
-			String phoneModel, double purchasePrice, double DecideSellPrice) {
+			String phoneModel, double purchasePrice, double DecideSellPrice,
+			long shopId) {
 		Brand brand2 = new Brand();
 		brand2.setBrand(brand);
 		brandMapper.addBrand(brand2);
@@ -41,7 +42,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 		Purchase purchase = new Purchase();
 		purchase.setPhoneCode(phoneCode);
 
-		if (purchaseMapper.getPurchaseByPhoneCode(phoneCode) != null) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneCode", phoneCode);
+		hashMap.put("shopId", shopId);
+
+		if (purchaseMapper.getPurchaseByPhoneCode(hashMap) != null) {
 			return false;
 		}
 
@@ -51,6 +56,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		purchase.setDecideSellPrice(DecideSellPrice);
 		purchase.setCreateTime(new Date().getTime());
 		purchase.setStatus(Purchase.PurchaseStatus.NotSold.getValue());
+		purchase.setShopId(shopId);
 		if (purchaseMapper.addPurchase(purchase) > 0) {
 			return true;
 		}
