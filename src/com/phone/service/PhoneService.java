@@ -16,7 +16,7 @@ public interface PhoneService {
 	 * @param phoneModel
 	 * @return
 	 */
-	public List<Phone> getPhoneList(String phoneModel);
+	public List<Phone> getPhoneList(String phoneModel, int limit, int offset);
 
 	/**
 	 * 通过条形码获取

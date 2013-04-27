@@ -43,7 +43,7 @@ CREATE TABLE `TB_Phone_Brand` (
 CREATE TABLE `TB_Phone_Maintenance` (
   `id` bigint(20) NOT NULL DEFAULT '0' COMMENT 'id',
   `desc` varchar(512) NOT NULL DEFAULT '' COMMENT '保修描述',
-  `finishedTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '保修预计完成时间',,
+  `finishedTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '保修预计完成时间',
   `Price` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
   `Status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '当前状态,0保修中,1已完成保修,2记录删除',
   `CreateTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '创建时间',

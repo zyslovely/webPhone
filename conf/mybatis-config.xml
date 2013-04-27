@@ -6,11 +6,13 @@
 		<typeAlias alias="Selled" type="com.phone.meta.Selled" />
 		<typeAlias alias="Profit" type="com.phone.meta.Profit" />
 		<typeAlias alias="Brand" type="com.phone.meta.Brand" />
+		<typeAlias alias="Profile" type="com.phone.meta.Profile" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/phone/mapper/xml/PurchaseMapper.xml" />
 		<mapper resource="com/phone/mapper/xml/SelledMapper.xml" />
 		<mapper resource="com/phone/mapper/xml/ProfitMapper.xml" />
 		<mapper resource="com/phone/mapper/xml/BrandMapper.xml" />
+		<mapper resource="com/phone/mapper/xml/ProfileMapper.xml" />
 	</mappers>
 </configuration>

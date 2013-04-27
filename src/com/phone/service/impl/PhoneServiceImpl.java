@@ -1,6 +1,7 @@
 package com.phone.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,8 +47,12 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @see com.phone.service.PhoneService#getPhoneList(java.lang.String)
 	 */
 	@Override
-	public List<Phone> getPhoneList(String phoneModel) {
-		List<Purchase> purchaseList = purchaseMapper.getPurchaseList(phoneModel);
+	public List<Phone> getPhoneList(String phoneModel, int limit, int offset) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneModel", phoneModel);
+		hashMap.put("limit", limit);
+		hashMap.put("offset", offset);
+		List<Purchase> purchaseList = purchaseMapper.getPurchaseList(hashMap);
 		if (ListUtils.isEmptyList(purchaseList)) {
 			return null;
 		}
@@ -68,17 +73,21 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @param phoneIdList
 	 * @param purchaseliList
 	 */
-	private void addProfitInfo(List<Phone> phoneList, List<Long> phoneIdList, List<Purchase> purchaseList) {
+	private void addProfitInfo(List<Phone> phoneList, List<Long> phoneIdList,
+			List<Purchase> purchaseList) {
 		List<Selled> selledList = selledMapper.getSelledListByIds(phoneIdList);
-		Map<Long, Selled> selledMap = HashMapMaker.listToMap(selledList, "getPhoneid", Selled.class);
+		Map<Long, Selled> selledMap = HashMapMaker.listToMap(selledList,
+				"getPhoneid", Selled.class);
 		List<Profit> profitList = profitMapper.getProfitListByIds(phoneIdList);
-		Map<Long, Profit> profitMap = HashMapMaker.listToMap(profitList, "getPhoneid", Profit.class);
+		Map<Long, Profit> profitMap = HashMapMaker.listToMap(profitList,
+				"getPhoneid", Profit.class);
 		List<Long> brandIds = new ArrayList<Long>();
 		for (Purchase purchase : purchaseList) {
 			brandIds.add(purchase.getBrandId());
 		}
 		List<Brand> brandList = brandMapper.getBrandListByIds(brandIds);
-		Map<Long, Brand> brandMap = HashMapMaker.listToMap(brandList, "getId", Brand.class);
+		Map<Long, Brand> brandMap = HashMapMaker.listToMap(brandList, "getId",
+				Brand.class);
 		for (Purchase purchase : purchaseList) {
 			Phone phone = new Phone();
 			Selled selled = selledMap.get(purchase.getId());
