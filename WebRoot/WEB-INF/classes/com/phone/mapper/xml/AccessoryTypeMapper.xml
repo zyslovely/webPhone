@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phone.mapper.AccessoryTypeMapper">
+	<resultMap type="AccessoryType" id="accessoryTypeMap">
+		<id property="id" column="id" />
+		<result property="accessoryTypeName" column="accessoryTypeName" />
+	</resultMap>
+
+	<insert id="addAccessoryType" parameterType="AccessoryType">
+		INSERT INTO
+		TB_Accessory_Type(
+		accessoryTypeName
+		)VALUES(
+		#{accessoryTypeName}
+		)
+		<selectKey keyProperty="id" resultType="long">
+			SELECT
+			LAST_INSERT_ID() AS VALUE
+		</selectKey>
+	</insert>
+	
+</mapper>

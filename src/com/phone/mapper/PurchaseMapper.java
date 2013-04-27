@@ -3,8 +3,6 @@ package com.phone.mapper;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.phone.meta.Purchase;
 
 public interface PurchaseMapper {

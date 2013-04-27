@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.phone.meta.Purchase;
 import com.phone.meta.Purchase.PurchaseStatus;
+import com.phone.service.AccessoryService;
 import com.phone.service.PurchaseService;
 import com.phone.service.SelledService;
 
@@ -22,6 +23,9 @@ public class DwrWebPhoneBean {
 
 	@Resource
 	private SelledService selledService;
+
+	@Resource
+	private AccessoryService accessoryService;
 
 	/**
 	 * 删除手机
@@ -50,4 +54,36 @@ public class DwrWebPhoneBean {
 		return selledService.addSelled(phoneId, selledPrice, operatorId);
 	}
 
+	/**
+	 * 添加配件信息
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param name
+	 * @return
+	 */
+	public boolean addAccessoryInfo(String name) {
+		return accessoryService.addAccessoryInfo(name);
+	}
+
+	/**
+	 * 卖出配件
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param id
+	 * @return
+	 */
+	public boolean sellAccessory(long id, double soldPrice) {
+		return accessoryService.descCountAccessoryById(id, 1, soldPrice);
+	}
+
+	/**
+	 * 完全删除配件
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteAccessory(long id) {
+		return false;
+	}
 }
