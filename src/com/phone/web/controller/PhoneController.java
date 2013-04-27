@@ -172,8 +172,10 @@ public class PhoneController extends AbstractBaseController {
 				"startTime", 0L);
 		long endTime = ServletRequestUtils.getLongParameter(request, "endTime",
 				new Date().getTime());
+		long shopId = ServletRequestUtils.getLongParameter(request, "shopId",
+				0L);
 		List<Profit> profitList = profitService.getProfitList(startTime,
-				endTime);
+				endTime, shopId);
 		if (!ListUtils.isEmptyList(profitList)) {
 			List<Long> selledIdList = new ArrayList<Long>(profitList.size());
 			double saleTotal = 0, profitTotal = 0;

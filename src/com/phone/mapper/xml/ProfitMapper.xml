@@ -52,6 +52,7 @@
 		BETWEEN #{startTime}
 		AND
 		#{endTime}
+		and shopId = #{shopId}
 		order by profit desc;
 	</select>
 </mapper>

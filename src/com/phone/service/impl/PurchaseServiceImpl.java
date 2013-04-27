@@ -42,7 +42,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 		Purchase purchase = new Purchase();
 		purchase.setPhoneCode(phoneCode);
 
-		if (purchaseMapper.getPurchaseByPhoneCode(phoneCode) != null) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneCode", phoneCode);
+		hashMap.put("shopId", shopId);
+
+		if (purchaseMapper.getPurchaseByPhoneCode(hashMap) != null) {
 			return false;
 		}
 
