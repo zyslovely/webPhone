@@ -67,13 +67,14 @@
 		id =
 		#{phoneid};
 	</update>
-	<!-- where geohash like CONCAT('${geohash}','%') -->
-	<select id="getPurchaseByPhoneCode" parameterType="String"
+
+	<select id="getPurchaseByPhoneCode" parameterType="hashMap"
 		resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneCode
 		= #{phoneCode}
-		and 2> status;
+		and 2> status
+		and shopId = #{shopId};
 	</select>
 
 	<select id="getPurchaseListByPhoneModel" parameterType="String"

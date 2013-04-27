@@ -130,7 +130,7 @@ public class PhoneController extends AbstractBaseController {
 		List<Phone> phoneList = null;
 		int totalPage = 0;
 		if (!StringUtils.isEmpty(phoneCode)) {
-			phoneList = phoneService.getPhonesByPhoneCode(phoneCode);
+			phoneList = phoneService.getPhonesByPhoneCode(phoneCode, shopId);
 			if (phoneList.size() % limit > 0) {
 				totalPage = phoneList.size() / limit + 1;
 			}

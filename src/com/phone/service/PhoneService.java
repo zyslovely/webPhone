@@ -26,7 +26,7 @@ public interface PhoneService {
 	 * @param phoneCode
 	 * @return
 	 */
-	public List<Phone> getPhonesByPhoneCode(String phoneCode);
+	public List<Phone> getPhonesByPhoneCode(String phoneCode, long shopId);
 
 	/**
 	 * 通过phoneModel获得手机列表

@@ -123,8 +123,11 @@ public class PhoneServiceImpl implements PhoneService {
 	 * com.phone.service.PhoneService#getPhonesByPhoneCode(java.lang.String)
 	 */
 	@Override
-	public List<Phone> getPhonesByPhoneCode(String phoneCode) {
-		Purchase purchase = purchaseMapper.getPurchaseByPhoneCode(phoneCode);
+	public List<Phone> getPhonesByPhoneCode(String phoneCode, long shopId) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneCode", phoneCode);
+		hashMap.put("shopId", shopId);
+		Purchase purchase = purchaseMapper.getPurchaseByPhoneCode(hashMap);
 		List<Purchase> purchaseList = new ArrayList<Purchase>();
 		purchaseList.add(purchase);
 		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());
