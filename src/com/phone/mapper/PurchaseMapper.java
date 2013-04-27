@@ -49,4 +49,13 @@ public interface PurchaseMapper {
 	 * @return
 	 */
 	public Purchase getPurchaseByPhoneCode(String phoneCode);
+
+	/**
+	 * 通过phoneModel查找Purchase
+	 * 
+	 * @param phoneModel
+	 * @return
+	 */
+	public List<Purchase> getPurchaseListByPhoneModel(
+			@Param(value = "phoneModel") String phoneModel);
 }

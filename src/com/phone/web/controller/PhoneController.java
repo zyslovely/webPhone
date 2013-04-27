@@ -2,6 +2,7 @@ package com.phone.web.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -58,15 +59,17 @@ public class PhoneController extends AbstractBaseController {
 				"purchasePrice", 0.00);
 		double DecideSellPirce = ServletRequestUtils.getDoubleParameter(
 				request, "DecideSellPrice", 0.00);
+		long shopId = ServletRequestUtils
+				.getLongParameter(request, "shopId", 0);
 		ModelAndView mv = new ModelAndView("phoneadd");
 		if (StringUtils.isEmpty(phoneCode)) {
 			return mv;
 		}
 		if (purchaseService.addPurchase(brand, phoneCode, phoneModel,
-				purchasePrice, DecideSellPirce)) {
+				purchasePrice, DecideSellPirce, shopId)) {
 			try {
 				response.sendRedirect("/purchase/add/show/?phoneModel="
-						+ phoneModel + "&phoneCode=" + phoneCode);
+						+ phoneModel + "&phoneCode=" + phoneCode + "&shopId=1");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -90,11 +93,13 @@ public class PhoneController extends AbstractBaseController {
 				"phoneModel", "");
 		String phoneCode = ServletRequestUtils.getStringParameter(request,
 				"phoneCode", "");
-		int limit = ServletRequestUtils.getIntParameter(request, "limit", 0);
+		int limit = ServletRequestUtils.getIntParameter(request, "limit", 20);
 		int offset = ServletRequestUtils.getIntParameter(request, "offset", 0);
+		long shopId = ServletRequestUtils.getLongParameter(request, "shopId",
+				0L);
 		if (!StringUtils.isEmpty(phoneModel)) {
 			List<Phone> phoneList = phoneService.getPhoneList(phoneModel,
-					limit, offset);
+					shopId, limit, offset);
 			mv.addObject("phoneModel", phoneModel);
 			mv.addObject("phoneModelCount", phoneList.size());
 			mv.addObject("phoneList", phoneList);
@@ -117,19 +122,37 @@ public class PhoneController extends AbstractBaseController {
 				"phoneModel", "");
 		String phoneCode = ServletRequestUtils.getStringParameter(request,
 				"phoneCode", "");
-		int limit = ServletRequestUtils.getIntParameter(request, "limit", 0);
-		int offset = ServletRequestUtils.getIntParameter(request, "offset", 0);
+		int limit = ServletRequestUtils.getIntParameter(request, "limit", 20);
+		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
+		long shopId = ServletRequestUtils.getLongParameter(request, "shopId",
+				0L);
+		int offset = toPage * limit;
 		List<Phone> phoneList = null;
+		int totalPage = 0;
 		if (!StringUtils.isEmpty(phoneCode)) {
 			phoneList = phoneService.getPhonesByPhoneCode(phoneCode);
+			if (phoneList.size() % limit > 0) {
+				totalPage = phoneList.size() / limit + 1;
+			}
+			totalPage = phoneList.size() / limit;
 		} else if (!StringUtils.isEmpty(phoneModel)) {
-			phoneList = phoneService.getPhoneList(phoneModel, limit, offset);
+			phoneList = phoneService.getPhoneList(phoneModel, shopId, limit,
+					offset);
+			List<Phone> allPhoneList = phoneService
+					.getPhoneListByPhoneModel(phoneModel);
+			if (allPhoneList.size() % limit > 0) {
+				totalPage = allPhoneList.size() / limit + 1;
+			}
+			totalPage = allPhoneList.size() / limit;
 		}
 		if (!ListUtils.isEmptyList(phoneList)) {
 			mv.addObject("phoneTotalCount",
 					ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
 			mv.addObject("phoneModel", phoneModel);
 			mv.addObject("phoneList", phoneList);
+			mv.addObject("extPage", toPage - 1);
+			mv.addObject("nextPage", toPage + 1);
+			mv.addObject("totalPage", totalPage);
 		}
 		return mv;
 	}
@@ -148,7 +171,7 @@ public class PhoneController extends AbstractBaseController {
 		long startTime = ServletRequestUtils.getLongParameter(request,
 				"startTime", 0L);
 		long endTime = ServletRequestUtils.getLongParameter(request, "endTime",
-				0L);
+				new Date().getTime());
 		List<Profit> profitList = profitService.getProfitList(startTime,
 				endTime);
 		if (!ListUtils.isEmptyList(profitList)) {
@@ -181,5 +204,4 @@ public class PhoneController extends AbstractBaseController {
 			HttpServletResponse response) {
 		return new ModelAndView("phoneIndex");
 	}
-
 }

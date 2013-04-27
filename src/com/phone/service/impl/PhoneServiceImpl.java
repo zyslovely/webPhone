@@ -47,9 +47,11 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @see com.phone.service.PhoneService#getPhoneList(java.lang.String)
 	 */
 	@Override
-	public List<Phone> getPhoneList(String phoneModel, int limit, int offset) {
+	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit,
+			int offset) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneModel", phoneModel);
+		hashMap.put("shopId", shopId);
 		hashMap.put("limit", limit);
 		hashMap.put("offset", offset);
 		List<Purchase> purchaseList = purchaseMapper.getPurchaseList(hashMap);
@@ -128,6 +130,24 @@ public class PhoneServiceImpl implements PhoneService {
 		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());
 		phoneIdList.add(purchase.getId());
 
+		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
+		this.addProfitInfo(phoneList, phoneIdList, purchaseList);
+		return phoneList;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.phone.service.PhoneService#getPhoneListByPhoneModel(java.lang.String)
+	 */
+	public List<Phone> getPhoneListByPhoneModel(String phoneModel) {
+		List<Purchase> purchaseList = purchaseMapper
+				.getPurchaseListByPhoneModel(phoneModel);
+		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());
+		for (Purchase purchase : purchaseList) {
+			phoneIdList.add(purchase.getId());
+		}
 		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
 		this.addProfitInfo(phoneList, phoneIdList, purchaseList);
 		return phoneList;

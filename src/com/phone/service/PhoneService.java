@@ -10,13 +10,14 @@ import com.phone.meta.Phone;
  */
 public interface PhoneService {
 	/**
-	 * 通过phoneModel获得手机列表
+	 * 通过phoneModel有限制获得手机列表
 	 * 
 	 * @auther zyslovely@gmail.com
 	 * @param phoneModel
 	 * @return
 	 */
-	public List<Phone> getPhoneList(String phoneModel, int limit, int offset);
+	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit,
+			int offset);
 
 	/**
 	 * 通过条形码获取
@@ -26,4 +27,12 @@ public interface PhoneService {
 	 * @return
 	 */
 	public List<Phone> getPhonesByPhoneCode(String phoneCode);
+
+	/**
+	 * 通过phoneModel获得手机列表
+	 * 
+	 * @param phoneModel
+	 * @return
+	 */
+	public List<Phone> getPhoneListByPhoneModel(String phoneModel);
 }

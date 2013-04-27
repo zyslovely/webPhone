@@ -49,6 +49,11 @@ public class Profit implements Serializable {
 	 */
 	private int operatorId;
 
+	/**
+	 * 店铺id
+	 */
+	private long shopId;
+
 	public long getPhoneid() {
 		return phoneid;
 	}
@@ -103,5 +108,13 @@ public class Profit implements Serializable {
 
 	public void setOperatorId(int operatorId) {
 		this.operatorId = operatorId;
+	}
+
+	public long getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(long shopId) {
+		this.shopId = shopId;
 	}
 }

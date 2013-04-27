@@ -17,7 +17,8 @@ public interface PurchaseService {
 	 * @param DecideSellPirce
 	 */
 	public boolean addPurchase(String brand, String phoneCode,
-			String phoneModel, double purchasePrice, double DecideSellPirce);
+			String phoneModel, double purchasePrice, double DecideSellPirce,
+			long shopId);
 
 	/**
 	 * 通过phoneid查找Purchase

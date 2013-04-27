@@ -10,6 +10,7 @@
 		<result property="DecideSellPrice" column="DecideSellPrice" />
 		<result property="CreateTime" column="CreateTime" />
 		<result property="Status" column="Status" />
+		<result property="shopId" column="shopId" />
 	</resultMap>
 
 	<insert id="addPurchase" parameterType="Purchase">
@@ -21,7 +22,8 @@
 		purchasePrice,
 		DecideSellPrice,
 		CreateTime,
-		Status
+		Status,
+		shopId
 		)VALUES(
 		#{brandId},
 		#{phoneCode},
@@ -29,7 +31,8 @@
 		#{purchasePrice},
 		#{DecideSellPrice},
 		#{CreateTime},
-		#{Status}
+		#{Status},
+		#{shopId}
 		)
 		<selectKey keyProperty="id" resultType="long">
 			SELECT
@@ -40,10 +43,13 @@
 	<select id="getPurchaseList" parameterType="hashMap" resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneModel like
-		CONCAT('${phoneModel}','%') and 2> status
+		CONCAT('${phoneModel}','%') and 2> status and shopId = #{shopId}
+		order
+		by
+		CreateTime desc
 		limit #{limit}
-		offset #{offset}
-		order by createtime desc;
+		offset
+		#{offset};
 	</select>
 
 	<select id="getPurchase" parameterType="long" resultMap="purchaseMap">
@@ -61,12 +67,21 @@
 		id =
 		#{phoneid};
 	</update>
-
+	<!-- where geohash like CONCAT('${geohash}','%') -->
 	<select id="getPurchaseByPhoneCode" parameterType="String"
 		resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneCode
 		= #{phoneCode}
+		and 2> status;
+	</select>
+
+	<select id="getPurchaseListByPhoneModel" parameterType="String"
+		resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase
+		WHERE phoneModel
+		=
+		#{phoneModel}
 		and 2> status;
 	</select>
 </mapper>
