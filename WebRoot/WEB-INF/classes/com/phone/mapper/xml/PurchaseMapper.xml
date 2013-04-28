@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phone.mapper.PurchaseMapper">
+	<resultMap type="Purchase" id="purchaseMap">
+		<id property="id" column="id" />
+		<result property="brandId" column="brandId" />
+		<result property="phoneCode" column="phoneCode" />
+		<result property="phoneModel" column="phoneModel" />
+		<result property="purchasePrice" column="purchasePrice" />
+		<result property="DecideSellPrice" column="DecideSellPrice" />
+		<result property="CreateTime" column="CreateTime" />
+		<result property="Status" column="Status" />
+		<result property="shopId" column="shopId" />
+	</resultMap>
+
+	<insert id="addPurchase" parameterType="Purchase">
+		INSERT INTO
+		TB_Phone_Purchase(
+		brandId,
+		phoneCode,
+		phoneModel,
+		purchasePrice,
+		DecideSellPrice,
+		CreateTime,
+		Status,
+		shopId
+		)VALUES(
+		#{brandId},
+		#{phoneCode},
+		#{phoneModel},
+		#{purchasePrice},
+		#{DecideSellPrice},
+		#{CreateTime},
+		#{Status},
+		#{shopId}
+		)
+		<selectKey keyProperty="id" resultType="long">
+			SELECT
+			LAST_INSERT_ID() AS VALUE
+		</selectKey>
+	</insert>
+
+	<select id="getPurchaseList" parameterType="hashMap" resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase
+		WHERE phoneModel like
+		CONCAT('${phoneModel}','%') and 2> status and shopId = #{shopId}
+		order
+		by
+		CreateTime desc
+		limit #{limit}
+		offset
+		#{offset};
+	</select>
+
+	<select id="getPurchase" parameterType="long" resultMap="purchaseMap">
+		SELECT *
+		from TB_Phone_Purchase
+		WHERE id=#{phoneid} and 2> status;
+	</select>
+
+	<update id="updatePurchase" parameterType="hashMap" flushCache="true"
+		statementType="PREPARED">
+		UPDATE
+		TB_Phone_Purchase
+		set Status=#{Status}
+		WHERE
+		id =
+		#{phoneid};
+	</update>
+
+	<select id="getPurchaseByPhoneCode" parameterType="hashMap"
+		resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase
+		WHERE phoneCode
+		= #{phoneCode}
+		and 2> status
+		and shopId = #{shopId};
+	</select>
+
+	<select id="getPurchaseListByPhoneModel" parameterType="String"
+		resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase
+		WHERE phoneModel
+		=
+		#{phoneModel}
+		and 2> status;
+	</select>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phone.mapper.ProfitMapper">
+	<resultMap type="Profit" id="profitMap">
+		<id property="phoneid" column="phoneid" />
+		<result property="purchasePrice" column="purchasePrice" />
+		<result property="DecideSellPrice" column="DecideSellPrice" />
+		<result property="SelledPrice" column="SelledPrice" />
+		<result property="profit" column="profit" />
+		<result property="CreateTime" column="CreateTime" />
+		<result property="shopId" column="shopId" />
+	</resultMap>
+
+	<insert id="addProfit" parameterType="Profit">
+		INSERT INTO
+		TB_Phone_Profit(
+		phoneid,
+		purchasePrice,
+		DecideSellPrice,
+		SelledPrice,
+		profit,
+		CreateTime,
+		shopId
+		)VALUES(
+		#{phoneid},
+		#{purchasePrice},
+		#{DecideSellPrice},
+		#{SelledPrice},
+		#{profit},
+		#{CreateTime},
+		#{shopId}
+		)
+	</insert>
+
+	<select id="getProfitListByIds" resultMap="profitMap"
+		parameterType="list">
+		SELECT * from TB_Phone_Profit where
+		phoneid in
+		<foreach item="item" collection="phoneidList" index="index"
+			open="(" separator="," close=")">
+			#{item} 
+	     </foreach>
+	</select>
+
+	<select id="getProfit" resultMap="profitMap" parameterType="long">
+		SELECT * from TB_Phone_Profit where phoneid=#{phoneid};
+	</select>
+
+	<select id="getProfitList" resultMap="profitMap" parameterType="hashMap">
+		SELECT * from TB_Phone_Profit
+		WHERE CreateTime
+		BETWEEN #{startTime}
+		AND
+		#{endTime}
+		and shopId = #{shopId}
+		order by profit desc;
+	</select>
+</mapper>
