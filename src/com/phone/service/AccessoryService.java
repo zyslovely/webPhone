@@ -28,7 +28,8 @@ public interface AccessoryService {
 	 * @param accessoryInfoId
 	 * @return
 	 */
-	public boolean addAccessory(String name, int count, long accessoryInfoId, double unitPrice);
+	public boolean addAccessory(String name, int count, long accessoryInfoId,
+			double unitPrice);
 
 	/**
 	 * 卖出配件
@@ -36,7 +37,8 @@ public interface AccessoryService {
 	 * @auther zyslovely@gmail.com
 	 * @return
 	 */
-	public boolean descCountAccessoryById(long id, int count, double soldPrice);
+	public boolean descCountAccessoryById(long id, int count, double soldPrice,
+			long shopId);
 
 	/**
 	 * 获取所有配件类型
@@ -53,7 +55,7 @@ public interface AccessoryService {
 	 * @param id
 	 * @return
 	 */
-	public Accessory getAccessoryById(long id);
+	public Accessory getAccessoryById(long id, long shopId);
 
 	/**
 	 * 获取配件列表
@@ -65,7 +67,8 @@ public interface AccessoryService {
 	 * @param accessoryInfoId
 	 * @return
 	 */
-	public List<Accessory> getAccessoryList(String name, int limit, int offset, long accessoryInfoId);
+	public List<Accessory> getAccessoryList(String name, long shopId,
+			int limit, int offset, long accessoryInfoId);
 
 	/**
 	 * 获取配件数量
@@ -75,5 +78,5 @@ public interface AccessoryService {
 	 * @param accessoryInfoId
 	 * @return
 	 */
-	public int getAccessoryCount(String name, long accessoryInfoId);
+	public int getAccessoryCount(String name, long accessoryInfoId, long shopId);
 }

@@ -10,7 +10,7 @@
 		<result property="lastUpdateTime" column="lastUpdateTime" />
 		<result property="accessoryInfoId" column="accessoryInfoId" />
 		<result property="accessoryTypeId" column="accessoryTypeId" />
-
+		<result property="shopId" column="shopId" />
 	</resultMap>
 
 	<insert id="addAccessory" parameterType="Accessory">
@@ -22,7 +22,8 @@
 		createTime,
 		lastUpdateTime,
 		accessoryInfoId,
-		accessoryTypeId
+		accessoryTypeId,
+		shopId
 		)VALUES(
 		#{name},
 		#{count},
@@ -30,7 +31,8 @@
 		#{createTime},
 		#{lastUpdateTime},
 		#{accessoryInfoId},
-		#{accessoryTypeId}
+		#{accessoryTypeId},
+		#{shopId}
 		)
 		<selectKey keyProperty="id" resultType="long">
 			SELECT
@@ -41,12 +43,12 @@
 	<select id="getAccessoryByInfoId" resultMap="accessoryMap">
 		SELECT * from
 		TB_Accessory where accessoryInfoId=#{accessoryInfoId} and name =
-		'#{name}';
+		'#{name}' and shopId=#{shopId};
 	</select>
 
 	<select id="getAccessoryById" resultMap="accessoryMap">
 		SELECT * from
-		TB_Accessory where id=#{id};
+		TB_Accessory where id=#{id} and shopId=#{shopId};
 	</select>
 
 	<update id="updateAccessoryByid" flushCache="true"
@@ -58,7 +60,7 @@
 		count =#{count}
 		WHERE
 		id =
-		#{id};
+		#{id} and shopId=#{shopId};
 	</update>
 
 	<select id="getAccessoryList" resultMap="accessoryMap">
@@ -68,9 +70,12 @@
 		CONCAT('%','${name}','%') and
 		accessoryInfoId
 		=#{accessoryInfoId}
-		order by createtime
+		and shopId=#{shopId}
+		order by
+		createtime
 		desc
-		limit #{limit}
+		limit
+		#{limit}
 		offset
 		#{offset} 
 		
@@ -82,6 +87,6 @@
 		TB_Accessory WHERE name like
 		CONCAT('${name}','%') and
 		accessoryInfoId
-		=#{accessoryInfoId};
+		=#{accessoryInfoId} and shopId=#{shopId};
 	</select>
 </mapper>

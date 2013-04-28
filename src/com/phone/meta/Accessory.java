@@ -21,6 +21,7 @@ public class Accessory implements Serializable {
 	private long lastUpdateTime;
 	private long accessoryTypeId;
 	private long accessoryInfoId;
+	private long shopId;
 	/**
 	 * 不存数据库
 	 */
@@ -98,5 +99,12 @@ public class Accessory implements Serializable {
 		this.accessoryInfoName = accessoryInfoName;
 	}
 
+	public long getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(long shopId) {
+		this.shopId = shopId;
+	}
 
 }

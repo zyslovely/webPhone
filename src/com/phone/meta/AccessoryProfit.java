@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @version CreateTime：2013-4-27 下午08:53:08
  * @see Class Description
  */
-public class AccessoryProfit implements Serializable{
+public class AccessoryProfit implements Serializable {
 
 	/**
 	 * 
@@ -20,6 +20,7 @@ public class AccessoryProfit implements Serializable{
 	private double profit;
 	private long createTime;
 	private long operatorId;
+	private long shopId;
 
 	public long getAccessoryid() {
 		return accessoryid;
@@ -75,6 +76,14 @@ public class AccessoryProfit implements Serializable{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public long getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(long shopId) {
+		this.shopId = shopId;
 	}
 
 }
