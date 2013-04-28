@@ -26,6 +26,7 @@ public class ProfileServiceImpl implements ProfileService {
 	 * @see com.phone.service.ProfileService#addProfile(java.lang.String,
 	 * java.lang.String, int)
 	 */
+	@Override
 	public boolean addProfile(String UserName, String Password, int level) {
 		if (UserName == null || Password == null || level < 0) {
 			return false;
@@ -46,6 +47,7 @@ public class ProfileServiceImpl implements ProfileService {
 	 * 
 	 * @see com.phone.service.ProfileService#getProfile(long)
 	 */
+	@Override
 	public List<Profile> getProfile(long UserId) {
 		Profile profile = profileMapper.getProfile(UserId);
 		if (profile.getLevel() != Profile.ProfileLevel.Manager.getValue()) {

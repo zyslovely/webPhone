@@ -68,6 +68,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * 
 	 * @see com.phone.service.PurchaseService#getPurchase(long)
 	 */
+	@Override
 	public Purchase getPurchase(long phoneid) {
 		return purchaseMapper.getPurchase(phoneid);
 	}
@@ -77,6 +78,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * 
 	 * @see com.phone.service.PurchaseService#deletePurchase(long, int)
 	 */
+	@Override
 	public boolean deletePurchase(long phoneid) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", phoneid);

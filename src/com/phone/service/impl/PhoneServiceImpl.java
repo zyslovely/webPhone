@@ -144,6 +144,7 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @see
 	 * com.phone.service.PhoneService#getPhoneListByPhoneModel(java.lang.String)
 	 */
+	@Override
 	public List<Phone> getPhoneListByPhoneModel(String phoneModel) {
 		List<Purchase> purchaseList = purchaseMapper
 				.getPurchaseListByPhoneModel(phoneModel);

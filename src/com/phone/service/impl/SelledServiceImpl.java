@@ -77,10 +77,12 @@ public class SelledServiceImpl implements SelledService {
 		}
 	}
 
+	@Override
 	public Selled getSelled(long phoneid) {
 		return selledMapper.getSelled(phoneid);
 	}
 
+	@Override
 	public List<Selled> getSelledList(List<Long> selledIdList) {
 		return selledMapper.getSelledListByIds(selledIdList);
 	}
