@@ -20,6 +20,10 @@ public class Profile implements Serializable {
 	 */
 	private String UserName;
 	/**
+	 * 名字
+	 */
+	private String name;
+	/**
 	 * 账户密码
 	 */
 	private String Password;
@@ -31,6 +35,10 @@ public class Profile implements Serializable {
 	 * 账户等级，0为店员，1为店长
 	 */
 	private int level;
+	/**
+	 * 店铺id
+	 */
+	private long shopId;
 
 	public enum ProfileLevel {
 		/**
@@ -101,4 +109,21 @@ public class Profile implements Serializable {
 	public void setLevel(int level) {
 		this.level = level;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public long getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(long shopId) {
+		this.shopId = shopId;
+	}
+
 }

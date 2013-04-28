@@ -107,6 +107,8 @@ CREATE TABLE TB_Profile (
 UserId bigint(20) NOT NULL  AUTO_INCREMENT  COMMENT '用户id',
 UserName varchar(64) NOT NULL DEFAULT '' COMMENT '用户名',
 Password varchar(64) NOT NULL DEFAULT '' COMMENT '密码',
+Name varchar(64) NOT NULL DEFAULT '' COMMENT '店员名字',
+shopId bigint(20) NOT NULL default '0' COMMENT '所属店的id',
 CreateTime bigint(20) NOT NULL default '0' COMMENT '创建时间',
 level int(11) NOT NULL DEFAULT '0' COMMENT '用户登录等级.0是店员,1店长',
 PRIMARY KEY  (`UserId`)

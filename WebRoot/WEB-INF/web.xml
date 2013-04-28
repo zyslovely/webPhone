@@ -8,7 +8,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath:applicationContext-phonecore-dao.xml
-			classpath:SpringSecurity.xml
+			<!-- classpath:SpringSecurity.xml  -->
 		</param-value>
 	</context-param>
 	<listener>

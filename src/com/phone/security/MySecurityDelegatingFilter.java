@@ -3,6 +3,7 @@ package com.phone.security;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -15,9 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.bind.ServletRequestUtils;
+
+import com.phone.mapper.ProfileMapper;
+import com.phone.meta.Profile;
 
 /**
  * @author zhengyisheng E-mail:zhengyisheng@gmail.com
@@ -33,6 +38,9 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 	private static final PathMatcher urlMatcher = new AntPathMatcher();
 
 	public static ConcurrentHashMap<String, MyUser> userMap = new ConcurrentHashMap<String, MyUser>();
+
+	// @Resource
+	// private ProfileMapper profileMapper;
 	/**
 	 * 
 	 */
@@ -61,16 +69,21 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 			if (actionName != null && actionName.equals("login")) {
 				String userName = ServletRequestUtils.getStringParameter(httpRequest, "username", null);
 				String passWord = ServletRequestUtils.getStringParameter(httpRequest, "password", null);
-				if (userName.equals("zys") && passWord.equals("123")) {
+				ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext-phonecore-dao.xml");
+				ProfileMapper profileMapper = (ProfileMapper) ctx.getBean("profileMapper");
+				Profile profile = profileMapper.getProfileByUserName(userName);
+				if (profile != null && profile.getPassword().equals(passWord)) {
 					MyUser myUser = new MyUser();
-					myUser.setUserId(1L);
+					myUser.setUserId(profile.getUserId());
 					myUser.setSessionStr(httpRequest.getSession().getId());
-					myUser.setShopId(1L);
+					myUser.setShopId(profile.getShopId());
 					userMap.put(httpRequest.getSession().getId(), myUser);
 					arg2.doFilter(request, response);
 					return;
 				} else {
 					logger.error("账号密码失败");
+					httpResponse.sendRedirect("/");
+					return;
 				}
 			}
 		}
@@ -80,8 +93,11 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 			String sessionId = httpRequest.getSession().getId();
 			MyUser myUser = userMap.get(sessionId);
 			if (myUser == null) {
+				logger.error("找不到用户，说明用户不没登陆，返回到最初页面");
+				httpResponse.sendRedirect("/");
+				return;
 				// 做一个重定向
-				throw new ServletException("用户操作失败，需要重新登陆");
+
 			}
 		}
 		arg2.doFilter(request, response);

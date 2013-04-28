@@ -2,6 +2,8 @@ package com.phone.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.phone.meta.Profile;
 
 /**
@@ -25,6 +27,15 @@ public interface ProfileMapper {
 	 * @return
 	 */
 	public Profile getProfile(long UserId);
+
+	/**
+	 * 通过用户名获取
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param userName
+	 * @return
+	 */
+	public Profile getProfileByUserName(@Param(value="userName")String userName);
 
 	/**
 	 * 获取账户列表
