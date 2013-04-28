@@ -19,43 +19,34 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <#if profitList?exists>
 <p>
    <span style="color:red">当前第${nowPage+1!0}页，总共${totalPage!0}页</span>。
-   <#if extPage+1 gt 0><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${extPage!0}">上一页</a></#if>
-   <#if extPage lt totalPage-2><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${nextPage!0}">下一页</a></#if>
+   <#if extPage+1 gt 0><a href="/profit/list/?startTimeString=${}&endTimeString=${}&shopId=${}">上一页</a></#if>
+   <#if extPage lt totalPage-2><a href="/profit/list/?startTimeString=${}&endTimeString=${}&shopId=${}">下一页</a></#if>
 </p>
-   <table id="phone_list_tb" >
+   <table id="profit_list_tb" >
 			<thead>
 				<tr>
-				    <th width="100">品牌</th>
-					<th width="100">手机型号</th>
-					<th width="150">手机编码</th>
-					<th width="100">进货价格</th>
-					<th width="150">进货日期</th>
-					<th width="100">计划卖出价格</th>
-					<th width="100"">是否已经卖出</th>
+				    <th width="100">phoneid</th>
+					<th width="100">购入价格</th>
+					<th width="150">计划卖出价格</th>
 					<th width="100">实际卖出价格</th>
-					<th width="150">卖出日期</th>
-					<th width="100">利润</th>
-					<th width="操作">操作</th>
+					<th width="150">利润</th>
+					<th width="100">记录创建时间</th>
+					<th width="100"">操作人ID</th>
+					<th width="100">店铺ID</th>
 				</tr>
 			</thead>
 			<tbody>
 			
-			   <#list phoneList as phone>
+			   <#list profitList as profit>
 				<tr >
-				    <td>${phone.brand!""}</td>
-					<td>${phone.phoneModel!""}</td>
-					<td>${phone.phoneCode!""}</td>
-					<td>${phone.purchasePrice!0}</td>
-					<td>${phone.purchaseTimeStr!""}</td>
-					<td>${phone.decideSellPrice!0}</td>
-					<td><#if phone.status == 0><span style="color:green">没有卖出</span><#elseif phone.status == 1><span style="color:red">已卖出</span></#if></td>
-					<td>${phone.selledPrice!0}</td>
-					<td>${phone.selledTimeStr!0}</td>
-					<td>${phone.profit!0}</td>
-					<td>
-					   <a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a>
-					   <a href="javascript:void(0);"  onClick="phoneSell(${phone.phoneId},${phone.purchasePrice!0});">卖出</a>
-					</td>
+				    <td>${profit.phoneid!0}</td>
+					<td>${profit.purchasePrice!0}</td>
+					<td>${profit.DecideSellPrice!0}</td>
+					<td>${profit.SelledPrice!0}</td>
+					<td>${profit.profit!0}</td>
+					<td>${profit.CreateTime!0}</td>
+					<td>${profit.operatorId!0}</td>
+					<td>${profit.shopId!0}</td>
 				</tr>
 			    </#list>
 
