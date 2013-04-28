@@ -17,16 +17,28 @@
 	<!-- spring security -->
 	<!-- <filter> -->
 	<!-- <filter-name>springSecurityFilterChain</filter-name> -->
-	<!-- <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> -->
+	<!--
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	-->
 	<!-- </filter> -->
 	<!-- <filter-mapping> -->
 	<!-- <filter-name>springSecurityFilterChain</filter-name> -->
 	<!-- <url-pattern>/*</url-pattern> -->
 	<!-- </filter-mapping> -->
 	<!-- <listener> -->
-	<!-- <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> -->
+	<!--
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	-->
 	<!-- </listener> -->
 
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>com.phone.security.MySecurityDelegatingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<!-- DWR Invoker Servlet -->
 	<servlet>
 		<servlet-name>dwr-invoker</servlet-name>

@@ -16,11 +16,11 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <form action="/login/">
 <div>
 <span>管理员账号:</span>
-<input type="text" value="" name="j_username"/>
+<input type="text" value="" name="username"/>
 </div>
 <div>
 <span>管理员密码:</span>
-<input type="text" value="" name="j_password"/>
+<input type="text" value="" name="password"/>
 <input type="checkbox" name="_spring_security_remember_me" />两周之内不必登陆<br/>
 
 <input type="submit" value="登录"/> 

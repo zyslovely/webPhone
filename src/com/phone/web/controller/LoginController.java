@@ -22,6 +22,8 @@ public class LoginController extends AbstractBaseController {
 	 * @return
 	 */
 	public ModelAndView showIndex(HttpServletRequest request, HttpServletResponse response) {
+		logger.info(request.getSession().getId());
+		//如果已经登陆，直接重定向
 		return new ModelAndView("webIndex");
 	}
 
@@ -34,6 +36,7 @@ public class LoginController extends AbstractBaseController {
 	 * @return
 	 */
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+		logger.info(request.getSession().getId());
 		return new ModelAndView("phoneIndex");
 	}
 }
