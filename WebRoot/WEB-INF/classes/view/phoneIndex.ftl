@@ -15,6 +15,8 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 
 <h3 style="margin-top:20px;font-size:20px;"><a href="/purchase/add/show/">添加手机信息</a></h3>
 <h3 style="margin-top:20px;font-size:20px;"><a href="/phone/list/">手机查询\卖出</a></h3>
+<h3 style="margin-top:20px;font-size:20px;"><a href="/accessory/add/show/">添加配件信息</a></h3>
+<h3 style="margin-top:20px;font-size:20px;"><a href="/accessory/list/">配件查询\卖出</a></h3>
 <h3 style="margin-top:20px;font-size:20px;"><a href="/profile/list/">利润查询</a></h3>
 <h3 style="margin-top:20px;font-size:20px;"><a href="/profile/list/">保修查询</a></h3>
 

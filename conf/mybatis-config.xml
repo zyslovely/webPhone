@@ -7,6 +7,12 @@
 		<typeAlias alias="Profit" type="com.phone.meta.Profit" />
 		<typeAlias alias="Brand" type="com.phone.meta.Brand" />
 		<typeAlias alias="Profile" type="com.phone.meta.Profile" />
+		<typeAlias alias="Accessory" type="com.phone.meta.Accessory" />
+		<typeAlias alias="AccessoryInfo" type="com.phone.meta.AccessoryInfo" />
+		<typeAlias alias="AccessoryType" type="com.phone.meta.AccessoryType" />
+		<typeAlias alias="AccessorySold" type="com.phone.meta.AccessorySold" />
+		<typeAlias alias="AccessoryProfit" type="com.phone.meta.AccessoryProfit" />
+
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/phone/mapper/xml/PurchaseMapper.xml" />
@@ -14,5 +20,10 @@
 		<mapper resource="com/phone/mapper/xml/ProfitMapper.xml" />
 		<mapper resource="com/phone/mapper/xml/BrandMapper.xml" />
 		<mapper resource="com/phone/mapper/xml/ProfileMapper.xml" />
+		<mapper resource="com/phone/mapper/xml/AccessoryMapper.xml" />
+		<mapper resource="com/phone/mapper/xml/AccessoryInfoMapper.xml" />
+		<mapper resource="com/phone/mapper/xml/AccessoryTypeMapper.xml" />
+		<mapper resource="com/phone/mapper/xml/AccessorySoldMapper.xml" />
+		<mapper resource="com/phone/mapper/xml/AccessoryProfitMapper.xml" />
 	</mappers>
 </configuration>

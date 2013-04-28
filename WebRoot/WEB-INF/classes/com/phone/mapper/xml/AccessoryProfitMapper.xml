@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phone.mapper.AccessoryProfitMapper">
+	<resultMap type="AccessoryProfit" id="accessoryProfitMap">
+		<id property="id" column="id" />
+		<result property="accessoryid" column="accessoryid" />
+		<result property="purchasePrice" column="purchasePrice" />
+		<result property="soldPrice" column="soldPrice" />
+		<result property="profit" column="profit" />
+		<result property="lastUpdateTime" column="lastUpdateTime" />
+		<result property="accessoryInfoId" column="accessoryInfoId" />
+		<result property="accessoryTypeId" column="accessoryTypeId" />
+
+	</resultMap>
+
+	<insert id="addAccessory" parameterType="AccessoryProfit">
+		INSERT INTO
+		TB_Accessory(
+		name,
+		count,
+		createTime,
+		lastUpdateTime,
+		accessoryInfoId,
+		accessoryTypeId
+		)VALUES(
+		#{name},
+		#{count},
+		#{createTime},
+		#{lastUpdateTime},
+		#{accessoryInfoId},
+		#{accessoryTypeId},
+		)
+		<selectKey keyProperty="id" resultType="long">
+			SELECT
+			LAST_INSERT_ID() AS VALUE
+		</selectKey>
+	</insert>
+
+</mapper>

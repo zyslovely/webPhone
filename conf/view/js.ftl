@@ -15,5 +15,13 @@
     	   <script type="text/javascript" src="/js/flexigrid/flexigrid.js" charset="utf-8"></script>
     	   <script type="text/javascript" src="/js/phonelist.js" charset="utf-8"></script>
     	<#break>
+    	<#case "accessoryList">
+    	   <script type="text/javascript" src="/js/flexigrid/flexigrid.js" charset="utf-8"></script>
+    	   <script type="text/javascript" src="/js/phonelist.js" charset="utf-8"></script>
+    	<#break>
+    	<#case "accessoryadd">
+    	   <script type="text/javascript" src="/js/flexigrid/flexigrid.js" charset="utf-8"></script>
+    	   <script type="text/javascript" src="/js/accessoryadd.js" charset="utf-8"></script>
+    	<#break>
     </#switch>
 </#if>

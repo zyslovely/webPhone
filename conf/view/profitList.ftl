@@ -14,7 +14,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <h2 style="font-size: 25px;color: blue;margin-bottom:30px;"><a href="/phone/index/">返回</a></h2>
 <h1 style="font-size: 20px;color: red;margin-bottom:30px;">利润查询页面</h1>
 
-<h3 style="font-size: 25px;color: blue;margin-bottom:30px;">
+<span style="color:green"><a href="/profit/list/?startTimeString=">
 
 <#if profitList?exists>
 <p>

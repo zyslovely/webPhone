@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phone.mapper.AccessoryMapper">
+	<resultMap type="Accessory" id="accessoryMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="count" column="count" />
+		<result property="unitPrice" column="unitPrice" />
+		<result property="createTime" column="createTime" />
+		<result property="lastUpdateTime" column="lastUpdateTime" />
+		<result property="accessoryInfoId" column="accessoryInfoId" />
+		<result property="accessoryTypeId" column="accessoryTypeId" />
+
+	</resultMap>
+
+	<insert id="addAccessory" parameterType="Accessory">
+		INSERT INTO
+		TB_Accessory (
+		name,
+		count,
+		unitPrice,
+		createTime,
+		lastUpdateTime,
+		accessoryInfoId,
+		accessoryTypeId
+		)VALUES(
+		#{name},
+		#{count},
+		#{unitPrice},
+		#{createTime},
+		#{lastUpdateTime},
+		#{accessoryInfoId},
+		#{accessoryTypeId}
+		)
+		<selectKey keyProperty="id" resultType="long">
+			SELECT
+			LAST_INSERT_ID() AS VALUE
+		</selectKey>
+	</insert>
+
+	<select id="getAccessoryByInfoId" resultMap="accessoryMap">
+		SELECT * from
+		TB_Accessory where accessoryInfoId=#{accessoryInfoId} and name =
+		'#{name}';
+	</select>
+
+	<select id="getAccessoryById" resultMap="accessoryMap">
+		SELECT * from
+		TB_Accessory where id=#{id};
+	</select>
+
+	<update id="updateAccessoryByid" flushCache="true"
+		statementType="PREPARED">
+		UPDATE
+		TB_Accessory
+		set
+		lastUpdateTime=#{lastUpdateTime} ,
+		count =#{count}
+		WHERE
+		id =
+		#{id};
+	</update>
+
+	<select id="getAccessoryList" resultMap="accessoryMap">
+		SELECT * from
+		TB_Accessory
+		WHERE name like
+		CONCAT('%','${name}','%') and
+		accessoryInfoId
+		=#{accessoryInfoId}
+		order by createtime
+		desc
+		limit #{limit}
+		offset
+		#{offset} 
+		
+	</select>
+
+	<select id="getAccessoryCount" resultType="int">
+		SELECT count(*)
+		from
+		TB_Accessory WHERE name like
+		CONCAT('${name}','%') and
+		accessoryInfoId
+		=#{accessoryInfoId};
+	</select>
+</mapper>
