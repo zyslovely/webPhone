@@ -69,6 +69,8 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 					userMap.put(httpRequest.getSession().getId(), myUser);
 					arg2.doFilter(request, response);
 					return;
+				} else {
+					logger.error("账号密码失败");
 				}
 			}
 		}

@@ -36,7 +36,8 @@ public class DwrWebPhoneBean {
 	 */
 	public boolean deletePhoneById(long id) {
 		Purchase purchase = purchaseService.getPurchase(id);
-		if (purchase == null || purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
+		if (purchase == null
+				|| purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
 			return false;
 		}
 		return purchaseService.deletePurchase(id);
@@ -72,8 +73,9 @@ public class DwrWebPhoneBean {
 	 * @param id
 	 * @return
 	 */
-	public boolean sellAccessory(long id, double soldPrice) {
-		return accessoryService.descCountAccessoryById(id, 1, soldPrice);
+	public boolean sellAccessory(long id, double soldPrice, long shopId) {
+		return accessoryService
+				.descCountAccessoryById(id, 1, soldPrice, shopId);
 	}
 
 	/**

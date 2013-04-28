@@ -168,14 +168,12 @@ public class PhoneController extends AbstractBaseController {
 		} else {
 
 		}
-
-		String endTimeString = ServletRequestUtils.getStringParameter(request, "startTimeString", "");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date startDate, endDate;
 		long startTime = 0, endTime = 0;
 		try {
 			startDate = sdf.parse("");
-			endDate = sdf.parse(endTimeString);
+			endDate = sdf.parse("");
 			startTime = startDate.getTime();
 			endTime = endDate.getTime();
 		} catch (Exception e) {
@@ -242,6 +240,7 @@ public class PhoneController extends AbstractBaseController {
 		String accessoryName = ServletRequestUtils.getStringParameter(request, "accessoryName", null);
 		long accessoryInfoId = ServletRequestUtils.getLongParameter(request, "accessoryInfoId", -1L);
 		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
+		long shopId = ServletRequestUtils.getLongParameter(request, "shopId", -1L);
 		int limit = 10;
 		if (toPage == 0) {
 			toPage = 1;
@@ -249,8 +248,8 @@ public class PhoneController extends AbstractBaseController {
 		int offset = (toPage - 1) * limit;
 		List<Accessory> accessoryList = null;
 		if (!StringUtils.isEmpty(accessoryName)) {
-			accessoryList = accessoryService.getAccessoryList(accessoryName, limit, offset, accessoryInfoId);
-			int totalCount = accessoryService.getAccessoryCount(accessoryName, accessoryInfoId);
+			accessoryList = accessoryService.getAccessoryList(accessoryName, shopId, limit, offset, accessoryInfoId);
+			int totalCount = accessoryService.getAccessoryCount(accessoryName, accessoryInfoId, shopId);
 			if (!ListUtils.isEmptyList(accessoryList)) {
 				mv.addObject("totalPage", totalCount / 10 + 1);
 				mv.addObject("accessoryName", accessoryName);

@@ -29,7 +29,10 @@ public interface AccessoryMapper {
 	 * @param name
 	 * @return
 	 */
-	public Accessory getAccessoryByInfoId(@Param(value = "accessoryInfoId") long accessoryinfoId, @Param(value = "name") String name);
+	public Accessory getAccessoryByInfoId(
+			@Param(value = "accessoryInfoId") long accessoryinfoId,
+			@Param(value = "name") String name,
+			@Param(value = "name") long shopId);
 
 	/**
 	 * 获取配件
@@ -38,7 +41,8 @@ public interface AccessoryMapper {
 	 * @param id
 	 * @return
 	 */
-	public Accessory getAccessoryById(@Param(value = "id") long id);
+	public Accessory getAccessoryById(@Param(value = "id") long id,
+			@Param(value = "name") long shopId);
 
 	/**
 	 * 对accessory做更新
@@ -49,8 +53,9 @@ public interface AccessoryMapper {
 	 * @param id
 	 * @return
 	 */
-	public int updateAccessoryByid(@Param(value = "count") int count, @Param(value = "lastUpdateTime") long lastUpdateTime,
-			@Param(value = "id") long id);
+	public int updateAccessoryByid(@Param(value = "count") int count,
+			@Param(value = "lastUpdateTime") long lastUpdateTime,
+			@Param(value = "id") long id, @Param(value = "name") long shopId);
 
 	/**
 	 * 获取配件列表
@@ -62,8 +67,11 @@ public interface AccessoryMapper {
 	 * @param offset
 	 * @return
 	 */
-	public List<Accessory> getAccessoryList(@Param(value = "name") String name, @Param(value = "accessoryInfoId") long accessoryInfoId,
-			@Param(value = "limit") int limit, @Param(value = "offset") int offset);
+	public List<Accessory> getAccessoryList(@Param(value = "name") String name,
+			@Param(value = "accessoryInfoId") long accessoryInfoId,
+			@Param(value = "name") long shopId,
+			@Param(value = "limit") int limit,
+			@Param(value = "offset") int offset);
 
 	/**
 	 * 获取配件数量
@@ -73,5 +81,7 @@ public interface AccessoryMapper {
 	 * @param accessoryInfoId
 	 * @return
 	 */
-	public int getAccessoryCount(@Param(value = "name") String name, @Param(value = "accessoryInfoId") long accessoryInfoId);
+	public int getAccessoryCount(@Param(value = "name") String name,
+			@Param(value = "accessoryInfoId") long accessoryInfoId,
+			@Param(value = "name") long shopId);
 }
