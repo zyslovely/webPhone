@@ -54,6 +54,11 @@ public class Purchase implements Serializable {
 	private int Status;
 
 	/**
+	 * 操作员ID
+	 */
+	private long operatorId;
+
+	/**
 	 * 店铺id
 	 */
 	private long shopId;
@@ -159,6 +164,14 @@ public class Purchase implements Serializable {
 
 	public void setBrandId(long brandId) {
 		this.brandId = brandId;
+	}
+
+	public long getOperatorId() {
+		return operatorId;
+	}
+
+	public void setOperatorId(long operatorId) {
+		this.operatorId = operatorId;
 	}
 
 	public long getShopId() {

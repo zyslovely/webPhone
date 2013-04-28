@@ -28,13 +28,15 @@ public class ProfitServiceImpl implements ProfitService {
 	 * @see com.phone.service.ProfitService#getProfitList(long, long)
 	 */
 	@Override
-	public List<Profit> getProfitList(long startTime, long endTime, long shopId) {
+	public List<Profit> getProfitList(long startTime, long endTime,
+			long operatorId, long shopId) {
 		if (startTime < 0 || endTime < 0 || endTime > new Date().getTime()) {
 			return null;
 		}
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("startTime", startTime);
 		hashMap.put("endTime", endTime);
+		hashMap.put("operatorId", operatorId);
 		hashMap.put("shopId", shopId);
 		return profitMapper.getProfitList(hashMap);
 	}

@@ -5,6 +5,8 @@
 		<id property="phoneid" column="phoneid" />
 		<result property="SelledPrice" column="SelledPrice" />
 		<result property="CreateTime" column="CreateTime" />
+		<result property="operatorId" column="operatorId" />
+		<result property="shopId" column="shopId" />
 	</resultMap>
 
 	<insert id="addSelled" parameterType="Selled">
@@ -12,11 +14,15 @@
 		TB_Phone_Selled(
 		phoneid,
 		SelledPrice,
-		CreateTime
+		CreateTime,
+		operatorId,
+		shopId
 		)VALUES(
 		#{phoneid},
 		#{SelledPrice},
-		#{CreateTime}
+		#{CreateTime},
+		#{operatorId},
+		#{shopId}
 		)
 	</insert>
 
@@ -28,10 +34,15 @@
 			open="(" separator="," close=")">
 			#{item} 
 	     </foreach>
+		and
+		operatorId=#{operatorId},
+		and shopId=#{shopId}
 		;
 	</select>
 
-	<select id="getSelled" resultMap="selledMap" parameterType="long">
-		select * from TB_Phone_Selled where phoneid =#{phoneid};
+	<select id="getSelled" resultMap="selledMap" parameterType="hashMap">
+		select * from TB_Phone_Selled where phoneid =#{phoneid} and
+		operatorId=#{operatorId},
+		and shopId=#{shopId};
 	</select>
 </mapper>

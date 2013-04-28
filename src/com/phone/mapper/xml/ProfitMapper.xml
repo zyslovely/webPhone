@@ -8,6 +8,7 @@
 		<result property="SelledPrice" column="SelledPrice" />
 		<result property="profit" column="profit" />
 		<result property="CreateTime" column="CreateTime" />
+		<result property="operatorId" column="operatorId" />
 		<result property="shopId" column="shopId" />
 	</resultMap>
 
@@ -20,6 +21,7 @@
 		SelledPrice,
 		profit,
 		CreateTime,
+		operatorId,
 		shopId
 		)VALUES(
 		#{phoneid},
@@ -28,6 +30,7 @@
 		#{SelledPrice},
 		#{profit},
 		#{CreateTime},
+		#{operatorId},
 		#{shopId}
 		)
 	</insert>
@@ -40,10 +43,15 @@
 			open="(" separator="," close=")">
 			#{item} 
 	     </foreach>
+		and operatorId=#{operatorId}
+		and shopId = #{shopId};
 	</select>
 
-	<select id="getProfit" resultMap="profitMap" parameterType="long">
-		SELECT * from TB_Phone_Profit where phoneid=#{phoneid};
+	<select id="getProfit" resultMap="profitMap" parameterType="hashMap">
+		SELECT * from TB_Phone_Profit where phoneid=#{phoneid}
+		and
+		operatorId=#{operatorId}
+		and shopId = #{shopId};
 	</select>
 
 	<select id="getProfitList" resultMap="profitMap" parameterType="hashMap">
@@ -52,7 +60,9 @@
 		BETWEEN #{startTime}
 		AND
 		#{endTime}
+		and operatorId=#{operatorId}
 		and shopId = #{shopId}
-		order by profit desc;
+		order by
+		profit desc;
 	</select>
 </mapper>

@@ -34,7 +34,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public boolean addPurchase(String brand, String phoneCode,
 			String phoneModel, double purchasePrice, double DecideSellPrice,
-			long shopId) {
+			long operatorId, long shopId) {
 		Brand brand2 = new Brand();
 		brand2.setBrand(brand);
 		brandMapper.addBrand(brand2);
@@ -56,6 +56,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		purchase.setDecideSellPrice(DecideSellPrice);
 		purchase.setCreateTime(new Date().getTime());
 		purchase.setStatus(Purchase.PurchaseStatus.NotSold.getValue());
+		purchase.setOperatorId(operatorId);
 		purchase.setShopId(shopId);
 		if (purchaseMapper.addPurchase(purchase) > 0) {
 			return true;
@@ -69,8 +70,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * @see com.phone.service.PurchaseService#getPurchase(long)
 	 */
 	@Override
-	public Purchase getPurchase(long phoneid) {
-		return purchaseMapper.getPurchase(phoneid);
+	public Purchase getPurchase(long phoneid, long operatorId, long shopId) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneid", phoneid);
+		hashMap.put("operatorId", operatorId);
+		hashMap.put("shopId", shopId);
+		return purchaseMapper.getPurchase(hashMap);
 	}
 
 	/*
@@ -79,9 +84,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * @see com.phone.service.PurchaseService#deletePurchase(long, int)
 	 */
 	@Override
-	public boolean deletePurchase(long phoneid) {
+	public boolean deletePurchase(long phoneid, long operatorId, long shopId) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", phoneid);
+		hashMap.put("operatroId", operatorId);
+		hashMap.put("shopId", shopId);
 		hashMap.put("Status", Purchase.PurchaseStatus.Deleted.getValue());
 		if (purchaseMapper.updatePurchase(hashMap) > 0) {
 			return true;

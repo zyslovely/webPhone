@@ -1,6 +1,7 @@
 package com.phone.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -26,7 +27,7 @@ public interface SelledMapper {
 	 * @return
 	 */
 	public List<Selled> getSelledListByIds(
-			@Param("phoneidList") List<Long> phoneidList);
+			@Param("phoneidList") List<Map<String, Object>> hashMapList);
 
 	/**
 	 * 查找Selled
@@ -34,6 +35,6 @@ public interface SelledMapper {
 	 * @param phoneid
 	 * @return
 	 */
-	public Selled getSelled(long phoneid);
+	public Selled getSelled(Map<String, Object> hashMap);
 
 }

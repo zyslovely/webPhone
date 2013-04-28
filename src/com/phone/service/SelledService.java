@@ -18,7 +18,8 @@ public interface SelledService {
 	 * @param operatorId
 	 * @return
 	 */
-	public boolean addSelled(long phoneid, double selledPrice, int operatorId);
+	public boolean addSelled(long phoneid, double selledPrice, long operatorId,
+			long shopId);
 
 	/**
 	 * 查找Selled
@@ -26,7 +27,7 @@ public interface SelledService {
 	 * @param phoneid
 	 * @return
 	 */
-	public Selled getSelled(long phoneid);
+	public Selled getSelled(long phoneid, long operatorId, long shopId);
 
 	/**
 	 * 利润排序获取Selled列表
@@ -34,5 +35,6 @@ public interface SelledService {
 	 * @param phoneidList
 	 * @return
 	 */
-	public List<Selled> getSelledList(List<Long> selledIdList);
+	public List<Selled> getSelledList(List<Long> selledIdList, long operatorId,
+			long shopId);
 }

@@ -30,7 +30,12 @@ public class Selled implements Serializable {
 	/**
 	 * 操作人id
 	 */
-	private int operatorId;
+	private long operatorId;
+
+	/**
+	 * 店铺id
+	 */
+	private long shopId;
 
 	public long getPhoneid() {
 		return phoneid;
@@ -56,11 +61,20 @@ public class Selled implements Serializable {
 		CreateTime = createTime;
 	}
 
-	public int getOperatorId() {
+	public long getOperatorId() {
 		return operatorId;
 	}
 
-	public void setOperatorId(int operatorId) {
+	public void setOperatorId(long operatorId) {
 		this.operatorId = operatorId;
 	}
+
+	public long getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(long shopId) {
+		this.shopId = shopId;
+	}
+
 }

@@ -40,7 +40,7 @@ public interface PurchaseMapper {
 	 * @param phoneid
 	 * @return
 	 */
-	public Purchase getPurchase(long phoneid);
+	public Purchase getPurchase(Map<String, Object> hashMap);
 
 	/**
 	 * 通过phoneCode查找Purchase
@@ -56,5 +56,6 @@ public interface PurchaseMapper {
 	 * @param phoneModel
 	 * @return
 	 */
-	public List<Purchase> getPurchaseListByPhoneModel(@Param(value = "phoneModel") String phoneModel);
+	public List<Purchase> getPurchaseListByPhoneModel(
+			@Param(value = "phoneModel") String phoneModel);
 }
