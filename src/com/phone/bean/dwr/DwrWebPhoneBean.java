@@ -2,6 +2,8 @@ package com.phone.bean.dwr;
 
 import javax.annotation.Resource;
 
+import org.directwebremoting.WebContext;
+import org.directwebremoting.WebContextFactory;
 import org.springframework.stereotype.Service;
 
 import com.phone.meta.Purchase;
@@ -35,6 +37,7 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean deletePhoneById(long id) {
+
 		Purchase purchase = purchaseService.getPurchase(id);
 		if (purchase == null
 				|| purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
