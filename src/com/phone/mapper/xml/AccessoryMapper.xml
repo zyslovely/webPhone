@@ -23,6 +23,7 @@
 		lastUpdateTime,
 		accessoryInfoId,
 		accessoryTypeId,
+		operatorId,
 		shopId
 		)VALUES(
 		#{name},
@@ -32,6 +33,7 @@
 		#{lastUpdateTime},
 		#{accessoryInfoId},
 		#{accessoryTypeId},
+		#{operatorId},
 		#{shopId}
 		)
 		<selectKey keyProperty="id" resultType="long">

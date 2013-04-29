@@ -57,5 +57,6 @@ public interface PurchaseMapper {
 	 * @return
 	 */
 	public List<Purchase> getPurchaseListByPhoneModel(
-			@Param(value = "phoneModel") String phoneModel);
+			@Param(value = "phoneModel") String phoneModel,
+			@Param(value = "shopId") long shopId);
 }

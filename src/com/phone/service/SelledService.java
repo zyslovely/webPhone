@@ -35,6 +35,5 @@ public interface SelledService {
 	 * @param phoneidList
 	 * @return
 	 */
-	public List<Selled> getSelledList(List<Long> selledIdList, long operatorId,
-			long shopId);
+	public List<Selled> getSelledList(List<Long> selledIdList, long shopId);
 }

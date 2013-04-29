@@ -116,7 +116,7 @@ public class PhoneController extends AbstractBaseController {
 		int offset = ServletRequestUtils.getIntParameter(request, "offset", 0);
 		if (!StringUtils.isEmpty(phoneModel)) {
 			List<Phone> phoneList = phoneService.getPhoneList(phoneModel,
-					myUser.getUserId(), myUser.getShopId(), limit, offset);
+					myUser.getShopId(), limit, offset);
 			mv.addObject("phoneModel", phoneModel);
 			mv.addObject("phoneModelCount", phoneList.size());
 			mv.addObject("phoneList", phoneList);
@@ -151,13 +151,13 @@ public class PhoneController extends AbstractBaseController {
 		int totalPage = 0;
 		if (!StringUtils.isEmpty(phoneCode)) {
 			phoneList = phoneService.getPhonesByPhoneCode(phoneCode,
-					myUser.getUserId(), myUser.getShopId());
+					myUser.getShopId());
 			totalPage = 1;
 		} else if (!StringUtils.isEmpty(phoneModel)) {
 			phoneList = phoneService.getPhoneList(phoneModel,
-					myUser.getUserId(), myUser.getShopId(), limit, offset);
+					myUser.getShopId(), limit, offset);
 			List<Phone> allPhoneList = phoneService.getPhoneListByPhoneModel(
-					phoneModel, myUser.getUserId(), myUser.getShopId());
+					phoneModel, myUser.getShopId());
 			if (allPhoneList.size() % limit > 0) {
 				totalPage = allPhoneList.size() / limit + 1;
 			} else {
@@ -215,7 +215,7 @@ public class PhoneController extends AbstractBaseController {
 			e.printStackTrace();
 		}
 		List<Profit> profitList = profitService.getProfitList(startTime,
-				endTime, myUser.getUserId(), myUser.getShopId());
+				endTime, myUser.getShopId());
 		if (!ListUtils.isEmptyList(profitList)) {
 			List<Long> selledIdList = new ArrayList<Long>(profitList.size());
 			double saleTotal = 0, profitTotal = 0;
@@ -230,7 +230,7 @@ public class PhoneController extends AbstractBaseController {
 			mv.addObject(
 					"selledList",
 					selledService.getSelledList(selledIdList,
-							myUser.getUserId(), myUser.getShopId()));
+							myUser.getShopId()));
 			return mv;
 		}
 		return mv;
@@ -284,8 +284,11 @@ public class PhoneController extends AbstractBaseController {
 		long accessoryInfoId = ServletRequestUtils.getLongParameter(request,
 				"accessoryInfoId", -1L);
 		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
-		long shopId = ServletRequestUtils.getLongParameter(request, "shopId",
-				-1L);
+		String sessionId = request.getSession().getId();
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		if (myUser == null) {
+			logger.error("myUser不存在，没有经过验证");
+		}
 		int limit = 10;
 		if (toPage == 0) {
 			toPage = 1;
@@ -294,9 +297,9 @@ public class PhoneController extends AbstractBaseController {
 		List<Accessory> accessoryList = null;
 		if (!StringUtils.isEmpty(accessoryName)) {
 			accessoryList = accessoryService.getAccessoryList(accessoryName,
-					shopId, limit, offset, accessoryInfoId);
+					myUser.getShopId(), limit, offset, accessoryInfoId);
 			int totalCount = accessoryService.getAccessoryCount(accessoryName,
-					accessoryInfoId, shopId);
+					accessoryInfoId, myUser.getShopId());
 			if (!ListUtils.isEmptyList(accessoryList)) {
 				mv.addObject("totalPage", totalCount / 10 + 1);
 				mv.addObject("accessoryName", accessoryName);

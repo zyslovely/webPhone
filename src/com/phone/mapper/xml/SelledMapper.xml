@@ -34,15 +34,13 @@
 			open="(" separator="," close=")">
 			#{item} 
 	     </foreach>
-		and
-		operatorId=#{operatorId},
 		and shopId=#{shopId}
 		;
 	</select>
 
 	<select id="getSelled" resultMap="selledMap" parameterType="hashMap">
-		select * from TB_Phone_Selled where phoneid =#{phoneid} and
-		operatorId=#{operatorId},
-		and shopId=#{shopId};
+		select * from TB_Phone_Selled where phoneid =#{phoneid}
+		and
+		shopId=#{shopId};
 	</select>
 </mapper>

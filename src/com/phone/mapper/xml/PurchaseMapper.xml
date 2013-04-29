@@ -46,8 +46,7 @@
 	<select id="getPurchaseList" parameterType="hashMap" resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneModel like
-		CONCAT('${phoneModel}','%') and 2> status and operatorId =
-		#{operatorId}
+		CONCAT('${phoneModel}','%') and 2> status
 		and shopId = #{shopId}
 		order
 		by
@@ -62,10 +61,10 @@
 		SELECT *
 		from TB_Phone_Purchase
 		WHERE id=#{phoneid}
-		and operatorId =
-		#{operatorId}
 		and shopId = #{shopId}
-		and 2> status;
+		and
+		2>
+		status;
 	</select>
 
 	<update id="updatePurchase" parameterType="hashMap" flushCache="true"
@@ -86,17 +85,15 @@
 		WHERE phoneCode
 		= #{phoneCode}
 		and 2> status
-		and operatorId = #{operatorId}
 		and shopId = #{shopId};
 	</select>
 
-	<select id="getPurchaseListByPhoneModel" parameterType="String"
-		resultMap="purchaseMap">
-		SELECT * from TB_Phone_Purchase
+	<select id="getPurchaseListByPhoneModel" resultMap="purchaseMap">
+		SELECT * from
+		TB_Phone_Purchase
 		WHERE phoneModel
 		=
 		#{phoneModel}
-		and operatorId = #{operatorId}
 		and shopId = #{shopId}
 		and
 		2> status;

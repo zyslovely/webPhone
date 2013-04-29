@@ -3,7 +3,6 @@ package com.phone.security;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;

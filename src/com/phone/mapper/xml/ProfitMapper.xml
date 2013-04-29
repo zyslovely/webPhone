@@ -43,15 +43,14 @@
 			open="(" separator="," close=")">
 			#{item} 
 	     </foreach>
-		and operatorId=#{operatorId}
 		and shopId = #{shopId};
 	</select>
 
 	<select id="getProfit" resultMap="profitMap" parameterType="hashMap">
 		SELECT * from TB_Phone_Profit where phoneid=#{phoneid}
 		and
-		operatorId=#{operatorId}
-		and shopId = #{shopId};
+		and shopId =
+		#{shopId};
 	</select>
 
 	<select id="getProfitList" resultMap="profitMap" parameterType="hashMap">
@@ -60,7 +59,6 @@
 		BETWEEN #{startTime}
 		AND
 		#{endTime}
-		and operatorId=#{operatorId}
 		and shopId = #{shopId}
 		order by
 		profit desc;

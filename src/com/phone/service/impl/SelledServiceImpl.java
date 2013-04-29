@@ -94,14 +94,12 @@ public class SelledServiceImpl implements SelledService {
 	}
 
 	@Override
-	public List<Selled> getSelledList(List<Long> selledIdList, long operatorId,
-			long shopId) {
+	public List<Selled> getSelledList(List<Long> selledIdList, long shopId) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		List<Map<String, Object>> hashMapList = new ArrayList<Map<String, Object>>(
 				selledIdList.size());
 		for (Long selledId : selledIdList) {
 			hashMap.put("phoneid", selledId);
-			hashMap.put("operatorId", operatorId);
 			hashMap.put("shopId", shopId);
 			hashMapList.add(hashMap);
 		}

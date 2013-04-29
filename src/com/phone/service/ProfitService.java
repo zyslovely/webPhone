@@ -16,6 +16,5 @@ public interface ProfitService {
 	 * @param endTime
 	 * @return
 	 */
-	public List<Profit> getProfitList(long startTime, long endTime,
-			long operatorId, long shopId);
+	public List<Profit> getProfitList(long startTime, long endTime, long shopId);
 }
