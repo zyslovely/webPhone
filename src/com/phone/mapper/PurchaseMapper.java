@@ -51,12 +51,12 @@ public interface PurchaseMapper {
 	public Purchase getPurchaseByPhoneCode(Map<String, Object> hashmMap);
 
 	/**
-	 * 通过phoneModel查找Purchase
+	 * 获得手机数量
 	 * 
+	 * @auther zyslovely@gmail.com
 	 * @param phoneModel
+	 * @param shopId
 	 * @return
 	 */
-	public List<Purchase> getPurchaseListByPhoneModel(
-			@Param(value = "phoneModel") String phoneModel,
-			@Param(value = "shopId") long shopId);
+	public int getPurchaseCountByPhoneModel(@Param(value = "phoneModel") String phoneModel, @Param(value = "shopId") long shopId);
 }

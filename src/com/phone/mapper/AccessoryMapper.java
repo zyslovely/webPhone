@@ -32,7 +32,7 @@ public interface AccessoryMapper {
 	public Accessory getAccessoryByInfoId(
 			@Param(value = "accessoryInfoId") long accessoryinfoId,
 			@Param(value = "name") String name,
-			@Param(value = "name") long shopId);
+			@Param(value = "shopId") long shopId);
 
 	/**
 	 * 获取配件
@@ -42,7 +42,7 @@ public interface AccessoryMapper {
 	 * @return
 	 */
 	public Accessory getAccessoryById(@Param(value = "id") long id,
-			@Param(value = "name") long shopId);
+			@Param(value = "shopId") long shopId);
 
 	/**
 	 * 对accessory做更新
@@ -55,7 +55,7 @@ public interface AccessoryMapper {
 	 */
 	public int updateAccessoryByid(@Param(value = "count") int count,
 			@Param(value = "lastUpdateTime") long lastUpdateTime,
-			@Param(value = "id") long id, @Param(value = "name") long shopId);
+			@Param(value = "id") long id, @Param(value = "shopId") long shopId);
 
 	/**
 	 * 获取配件列表
@@ -69,7 +69,7 @@ public interface AccessoryMapper {
 	 */
 	public List<Accessory> getAccessoryList(@Param(value = "name") String name,
 			@Param(value = "accessoryInfoId") long accessoryInfoId,
-			@Param(value = "name") long shopId,
+			@Param(value = "shopId") long shopId,
 			@Param(value = "limit") int limit,
 			@Param(value = "offset") int offset);
 
@@ -83,5 +83,5 @@ public interface AccessoryMapper {
 	 */
 	public int getAccessoryCount(@Param(value = "name") String name,
 			@Param(value = "accessoryInfoId") long accessoryInfoId,
-			@Param(value = "name") long shopId);
+			@Param(value = "shopId") long shopId);
 }

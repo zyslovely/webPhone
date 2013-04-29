@@ -73,6 +73,14 @@ public class Phone implements Serializable {
 	 * 出售日期
 	 */
 	private String selledTimeStr;
+	/**
+	 * 店铺名称
+	 */
+	private String shopName;
+	/**
+	 * 操作人名称
+	 */
+	private String operatorName;
 
 	public double getProfit() {
 		return profit;
@@ -145,7 +153,7 @@ public class Phone implements Serializable {
 	}
 
 	public void setSelledTime(long selledTime) {
-		selledTimeStr = TimeUtil.getFormatTime(selledTime);
+		selledTimeStr = TimeUtil.getFormatTimeInMinute(selledTime);
 		SelledTime = selledTime;
 	}
 
@@ -179,6 +187,22 @@ public class Phone implements Serializable {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public String getOperatorName() {
+		return operatorName;
+	}
+
+	public void setOperatorName(String operatorName) {
+		this.operatorName = operatorName;
 	}
 
 }

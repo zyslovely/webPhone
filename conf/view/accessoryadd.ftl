@@ -15,7 +15,15 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <h2 style="font-size: 25px;color: blue;margin-bottom:30px;"><a href="/phone/index/">返回</a></h2>
 <h1 style="font-size: 20px;color: red;margin-bottom:30px;">配件添加页面</h1>
 
-<h3>添加配件</h3>
+<h3 style="font-size: 20px;color: green;">添加配件类型</h3>
+<div>
+   <span>输入配件类型:</span>
+   <input type="text" value="" id="accessoryInfo"/>
+   <input type="button"  id="accessory_info_add" value="确定"/>
+</div>
+
+
+<h3 style="font-size: 20px;color: green;margin-top:30px;">添加配件</h3>
 <table border="1" cellspacing="0px">
 <thead>
 <tr>
@@ -40,14 +48,6 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 </form>
 </tbody>
 </table>
-
-
-<h3>添加配件类型</h3>
-<div>
-   <span>输入配件类型:</span>
-   <input type="text" value="" id="accessoryInfo"/>
-   <input type="button"  id="accessory_info_add" value="确定"/>
-</div>
 
 </body>
 </html>

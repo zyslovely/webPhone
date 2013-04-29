@@ -16,8 +16,7 @@ public interface PhoneService {
 	 * @param phoneModel
 	 * @return
 	 */
-	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit,
-			int offset);
+	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit, int offset);
 
 	/**
 	 * 通过条形码获取
@@ -28,11 +27,5 @@ public interface PhoneService {
 	 */
 	public List<Phone> getPhonesByPhoneCode(String phoneCode, long shopId);
 
-	/**
-	 * 通过phoneModel获得手机列表
-	 * 
-	 * @param phoneModel
-	 * @return
-	 */
-	public List<Phone> getPhoneListByPhoneModel(String phoneModel, long shopId);
+
 }

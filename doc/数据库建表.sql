@@ -7,7 +7,8 @@ CREATE TABLE TB_Phone_Purchase (
   `DecideSellPrice` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '计划卖出价格',
   `CreateTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '纪录创建时间',
   `Status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '当前状态,0未卖出,1已卖出',
-  `operatorId` tinyint(4) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `operatorId` bigint(20) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `shopId` bigint(20) NOT NULL DEFAULT '0' COMMENT '店铺id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='手机进货表'
 
@@ -16,7 +17,8 @@ CREATE TABLE `TB_Phone_Selled` (
   `phoneid` bigint(20) NOT NULL DEFAULT '0' COMMENT 'id',
   `SelledPrice` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '实际卖出价格',
   `CreateTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '纪录创建时间',
-  `operatorId` tinyint(4) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `operatorId` bigint(20) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `shopId` bigint(20) NOT NULL DEFAULT '0' COMMENT '店铺id',
   PRIMARY KEY (`phoneid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='手机卖出表'
 
@@ -77,7 +79,8 @@ CREATE TABLE `TB_Accessory` (
   `lastUpdateTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '最后添加时间',
   `accessoryInfoId` bigint(20) NOT NULL default '0' COMMENT '配件类型id',
   `accessoryTypeId` bigint(20) NOT NULL default '0' COMMENT '配件种类id',
-  `operatorId` tinyint(4) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `operatorId` bigint(20) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `shopId` bigint(20) NOT NULL DEFAULT '0' COMMENT '店铺id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='手机配件表'
 
@@ -86,7 +89,8 @@ CREATE TABLE `TB_Accessory_Sold` (
   `accessoryid` bigint(20) NOT NULL DEFAULT '0' COMMENT 'id',
   `SoldPrice` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '实际卖出价格',
   `CreateTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '纪录创建时间',
-  `operatorId` tinyint(4) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `operatorId` bigint(20) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `shopId` bigint(20) NOT NULL DEFAULT '0' COMMENT '店铺id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='配件卖出表'
 
@@ -99,7 +103,8 @@ CREATE TABLE `TB_Accessory_Profit` (
   `soldPrice` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '实际卖出价格',
   `profit` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '利润',
   `CreateTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '纪录创建时间',
-  `operatorId` tinyint(4) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `operatorId` bigint(20) NOT NULL DEFAULT '0' COMMENT '操作人id',
+  `shopId` bigint(20) NOT NULL DEFAULT '0' COMMENT '店铺id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='配件利润表'
 

@@ -7,31 +7,27 @@
 		<result property="purchasePrice" column="purchasePrice" />
 		<result property="soldPrice" column="soldPrice" />
 		<result property="profit" column="profit" />
-		<result property="lastUpdateTime" column="lastUpdateTime" />
-		<result property="accessoryInfoId" column="accessoryInfoId" />
-		<result property="accessoryTypeId" column="accessoryTypeId" />
+		<result property="createTime" column="createTime" />
 		<result property="operatorId" column="operatorId" />
 		<result property="shopId" column="shopId" />
 	</resultMap>
 
-	<insert id="addAccessory" parameterType="AccessoryProfit">
+	<insert id="addAccessoryProfit" parameterType="AccessoryProfit">
 		INSERT INTO
-		TB_Accessory(
-		name,
-		count,
+		TB_Accessory_Profit(
+		accessoryid,
+		purchasePrice,
+		soldPrice,
+		profit,
 		createTime,
-		lastUpdateTime,
-		accessoryInfoId,
-		accessoryTypeId,
 		operatorId,
 		shopId
 		)VALUES(
-		#{name},
-		#{count},
+		#{accessoryid},
+		#{purchasePrice},
+		#{soldPrice},
+		#{profit},
 		#{createTime},
-		#{lastUpdateTime},
-		#{accessoryInfoId},
-		#{accessoryTypeId},
 		#{operatorId},
 		#{shopId}
 		)

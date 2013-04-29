@@ -7,7 +7,7 @@
 		<result property="soldPrice" column="soldPrice" />
 		<result property="createTime" column="createTime" />
 		<result property="operatorId" column="operatorId" />
-
+		<result property="shopId" column="shopId" />
 	</resultMap>
 
 	<insert id="addAccessorySold" parameterType="AccessorySold">
@@ -16,12 +16,14 @@
 		accessoryid,
 		soldPrice,
 		createTime,
-		operatorId
+		operatorId,
+		shopId
 		)VALUES(
 		#{accessoryid},
 		#{soldPrice},
 		#{createTime},
-		#{operatorId}
+		#{operatorId},
+		#{shopId}
 		)
 		<selectKey keyProperty="id" resultType="long">
 			SELECT

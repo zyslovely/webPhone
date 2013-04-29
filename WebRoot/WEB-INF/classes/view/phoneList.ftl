@@ -39,12 +39,11 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<th width="150">手机编码</th>
 					<th width="100">进货价格</th>
 					<th width="150">进货日期</th>
-					<th width="100">计划卖出价格</th>
 					<th width="100"">是否已经卖出</th>
 					<th width="100">实际卖出价格</th>
 					<th width="150">卖出日期</th>
 					<th width="100">利润</th>
-					<th width="操作">操作</th>
+					<th width="150">操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -56,7 +55,6 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${phone.phoneCode!""}</td>
 					<td>${phone.purchasePrice!0}</td>
 					<td>${phone.purchaseTimeStr!""}</td>
-					<td>${phone.decideSellPrice!0}</td>
 					<td><#if phone.status == 0><span style="color:green">没有卖出</span><#elseif phone.status == 1><span style="color:red">已卖出</span></#if></td>
 					<td>${phone.selledPrice!0}</td>
 					<td>${phone.selledTimeStr!0}</td>

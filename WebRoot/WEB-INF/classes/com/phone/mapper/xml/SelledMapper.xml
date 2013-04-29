@@ -26,8 +26,7 @@
 		)
 	</insert>
 
-	<select id="getSelledListByIds" resultMap="selledMap"
-		parameterType="List">
+	<select id="getSelledListByIds" resultMap="selledMap">
 		select * from TB_Phone_Selled where
 		phoneid in
 		<foreach item="item" collection="phoneidList" index="index"

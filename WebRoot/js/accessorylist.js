@@ -1,13 +1,16 @@
 function accessorySell(id,unitPrice){
 	
-	var _sellPrice=prompt("请输入卖出价格","");
-	if(_sellPrice<purchasePrice){
-		if(confirm("卖去价格低于进货价格，确定?")){
-			doSell(id,_sellPrice);
-		}
+	jPrompt('请输入卖出价格：', '请输入', '',function(_price){
+              if(_price<unitPrice){
+   	   jConfirm('卖出价格低于进货价格，确定?', '请确定',function(res){
+   	   	    doSell(id,_price);
+   	   });
 	}else{
-		doSell(id,_sellPrice);
+		
+		doSell(id,_price);
 	}
+    });
+
 };
 
 function doSell(id,sellPrice){
@@ -17,9 +20,9 @@ function doSell(id,sellPrice){
 
 function submitCB(_flag){
 	if(_flag){
-	    alert("出售成功");
+	    alert("卖出成功");
 	}else{
-		alert("出手失败");
+		alert("卖出失败");
 	}
 	location.href="http://shouji.qiqunar.com.cn/accessory/list/";
 };

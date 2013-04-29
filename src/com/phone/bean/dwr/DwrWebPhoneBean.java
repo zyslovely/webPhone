@@ -71,7 +71,7 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean addAccessoryInfo(String name) {
-		return accessoryService.addAccessoryInfo(name);
+		return accessoryService.addAccessoryInfo(name.trim());
 	}
 
 	/**
@@ -81,8 +81,11 @@ public class DwrWebPhoneBean {
 	 * @param id
 	 * @return
 	 */
-	public boolean sellAccessory(long id, double soldPrice, long shopId) {
-		return accessoryService.descCountAccessoryById(id, 1, soldPrice, shopId);
+	public boolean sellAccessory(long id, double soldPrice) {
+		WebContext ctx = WebContextFactory.get();
+		String sessionId = ctx.getSession().getId();
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		return accessoryService.descCountAccessoryById(id, 1, soldPrice, myUser.getShopId(), myUser.getUserId());
 	}
 
 	/**

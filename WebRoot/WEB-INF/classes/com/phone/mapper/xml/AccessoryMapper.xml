@@ -10,6 +10,7 @@
 		<result property="lastUpdateTime" column="lastUpdateTime" />
 		<result property="accessoryInfoId" column="accessoryInfoId" />
 		<result property="accessoryTypeId" column="accessoryTypeId" />
+		<result property="operatorId" column="operatorId" />
 		<result property="shopId" column="shopId" />
 	</resultMap>
 
@@ -69,26 +70,36 @@
 		SELECT * from
 		TB_Accessory
 		WHERE name like
-		CONCAT('%','${name}','%') and
-		accessoryInfoId
-		=#{accessoryInfoId}
-		and shopId=#{shopId}
+		CONCAT('%','${name}','%')
+		<if test="accessoryInfoId>0">
+			and accessoryInfoId =#{accessoryInfoId}
+		</if>
+		<if test="shopId>0">
+			and shopId=#{shopId}
+		</if>
 		order by
 		createtime
 		desc
 		limit
 		#{limit}
 		offset
-		#{offset} 
-		
+		#{offset}
+
 	</select>
 
 	<select id="getAccessoryCount" resultType="int">
 		SELECT count(*)
 		from
 		TB_Accessory WHERE name like
-		CONCAT('${name}','%') and
-		accessoryInfoId
-		=#{accessoryInfoId} and shopId=#{shopId};
+		CONCAT('%','${name}','%')
+		<if test="accessoryInfoId>0">
+			and
+			accessoryInfoId
+			=#{accessoryInfoId} 
+		</if>
+		<if test="shopId>0">
+			and shopId=#{shopId}
+		</if>
+		;
 	</select>
 </mapper>

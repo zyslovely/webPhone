@@ -18,17 +18,15 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <table border="1" cellspacing="0px">
 <thead>
 <tr>
-<th width="150">手机型号</th><th width="150">手机条形码</th><th width="150">手机品牌</th><th width="150">进货价格</th><th width="150">计划卖出价格</th><th width="150">店铺ID</th><th width="150">操作</th>
+<th width="150">手机品牌</th><th width="150">手机型号</th><th width="150">手机条形码</th><th width="150">进货价格</th><th width="150">操作</th>
 </tr>
 </thead>
 <tbody>
 <form action="/purchase/add/" method="post" target="_self">
+<th><input type="text" value="" name="brand"/></th>
 <th><input type="text" value="" name="phoneModel"/></th>
 <th><input type="text" value="" name="phoneCode"/></th>
-<th><input type="text" value="" name="brand"/></th>
 <th><input type="text" value="" name="purchasePrice"/></th>
-<th><input type="text" value="" name="DecideSellPrice"/></th>
-<th><input type="text" value="" name="shopId"/></th>
 <th><input type="submit" value="提交"/></th>
 </form>
 </tbody>
@@ -43,7 +41,6 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<th width="150">手机条形码</th>
 					<th width="100">进货价格</th>
 					<th width="150">进货日期</th>
-					<th width="100">计划卖出价格</th>
 					<th width="100">是否已经卖出</th>
 					<th width="100">实际卖出价格</th>
 					<th width="150">卖出日期</th>
@@ -59,12 +56,11 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${phone.phoneCode!""}</td>
 					<td>${phone.purchasePrice!0}</td>
 					<td>${phone.purchaseTimeStr!""}</td>
-					<td>${phone.decideSellPrice!0}</td>
 					<td><#if phone.status == 0><span style="color:green">没有卖出</span><#elseif phone.status == 1><span style="color:red">已卖出</span></#if></td>
 					<td>${phone.selledPrice!0}</td>
 					<td>${phone.selledTimeStr!""}</td>
 					<td>${phone.profit!0}</td>
-					<td>${phone.shopId!0}</td>
+					<td>${phone.shopName!0}</td>
 					<td><a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId!""});">删除</a></td>
 				</tr>
 			    </#list>

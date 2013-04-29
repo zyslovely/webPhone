@@ -10,11 +10,13 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.phone.mapper.BrandMapper;
+import com.phone.mapper.ProfileMapper;
 import com.phone.mapper.ProfitMapper;
 import com.phone.mapper.PurchaseMapper;
 import com.phone.mapper.SelledMapper;
 import com.phone.meta.Brand;
 import com.phone.meta.Phone;
+import com.phone.meta.Profile;
 import com.phone.meta.Profit;
 import com.phone.meta.Purchase;
 import com.phone.meta.Selled;
@@ -40,6 +42,8 @@ public class PhoneServiceImpl implements PhoneService {
 
 	@Resource
 	private BrandMapper brandMapper;
+	@Resource
+	private ProfileMapper profileMapper;
 
 	/*
 	 * (non-Javadoc)
@@ -47,8 +51,7 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @see com.phone.service.PhoneService#getPhoneList(java.lang.String)
 	 */
 	@Override
-	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit,
-			int offset) {
+	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit, int offset) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneModel", phoneModel);
 		hashMap.put("shopId", shopId);
@@ -75,29 +78,17 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @param phoneIdList
 	 * @param purchaseliList
 	 */
-	private void addProfitInfo(List<Phone> phoneList, List<Long> phoneIdList,
-			List<Purchase> purchaseList, long shopId) {
-		Map<String, Object> hashMap = new HashMap<String, Object>();
-		List<Map<String, Object>> hashMapList = new ArrayList<Map<String, Object>>(
-				phoneIdList.size());
-		for (Long selledId : phoneIdList) {
-			hashMap.put("phoneid", selledId);
-			hashMap.put("shopId", shopId);
-			hashMapList.add(hashMap);
-		}
-		List<Selled> selledList = selledMapper.getSelledListByIds(hashMapList);
-		Map<Long, Selled> selledMap = HashMapMaker.listToMap(selledList,
-				"getPhoneid", Selled.class);
-		List<Profit> profitList = profitMapper.getProfitListByIds(hashMapList);
-		Map<Long, Profit> profitMap = HashMapMaker.listToMap(profitList,
-				"getPhoneid", Profit.class);
+	private void addProfitInfo(List<Phone> phoneList, List<Long> phoneIdList, List<Purchase> purchaseList, long shopId) {
+		List<Selled> selledList = selledMapper.getSelledListByIds(phoneIdList, shopId);
+		Map<Long, Selled> selledMap = HashMapMaker.listToMap(selledList, "getPhoneid", Selled.class);
+		List<Profit> profitList = profitMapper.getProfitListByIds(phoneIdList, shopId);
+		Map<Long, Profit> profitMap = HashMapMaker.listToMap(profitList, "getPhoneid", Profit.class);
 		List<Long> brandIds = new ArrayList<Long>();
 		for (Purchase purchase : purchaseList) {
 			brandIds.add(purchase.getBrandId());
 		}
 		List<Brand> brandList = brandMapper.getBrandListByIds(brandIds);
-		Map<Long, Brand> brandMap = HashMapMaker.listToMap(brandList, "getId",
-				Brand.class);
+		Map<Long, Brand> brandMap = HashMapMaker.listToMap(brandList, "getId", Brand.class);
 		for (Purchase purchase : purchaseList) {
 			Phone phone = new Phone();
 			Selled selled = selledMap.get(purchase.getId());
@@ -113,6 +104,7 @@ public class PhoneServiceImpl implements PhoneService {
 			if (brand != null) {
 				phone.setBrand(brand.getBrand());
 			}
+			phone.setShopName(Profile.getShopName(purchase.getShopId()));
 			phone.setPhoneId(purchase.getId());
 			phone.setPhoneCode(purchase.getPhoneCode());
 			phone.setPhoneModel(purchase.getPhoneModel());
@@ -146,22 +138,6 @@ public class PhoneServiceImpl implements PhoneService {
 		return phoneList;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.phone.service.PhoneService#getPhoneListByPhoneModel(java.lang.String)
-	 */
-	@Override
-	public List<Phone> getPhoneListByPhoneModel(String phoneModel, long shopId) {
-		List<Purchase> purchaseList = purchaseMapper
-				.getPurchaseListByPhoneModel(phoneModel, shopId);
-		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());
-		for (Purchase purchase : purchaseList) {
-			phoneIdList.add(purchase.getId());
-		}
-		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
-		this.addProfitInfo(phoneList, phoneIdList, purchaseList, shopId);
-		return phoneList;
-	}
+
+	
 }

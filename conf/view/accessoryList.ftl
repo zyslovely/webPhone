@@ -8,7 +8,6 @@ body{font-size:83%;}
 #help{padding-top:20%; text-align:center;}
 img{max-width: 100%;max-height: 80%}
 div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
-
 </style>
 	
 <body style="height:1000px;">
@@ -18,7 +17,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <div>
    <span>配件类型:</span>
    <div>
-       <#if accessoryInfos?exists>
+   <#if accessoryInfos?exists>
       <select name="accessoryInfoId">
       <#list accessoryInfos as info>
          <option value ="${info.id!0}" >${info.accessoryInfoName!""}</option>
@@ -32,11 +31,11 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 </div>
 </form>
 
-<#if accessoryList?exists>
+<#if accessorysList?exists>
 <p>
    <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。
-   <#if extPage gt 0><a href="/accessory/list/?accessoryName=${accessoryName!""}&toPage=${extPage!0}">上一页</a></#if>
-   <#if nextPage lt totalPage><a href="/accessory/list/?accessoryName=${accessoryName!""}&toPage=${nextPage!0}">下一页</a></#if>
+   <#if extPage+1 gt 0><a href="/accessory/list/?accessoryName=${accessoryName!""}&toPage=${extPage!0}">上一页</a></#if>
+   <#if extPage lt totalPage-2><a href="/accessory/list/?accessoryName=${accessoryName!""}&toPage=${nextPage!0}">下一页</a></#if>
 </p>
    <table id="accessory_list_tb" >
 			<thead>
@@ -45,14 +44,14 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<th width="100">配件名称</th>
 					<th width="150">剩余数量</th>
 					<th width="100">单价</th>
-					<th width="操作">操作</th>
+					<th width="150">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 			
-			   <#list accessoryList as accessory>
-				<tr >
-				    <td>${accessory.accessoryTypeName!""}</td>
+				<#list accessorysList as accessory>
+				<tr style="text-align: center;">
+				    <td>${accessory.accessoryInfoName!""}</td>
 					<td>${accessory.name!""}</td>
 					<td>${accessory.count!0}</td>
 					<td>${accessory.unitPrice!0}</td>
@@ -61,27 +60,14 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					</td>
 				</tr>
 			    </#list>
-
 			</tbody>
 		</table>
-					</#if>
+</#if>
 </body>
 </html>
 </#escape>
 		
 <#include "js.ftl">
 <script>
-//<![CDATA[
-       jQuery(document).ready(function($) {
-			$('#accessory_list_tb').flexigrid({
-				 buttons : [{
-				 name : '添加配件',
-				 width : 50,
-				 bclass : 'add',
-				 onpress : onpressAdd
-				 }],
-				 width : 'auto', 
-			});
-		});
-//]]>
+
 </script>

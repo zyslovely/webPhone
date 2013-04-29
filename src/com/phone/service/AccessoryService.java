@@ -29,7 +29,7 @@ public interface AccessoryService {
 	 * @return
 	 */
 	public boolean addAccessory(String name, int count, long accessoryInfoId,
-			double unitPrice);
+			double unitPrice,long userId,long shopId);
 
 	/**
 	 * 卖出配件
@@ -38,7 +38,7 @@ public interface AccessoryService {
 	 * @return
 	 */
 	public boolean descCountAccessoryById(long id, int count, double soldPrice,
-			long shopId);
+			long shopId,long userId);
 
 	/**
 	 * 获取所有配件类型

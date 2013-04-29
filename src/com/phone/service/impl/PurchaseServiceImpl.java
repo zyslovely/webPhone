@@ -12,6 +12,7 @@ import com.phone.mapper.BrandMapper;
 import com.phone.mapper.PurchaseMapper;
 import com.phone.meta.Brand;
 import com.phone.meta.Purchase;
+import com.phone.meta.Purchase.PurchaseStatus;
 import com.phone.service.PurchaseService;
 
 /**
@@ -32,9 +33,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * java.lang.String, double, double)
 	 */
 	@Override
-	public boolean addPurchase(String brand, String phoneCode,
-			String phoneModel, double purchasePrice, double DecideSellPrice,
-			long operatorId, long shopId) {
+	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPrice, long operatorId,
+			long shopId) {
 		Brand brand2 = new Brand();
 		brand2.setBrand(brand);
 		brandMapper.addBrand(brand2);
@@ -87,12 +87,21 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public boolean deletePurchase(long phoneid, long operatorId, long shopId) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", phoneid);
-		hashMap.put("operatroId", operatorId);
-		hashMap.put("shopId", shopId);
-		hashMap.put("Status", Purchase.PurchaseStatus.Deleted.getValue());
+		hashMap.put("Status", PurchaseStatus.Deleted.getValue());
 		if (purchaseMapper.updatePurchase(hashMap) > 0) {
 			return true;
 		}
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#getPhoneCountByPhoneModel(long,
+	 * java.lang.String)
+	 */
+	@Override
+	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel) {
+		return purchaseMapper.getPurchaseCountByPhoneModel(phoneModel, shopId);
 	}
 }

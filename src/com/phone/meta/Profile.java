@@ -126,4 +126,19 @@ public class Profile implements Serializable {
 		this.shopId = shopId;
 	}
 
+	/**
+	 * 获得店铺名称
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param shopId
+	 * @return
+	 */
+	public static String getShopName(long shopId) {
+		if (shopId == 1) {
+			return "店铺B1";
+		} else if (shopId == 2) {
+			return "店铺A2";
+		}
+		return "";
+	}
 }

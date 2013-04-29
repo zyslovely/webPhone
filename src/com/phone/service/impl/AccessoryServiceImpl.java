@@ -27,8 +27,7 @@ import com.phone.util.ListUtils;
 @Service("accessoryService")
 public class AccessoryServiceImpl implements AccessoryService {
 
-	private static final Logger logger = Logger
-			.getLogger(AccessoryServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(AccessoryServiceImpl.class);
 	@Resource
 	private AccessoryInfoMapper accessoryInfoMapper;
 
@@ -66,8 +65,7 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * int, long)
 	 */
 	@Override
-	public boolean addAccessory(String name, int count, long accessoryInfoId,
-			double unitPrice) {
+	public boolean addAccessory(String name, int count, long accessoryInfoId, double unitPrice, long userId, long shopId) {
 		long nowTime = new Date().getTime();
 		Accessory accessory = new Accessory();
 		accessory = new Accessory();
@@ -78,6 +76,8 @@ public class AccessoryServiceImpl implements AccessoryService {
 		accessory.setLastUpdateTime(nowTime);
 		accessory.setUnitPrice(unitPrice);
 		accessory.setAccessoryTypeId(0);
+		accessory.setShopId(shopId);
+		accessory.setOperatorId(userId);
 		return accessoryMapper.addAccessory(accessory) > 0;
 	}
 
@@ -87,8 +87,7 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * @see com.phone.service.AccessoryService#deleteAccessoryById(long, int)
 	 */
 	@Override
-	public boolean descCountAccessoryById(long id, int count, double soldPrice,
-			long shopId) {
+	public boolean descCountAccessoryById(long id, int count, double soldPrice, long shopId, long userId) {
 		Accessory accessory = accessoryMapper.getAccessoryById(id, shopId);
 		if (accessory == null) {
 			logger.error("deleteAccessoryById accessory 不存在 id=" + id);
@@ -99,22 +98,23 @@ public class AccessoryServiceImpl implements AccessoryService {
 			return false;
 		}
 		long nowTime = new Date().getTime();
-		if (accessoryMapper.updateAccessoryByid(accessory.getCount() - count,
-				new Date().getTime(), id, shopId) > 0) {
+		if (accessoryMapper.updateAccessoryByid(accessory.getCount() - count, new Date().getTime(), id, shopId) > 0) {
 			AccessorySold accessorySold = new AccessorySold();
 			accessorySold.setAccessoryid(accessory.getId());
 			accessorySold.setCreateTime(nowTime);
-			accessorySold.setOperatorId(0);
+			accessorySold.setOperatorId(userId);
+			accessorySold.setShopId(shopId);
 			accessorySold.setSoldPrice(soldPrice);
 			accessorySoldMapper.addAccessorySold(accessorySold);
 
 			AccessoryProfit accessoryProfit = new AccessoryProfit();
 			accessoryProfit.setAccessoryid(accessory.getId());
 			accessoryProfit.setCreateTime(nowTime);
-			accessoryProfit.setOperatorId(0);
+			accessoryProfit.setOperatorId(userId);
 			accessoryProfit.setProfit(soldPrice - accessory.getUnitPrice());
 			accessoryProfit.setPurchasePrice(accessory.getUnitPrice());
 			accessoryProfit.setSoldPrice(soldPrice);
+			accessoryProfit.setShopId(shopId);
 			accessoryProfitMapper.addAccessoryProfit(accessoryProfit);
 			return true;
 		}
@@ -150,19 +150,15 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * int, int, long)
 	 */
 	@Override
-	public List<Accessory> getAccessoryList(String name, long shopId,
-			int limit, int offset, long accessoryInfoId) {
-		List<Accessory> accessories = accessoryMapper.getAccessoryList(name,
-				accessoryInfoId, shopId, limit, offset);
+	public List<Accessory> getAccessoryList(String name, long shopId, int limit, int offset, long accessoryInfoId) {
+		List<Accessory> accessories = accessoryMapper.getAccessoryList(name, accessoryInfoId, shopId, limit, offset);
 		if (ListUtils.isEmptyList(accessories)) {
 			return null;
 		}
 		for (Accessory accessory : accessories) {
-			AccessoryInfo accessoryInfo = accessoryInfoMapper
-					.getAccessoryInfoById(accessory.getAccessoryInfoId());
+			AccessoryInfo accessoryInfo = accessoryInfoMapper.getAccessoryInfoById(accessory.getAccessoryInfoId());
 			if (accessoryInfo != null) {
-				accessory.setAccessoryInfoName(accessoryInfo
-						.getAccessoryInfoName());
+				accessory.setAccessoryInfoName(accessoryInfo.getAccessoryInfoName());
 			}
 		}
 		return accessories;

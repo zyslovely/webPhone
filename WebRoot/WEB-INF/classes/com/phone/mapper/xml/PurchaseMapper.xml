@@ -46,7 +46,7 @@
 	<select id="getPurchaseList" parameterType="hashMap" resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneModel like
-		CONCAT('${phoneModel}','%') and 2> status
+		CONCAT('%','${phoneModel}','%') and 2> status
 		and shopId = #{shopId}
 		order
 		by
@@ -71,12 +71,10 @@
 		statementType="PREPARED">
 		UPDATE
 		TB_Phone_Purchase
-		set Status=#{Status}
+		set Status=#{Status} 
 		WHERE
 		id =
-		#{phoneid}
-		and operatorId = #{operatorId}
-		and shopId = #{shopId};
+		#{phoneid};
 	</update>
 
 	<select id="getPurchaseByPhoneCode" parameterType="hashMap"
@@ -88,14 +86,11 @@
 		and shopId = #{shopId};
 	</select>
 
-	<select id="getPurchaseListByPhoneModel" resultMap="purchaseMap">
-		SELECT * from
-		TB_Phone_Purchase
-		WHERE phoneModel
-		=
-		#{phoneModel}
-		and shopId = #{shopId}
-		and
-		2> status;
+	
+		<!-- 查询用户的骑行数量Ridding -->
+	<select id="getPurchaseCountByPhoneModel" resultType="int" >
+		SELECT count(*) from TB_Phone_Purchase where phoneModel like
+		CONCAT('%','${phoneModel}','%') and 2> status
+		and shopId = #{shopId};
 	</select>
 </mapper>

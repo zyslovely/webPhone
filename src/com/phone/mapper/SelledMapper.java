@@ -27,7 +27,7 @@ public interface SelledMapper {
 	 * @return
 	 */
 	public List<Selled> getSelledListByIds(
-			@Param("phoneidList") List<Map<String, Object>> hashMapList);
+			@Param("phoneidList") List<Long> phoneidList,@Param("shopId") long shopId);
 
 	/**
 	 * 查找Selled

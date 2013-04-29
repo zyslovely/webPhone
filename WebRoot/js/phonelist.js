@@ -9,19 +9,29 @@ function phoneDelete(id){
 
 function phoneSell(id,purchasePrice){
 	
-	var _sellPrice=prompt("请输入卖出价格","");
-	if(_sellPrice<purchasePrice){
-		if(confirm("卖去价格低于进货价格，确定?")){
-			doSell(id,_sellPrice);
-		}
+    jPrompt('请输入卖出价格：', '请输入', '',function(_price){
+              if(_price<purchasePrice){
+   	   jConfirm('卖出价格低于进货价格，确定?', '请确定',function(res){
+   	   	    doSell(id,_price);
+   	   });
 	}else{
-		doSell(id,_sellPrice);
+		
+		doSell(id,_price);
 	}
+    });
+
 	
 };
 
+
 function doSell(id,sellPrice){
-	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'sellPhone',id,sellPrice,submitCB);
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'sellPhone',id,sellPrice,function(_flag){
+	   	if(_flag){
+	    alert("卖出成功");
+	}else{
+		alert("卖出失败");
+	}
+	});
 }
 
 function onpressAdd(){
