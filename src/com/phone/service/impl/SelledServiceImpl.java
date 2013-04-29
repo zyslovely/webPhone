@@ -1,5 +1,6 @@
 package com.phone.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -41,26 +42,32 @@ public class SelledServiceImpl implements SelledService {
 	/*
 	 * 
 	 */
-	public boolean addSelled(long phoneid, double selledPrice, int operatorId) {
+	public boolean addSelled(long phoneid, double selledPrice, long operatorId,
+			long shopId) {
 		Selled selled = new Selled();
 		selled.setPhoneid(phoneid);
 		selled.setSelledPrice(selledPrice);
 		selled.setCreateTime(new Date().getTime());
 		selled.setOperatorId(operatorId);
 		if (selledMapper.addSelled(selled) > 0) {
-			this.updatePurchaseAndProfit(phoneid, selledPrice, operatorId);
+			this.updatePurchaseAndProfit(phoneid, selledPrice, operatorId,
+					shopId);
 			return true;
 		}
 		return false;
 	}
 
 	private void updatePurchaseAndProfit(long phoneid, double selledPrice,
-			int operatorId) {
-		Purchase purchase = purchaseMapper.getPurchase(phoneid);
+			long operatorId, long shopId) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneid", phoneid);
+		hashMap.put("operatorId", operatorId);
+		hashMap.put("shopId", shopId);
+		Purchase purchase = purchaseMapper.getPurchase(hashMap);
+		Map<String, Object> map = new HashMap<String, Object>();
 		hashMap.put("phoneid", purchase.getId());
 		hashMap.put("Status", Purchase.PurchaseStatus.Sold.getValue());
-		if (purchaseMapper.updatePurchase(hashMap) > 0) {
+		if (purchaseMapper.updatePurchase(map) > 0) {
 			logger.info("updatePurchase Successed!");
 			Profit profit = new Profit();
 			profit.setPhoneid(phoneid);
@@ -78,12 +85,24 @@ public class SelledServiceImpl implements SelledService {
 	}
 
 	@Override
-	public Selled getSelled(long phoneid) {
-		return selledMapper.getSelled(phoneid);
+	public Selled getSelled(long phoneid, long operatorId, long shopId) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneid", phoneid);
+		hashMap.put("operatorId", operatorId);
+		hashMap.put("shopId", shopId);
+		return selledMapper.getSelled(hashMap);
 	}
 
 	@Override
-	public List<Selled> getSelledList(List<Long> selledIdList) {
-		return selledMapper.getSelledListByIds(selledIdList);
+	public List<Selled> getSelledList(List<Long> selledIdList, long shopId) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		List<Map<String, Object>> hashMapList = new ArrayList<Map<String, Object>>(
+				selledIdList.size());
+		for (Long selledId : selledIdList) {
+			hashMap.put("phoneid", selledId);
+			hashMap.put("shopId", shopId);
+			hashMapList.add(hashMap);
+		}
+		return selledMapper.getSelledListByIds(hashMapList);
 	}
 }

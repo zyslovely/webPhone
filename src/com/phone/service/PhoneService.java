@@ -34,5 +34,5 @@ public interface PhoneService {
 	 * @param phoneModel
 	 * @return
 	 */
-	public List<Phone> getPhoneListByPhoneModel(String phoneModel);
+	public List<Phone> getPhoneListByPhoneModel(String phoneModel, long shopId);
 }

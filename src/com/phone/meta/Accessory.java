@@ -21,6 +21,7 @@ public class Accessory implements Serializable {
 	private long lastUpdateTime;
 	private long accessoryTypeId;
 	private long accessoryInfoId;
+	private long operatorId;
 	private long shopId;
 	/**
 	 * 不存数据库
@@ -97,6 +98,14 @@ public class Accessory implements Serializable {
 
 	public void setAccessoryInfoName(String accessoryInfoName) {
 		this.accessoryInfoName = accessoryInfoName;
+	}
+
+	public long getOperatorId() {
+		return operatorId;
+	}
+
+	public void setOperatorId(long operatorId) {
+		this.operatorId = operatorId;
 	}
 
 	public long getShopId() {

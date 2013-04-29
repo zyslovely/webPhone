@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.phone.meta.Purchase;
 import com.phone.meta.Purchase.PurchaseStatus;
+import com.phone.security.MySecurityDelegatingFilter;
+import com.phone.security.MyUser;
 import com.phone.service.AccessoryService;
 import com.phone.service.PurchaseService;
 import com.phone.service.SelledService;
@@ -37,13 +39,14 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean deletePhoneById(long id) {
-
-		Purchase purchase = purchaseService.getPurchase(id);
-		if (purchase == null
-				|| purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
+		WebContext ctx = WebContextFactory.get();
+		String sessionId = ctx.getSession().getId();
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		Purchase purchase = purchaseService.getPurchase(id, myUser.getUserId(), myUser.getShopId());
+		if (purchase == null || purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
 			return false;
 		}
-		return purchaseService.deletePurchase(id);
+		return purchaseService.deletePurchase(id, myUser.getUserId(), myUser.getShopId());
 	}
 
 	/**
@@ -54,8 +57,10 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean sellPhone(long phoneId, double selledPrice) {
-		int operatorId = 0;
-		return selledService.addSelled(phoneId, selledPrice, operatorId);
+		WebContext ctx = WebContextFactory.get();
+		String sessionId = ctx.getSession().getId();
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		return selledService.addSelled(phoneId, selledPrice, myUser.getUserId(), myUser.getShopId());
 	}
 
 	/**
@@ -77,8 +82,7 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean sellAccessory(long id, double soldPrice, long shopId) {
-		return accessoryService
-				.descCountAccessoryById(id, 1, soldPrice, shopId);
+		return accessoryService.descCountAccessoryById(id, 1, soldPrice, shopId);
 	}
 
 	/**

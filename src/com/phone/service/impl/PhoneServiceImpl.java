@@ -63,7 +63,7 @@ public class PhoneServiceImpl implements PhoneService {
 			phoneIdList.add(purchase.getId());
 		}
 		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
-		this.addProfitInfo(phoneList, phoneIdList, purchaseList);
+		this.addProfitInfo(phoneList, phoneIdList, purchaseList, shopId);
 		return phoneList;
 	}
 
@@ -76,11 +76,19 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @param purchaseliList
 	 */
 	private void addProfitInfo(List<Phone> phoneList, List<Long> phoneIdList,
-			List<Purchase> purchaseList) {
-		List<Selled> selledList = selledMapper.getSelledListByIds(phoneIdList);
+			List<Purchase> purchaseList, long shopId) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		List<Map<String, Object>> hashMapList = new ArrayList<Map<String, Object>>(
+				phoneIdList.size());
+		for (Long selledId : phoneIdList) {
+			hashMap.put("phoneid", selledId);
+			hashMap.put("shopId", shopId);
+			hashMapList.add(hashMap);
+		}
+		List<Selled> selledList = selledMapper.getSelledListByIds(hashMapList);
 		Map<Long, Selled> selledMap = HashMapMaker.listToMap(selledList,
 				"getPhoneid", Selled.class);
-		List<Profit> profitList = profitMapper.getProfitListByIds(phoneIdList);
+		List<Profit> profitList = profitMapper.getProfitListByIds(hashMapList);
 		Map<Long, Profit> profitMap = HashMapMaker.listToMap(profitList,
 				"getPhoneid", Profit.class);
 		List<Long> brandIds = new ArrayList<Long>();
@@ -134,7 +142,7 @@ public class PhoneServiceImpl implements PhoneService {
 		phoneIdList.add(purchase.getId());
 
 		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
-		this.addProfitInfo(phoneList, phoneIdList, purchaseList);
+		this.addProfitInfo(phoneList, phoneIdList, purchaseList, shopId);
 		return phoneList;
 	}
 
@@ -145,15 +153,15 @@ public class PhoneServiceImpl implements PhoneService {
 	 * com.phone.service.PhoneService#getPhoneListByPhoneModel(java.lang.String)
 	 */
 	@Override
-	public List<Phone> getPhoneListByPhoneModel(String phoneModel) {
+	public List<Phone> getPhoneListByPhoneModel(String phoneModel, long shopId) {
 		List<Purchase> purchaseList = purchaseMapper
-				.getPurchaseListByPhoneModel(phoneModel);
+				.getPurchaseListByPhoneModel(phoneModel, shopId);
 		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());
 		for (Purchase purchase : purchaseList) {
 			phoneIdList.add(purchase.getId());
 		}
 		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
-		this.addProfitInfo(phoneList, phoneIdList, purchaseList);
+		this.addProfitInfo(phoneList, phoneIdList, purchaseList, shopId);
 		return phoneList;
 	}
 }

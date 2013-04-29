@@ -10,7 +10,8 @@
 		<result property="lastUpdateTime" column="lastUpdateTime" />
 		<result property="accessoryInfoId" column="accessoryInfoId" />
 		<result property="accessoryTypeId" column="accessoryTypeId" />
-
+		<result property="operatorId" column="operatorId" />
+		<result property="shopId" column="shopId" />
 	</resultMap>
 
 	<insert id="addAccessory" parameterType="AccessoryProfit">
@@ -21,7 +22,9 @@
 		createTime,
 		lastUpdateTime,
 		accessoryInfoId,
-		accessoryTypeId
+		accessoryTypeId,
+		operatorId,
+		shopId
 		)VALUES(
 		#{name},
 		#{count},
@@ -29,6 +32,8 @@
 		#{lastUpdateTime},
 		#{accessoryInfoId},
 		#{accessoryTypeId},
+		#{operatorId},
+		#{shopId}
 		)
 		<selectKey keyProperty="id" resultType="long">
 			SELECT

@@ -10,6 +10,7 @@
 		<result property="DecideSellPrice" column="DecideSellPrice" />
 		<result property="CreateTime" column="CreateTime" />
 		<result property="Status" column="Status" />
+		<result property="operatorId" column="operatorId" />
 		<result property="shopId" column="shopId" />
 	</resultMap>
 
@@ -23,6 +24,7 @@
 		DecideSellPrice,
 		CreateTime,
 		Status,
+		operatorId,
 		shopId
 		)VALUES(
 		#{brandId},
@@ -32,6 +34,7 @@
 		#{DecideSellPrice},
 		#{CreateTime},
 		#{Status},
+		#{operatorId},
 		#{shopId}
 		)
 		<selectKey keyProperty="id" resultType="long">
@@ -43,11 +46,13 @@
 	<select id="getPurchaseList" parameterType="hashMap" resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneModel like
-		CONCAT('${phoneModel}','%') and 2> status and shopId = #{shopId}
+		CONCAT('${phoneModel}','%') and 2> status
+		and shopId = #{shopId}
 		order
 		by
 		CreateTime desc
-		limit #{limit}
+		limit
+		#{limit}
 		offset
 		#{offset};
 	</select>
@@ -55,7 +60,11 @@
 	<select id="getPurchase" parameterType="long" resultMap="purchaseMap">
 		SELECT *
 		from TB_Phone_Purchase
-		WHERE id=#{phoneid} and 2> status;
+		WHERE id=#{phoneid}
+		and shopId = #{shopId}
+		and
+		2>
+		status;
 	</select>
 
 	<update id="updatePurchase" parameterType="hashMap" flushCache="true"
@@ -65,7 +74,9 @@
 		set Status=#{Status}
 		WHERE
 		id =
-		#{phoneid};
+		#{phoneid}
+		and operatorId = #{operatorId}
+		and shopId = #{shopId};
 	</update>
 
 	<select id="getPurchaseByPhoneCode" parameterType="hashMap"
@@ -77,12 +88,14 @@
 		and shopId = #{shopId};
 	</select>
 
-	<select id="getPurchaseListByPhoneModel" parameterType="String"
-		resultMap="purchaseMap">
-		SELECT * from TB_Phone_Purchase
+	<select id="getPurchaseListByPhoneModel" resultMap="purchaseMap">
+		SELECT * from
+		TB_Phone_Purchase
 		WHERE phoneModel
 		=
 		#{phoneModel}
-		and 2> status;
+		and shopId = #{shopId}
+		and
+		2> status;
 	</select>
 </mapper>

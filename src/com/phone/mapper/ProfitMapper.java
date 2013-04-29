@@ -27,7 +27,7 @@ public interface ProfitMapper {
 	 * @param phoneid
 	 * @return
 	 */
-	public Profit getProfit(long phoneid);
+	public Profit getProfit(Map<String, Object> hashMap);
 
 	/**
 	 * 获得利润列表
@@ -37,7 +37,7 @@ public interface ProfitMapper {
 	 * @return
 	 */
 	public List<Profit> getProfitListByIds(
-			@Param(value = "phoneidList") List<Long> phoneidList);
+			@Param(value = "phoneidList") List<Map<String, Object>> hashMapList);
 
 	/**
 	 * 通过时间查找Profit列表
