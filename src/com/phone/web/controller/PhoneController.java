@@ -1,6 +1,8 @@
 package com.phone.web.controller;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -96,12 +98,12 @@ public class PhoneController extends AbstractBaseController {
 		}
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "");
-		int limit = ServletRequestUtils.getIntParameter(request, "limit", 10);
+		int limit = ServletRequestUtils.getIntParameter(request, "limit", 50);
 		int offset = ServletRequestUtils.getIntParameter(request, "offset", 0);
 		if (!StringUtils.isEmpty(phoneModel)) {
 			List<Phone> phoneList = phoneService.getPhoneList(phoneModel, myUser.getShopId(), limit, offset);
 			mv.addObject("phoneModel", phoneModel);
-			mv.addObject("phoneModelCount", phoneList.size());
+			mv.addObject("phoneModelCount", ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
 			mv.addObject("phoneList", phoneList);
 		}
 		mv.addObject("phoneCode", phoneCode);

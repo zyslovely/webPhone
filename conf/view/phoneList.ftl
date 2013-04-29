@@ -14,7 +14,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <body style="height:1000px;">
 <h2 style="font-size: 25px;color: blue;margin-bottom:30px;"><a href="/phone/index/">返回</a></h2>
 <h1 style="font-size: 20px;color: red;margin-bottom:30px;">手机查询页面</h1>
-<form action=""/>
+<form action="/phone/list/" method="post" target="_self"/>
 <div>
    <span>输入手机型号:</span>
    <input type="text" value="" name="phoneModel"/>
