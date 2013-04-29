@@ -43,6 +43,15 @@ public interface PurchaseMapper {
 	public Purchase getPurchase(Map<String, Object> hashMap);
 
 	/**
+	 * 通过ids获取
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param ids
+	 * @return
+	 */
+	public List<Purchase> getPurchaseListByIds(@Param(value = "ids") List<Long> ids);
+
+	/**
 	 * 通过phoneCode查找Purchase
 	 * 
 	 * @param phoneCode

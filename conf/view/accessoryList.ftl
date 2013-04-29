@@ -34,8 +34,8 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <#if accessorysList?exists>
 <p>
    <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。
-   <#if extPage+1 gt 0><a href="/accessory/list/?accessoryName=${accessoryName!""}&toPage=${extPage!0}">上一页</a></#if>
-   <#if extPage lt totalPage-2><a href="/accessory/list/?accessoryName=${accessoryName!""}&toPage=${nextPage!0}">下一页</a></#if>
+   <#if extPage gt 0><a href="/accessory/list/?accessoryName=${accessoryName!""}&toPage=${extPage!0}">上一页</a></#if>
+   <#if nextPage lt totalPage><a href="/accessory/list/?accessoryName=${accessoryName!""}&toPage=${nextPage!0}">下一页</a></#if>
 </p>
    <table id="accessory_list_tb" >
 			<thead>
@@ -44,6 +44,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<th width="100">配件名称</th>
 					<th width="150">剩余数量</th>
 					<th width="100">单价</th>
+					<th width="100">进货日期</th>
 					<th width="150">操作</th>
 				</tr>
 			</thead>
@@ -55,6 +56,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${accessory.name!""}</td>
 					<td>${accessory.count!0}</td>
 					<td>${accessory.unitPrice!0}</td>
+					<td>${accessory.createTimeStr!""}</td>
 					<td>
 					   <a href="javascript:void(0);"  onClick="accessorySell(${accessory.id},${accessory.unitPrice!0});">卖出</a>
 					</td>
@@ -69,5 +71,11 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 		
 <#include "js.ftl">
 <script>
-
+//<![CDATA[
+       jQuery(document).ready(function($) {
+			$('#accessory_list_tb').flexigrid({
+				 width : 'auto', 
+			});
+		});
+//]]>
 </script>

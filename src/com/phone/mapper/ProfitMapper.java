@@ -45,4 +45,15 @@ public interface ProfitMapper {
 	 * @return
 	 */
 	public List<Profit> getProfitList(Map<String, Object> hashMap);
+
+	/**
+	 * 得到利润数量
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param shopId
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	public int getProfitCountByTime(@Param("shopId") long shopId, @Param("startTime") long startTime, @Param("endTime") long endTime);
 }

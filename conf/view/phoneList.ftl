@@ -27,9 +27,9 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 
 <#if phoneList?exists>
 <p>
-   <span style="color:red">当前第${nowPage+1!0}页，总共${totalPage!0}页</span>。
-   <#if extPage+1 gt 0><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${extPage!0}">上一页</a></#if>
-   <#if extPage lt totalPage-2><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${nextPage!0}">下一页</a></#if>
+   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。
+   <#if extPage gt 0><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${extPage!0}">上一页</a></#if>
+   <#if nextPage lt totalPage><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${nextPage!0}">下一页</a></#if>
 </p>
    <table id="phone_list_tb" >
 			<thead>

@@ -55,12 +55,23 @@
 
 	<select id="getProfitList" resultMap="profitMap" parameterType="hashMap">
 		SELECT * from TB_Phone_Profit
-		WHERE CreateTime
+		WHERE ( CreateTime
 		BETWEEN #{startTime}
 		AND
-		#{endTime}
+		#{endTime} ) 
 		and shopId = #{shopId}
 		order by
-		profit desc;
+		createTime desc limit #{limit}
+		offset #{offset};
+	</select>
+	
+		<!-- 查询用户的骑行数量Ridding -->
+	<select id="getProfitCountByTime" resultType="int">
+		SELECT
+		count(*) from TB_Phone_Profit WHERE ( CreateTime
+		BETWEEN #{startTime}
+		AND
+		#{endTime} )
+		and shopId = #{shopId};
 	</select>
 </mapper>

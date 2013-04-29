@@ -3,6 +3,7 @@ package com.phone.util;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @author zhengyisheng E-mail:zhengyisheng@gmail.com
@@ -141,6 +142,20 @@ public class TimeUtil {
 	 */
 	public static int leftDay(long beginTime, long nowTime, int dayLong) {
 		return (int) (dayLong - (nowTime - beginTime) / DAY_TIME);
+	}
+
+	/**
+	 * 得到这个月的第一天
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @return
+	 */
+	public static long firstDayInMonth() {
+		Calendar calendar = new GregorianCalendar();
+		calendar.set(Calendar.DATE, 1);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(simpleDateFormat.format(calendar.getTime()));
+		return calendar.getTime().getTime();
 	}
 
 	/**

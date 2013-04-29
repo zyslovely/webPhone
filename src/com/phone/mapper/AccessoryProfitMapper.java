@@ -1,5 +1,8 @@
 package com.phone.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.phone.meta.AccessoryProfit;
 
 /**
@@ -16,4 +19,12 @@ public interface AccessoryProfitMapper {
 	 * @return
 	 */
 	public int addAccessoryProfit(AccessoryProfit accessoryProfit);
+
+	/**
+	 * 通过时间查找Profit列表
+	 * 
+	 * @param hashMap
+	 * @return
+	 */
+	public List<AccessoryProfit> getAccessoryProfitList(Map<String, Object> hashMap);
 }

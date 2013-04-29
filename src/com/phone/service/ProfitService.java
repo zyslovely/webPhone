@@ -2,7 +2,7 @@ package com.phone.service;
 
 import java.util.List;
 
-import com.phone.meta.Profit;
+import com.phone.meta.ProfitVo;
 
 /**
  * @author yunshang_734 E-mail:yunshang_734@163.com
@@ -16,5 +16,16 @@ public interface ProfitService {
 	 * @param endTime
 	 * @return
 	 */
-	public List<Profit> getProfitList(long startTime, long endTime, long shopId);
+	public List<ProfitVo> getProfitList(long startTime, long endTime, long shopId, int limit, int offset);
+
+	/**
+	 * 得到利润数量
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param startTime
+	 * @param endTime
+	 * @param shopId
+	 * @return
+	 */
+	public int getProfitCount(long startTime, long endTime, long shopId);
 }

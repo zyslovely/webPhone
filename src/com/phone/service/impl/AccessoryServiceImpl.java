@@ -1,7 +1,9 @@
 package com.phone.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -174,5 +176,25 @@ public class AccessoryServiceImpl implements AccessoryService {
 	@Override
 	public int getAccessoryCount(String name, long accessoryInfoId, long shopId) {
 		return accessoryMapper.getAccessoryCount(name, accessoryInfoId, shopId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.AccessoryService#getProfitList(long, long, long,
+	 * int, int)
+	 */
+	@Override
+	public List<AccessoryProfit> getProfitList(long startTime, long endTime, long shopId, int limit, int offset) {
+		if (startTime < 0 || endTime < 0 || endTime > new Date().getTime()) {
+			return null;
+		}
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("startTime", startTime);
+		hashMap.put("endTime", endTime);
+		hashMap.put("shopId", shopId);
+		hashMap.put("limit", shopId);
+		hashMap.put("offset", shopId);
+		return accessoryProfitMapper.getAccessoryProfitList(hashMap);
 	}
 }

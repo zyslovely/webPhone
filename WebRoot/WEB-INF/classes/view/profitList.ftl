@@ -12,44 +12,52 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 	
 <body style="height:1000px;">
 <h2 style="font-size: 25px;color: blue;margin-bottom:30px;"><a href="/phone/index/">返回</a></h2>
-<h1 style="font-size: 20px;color: red;margin-bottom:30px;">利润查询页面</h1>
+<h1 style="font-size: 20px;color: red;margin-bottom:30px;">手机利润查询页面</h1>
 
-<a href="/profit/list/?today=1">今天的利润</a><a href="/profit/list/?yesterday=1">昨天的利润</a>
+<form action="">
+<div style="margin-right:10px;">
+    <input type="radio" name="profitDate" value="1" <#if profitDate==1>checked</#if> />今天的利润
+    <input type="radio" name="profitDate" value="2" <#if profitDate==2>checked</#if>/>昨天的利润
+    <input type="radio" name="profitDate" value="3" <#if profitDate==3>checked</#if>/>当月的利润
+    <input type="submit" value="提交"/>
+</div>
 
-<#if profitList?exists>
-<p>
-   <span style="color:red">当前第${nowPage+1!0}页，总共${totalPage!0}页</span>。
-   <#if extPage+1 gt 0><a href="/profit/list/?startTimeString=${}&endTimeString=${}&shopId=${}">上一页</a></#if>
-   <#if extPage lt totalPage-2><a href="/profit/list/?startTimeString=${}&endTimeString=${}&shopId=${}">下一页</a></#if>
+</form>
+
+<div style="margin-top:30px;color:red;font-size:18px;">
+   <span>总销售:${saleTotal!0}</span><span>总利润:${profitTotal!0}</span>
+</div>
+<#if profitVoList?exists>
+<p style="margin-top:30px;">
+   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。
+   <#if extPage gt 0><a href="/profit/list/?toPage=${extPage!0}&profitDate=${profitDate!0}">上一页</a></#if>
+   <#if nextPage lt totalPage><a href="/profit/list/?toPage=${nextPage!0}&profitDate=${profitDate!0}">下一页</a></#if>
 </p>
    <table id="profit_list_tb" >
 			<thead>
 				<tr>
-				    <th width="100">phoneid</th>
+				    <th width="100">手机型号</th>
+				    <th width="100">手机条形码</th>
 					<th width="100">购入价格</th>
-					<th width="150">计划卖出价格</th>
 					<th width="100">实际卖出价格</th>
 					<th width="150">利润</th>
-					<th width="100">记录创建时间</th>
-					<th width="100"">操作人ID</th>
-					<th width="100">店铺ID</th>
+					<th width="150">进货日期</th>
+					<th width="150">卖出日期</th>
+					
 				</tr>
 			</thead>
 			<tbody>
-			
-			   <#list profitList as profit>
+			   <#list profitVoList as profit>
 				<tr >
-				    <td>${profit.phoneid!0}</td>
+				    <td>${profit.phoneModel!""}</td>
+				    <td>${profit.phoneCode!""}</td>
 					<td>${profit.purchasePrice!0}</td>
-					<td>${profit.DecideSellPrice!0}</td>
 					<td>${profit.SelledPrice!0}</td>
 					<td>${profit.profit!0}</td>
-					<td>${profit.CreateTime!0}</td>
-					<td>${profit.operatorId!0}</td>
-					<td>${profit.shopId!0}</td>
+					<td>${profit.purchaseTimeStr!0}</td>
+					<td>${profit.selledTimeStr!0}</td>
 				</tr>
 			    </#list>
-
 			</tbody>
 		</table>
 					</#if>
@@ -58,3 +66,12 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 </#escape>
 		
 <#include "js.ftl">
+<script>
+//<![CDATA[
+       jQuery(document).ready(function($) {
+			$('#profit_list_tb').flexigrid({
+				 width : 'auto', 
+			});
+		});
+//]]>
+</script>

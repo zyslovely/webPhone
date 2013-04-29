@@ -2,6 +2,8 @@ package com.phone.meta;
 
 import java.io.Serializable;
 
+import com.phone.util.TimeUtil;
+
 /**
  * @author zhengyisheng E-mail:zhengyisheng@gmail.com
  * @version CreateTime：2013-4-27 下午07:22:18
@@ -23,6 +25,8 @@ public class Accessory implements Serializable {
 	private long accessoryInfoId;
 	private long operatorId;
 	private long shopId;
+
+	private String createTimeStr;
 	/**
 	 * 不存数据库
 	 */
@@ -57,6 +61,7 @@ public class Accessory implements Serializable {
 	}
 
 	public void setCreateTime(long createTime) {
+		this.createTimeStr = TimeUtil.getFormatTimeInMinute(createTime);
 		this.createTime = createTime;
 	}
 
@@ -114,6 +119,14 @@ public class Accessory implements Serializable {
 
 	public void setShopId(long shopId) {
 		this.shopId = shopId;
+	}
+
+	public String getCreateTimeStr() {
+		return createTimeStr;
+	}
+
+	public void setCreateTimeStr(String createTimeStr) {
+		this.createTimeStr = createTimeStr;
 	}
 
 }

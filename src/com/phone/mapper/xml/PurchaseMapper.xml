@@ -71,7 +71,7 @@
 		statementType="PREPARED">
 		UPDATE
 		TB_Phone_Purchase
-		set Status=#{Status} 
+		set Status=#{Status}
 		WHERE
 		id =
 		#{phoneid};
@@ -86,10 +86,21 @@
 		and shopId = #{shopId};
 	</select>
 
-	
-		<!-- 查询用户的骑行数量Ridding -->
-	<select id="getPurchaseCountByPhoneModel" resultType="int" >
-		SELECT count(*) from TB_Phone_Purchase where phoneModel like
+	<select id="getPurchaseListByIds" resultMap="purchaseMap"
+		parameterType="list">
+		SELECT * from TB_Phone_Purchase where
+		id in
+		<foreach item="item" collection="ids" index="index" open="("
+			separator="," close=")">
+			#{item} 
+	     </foreach>
+		;
+	</select>
+
+	<!-- 查询用户的骑行数量Ridding -->
+	<select id="getPurchaseCountByPhoneModel" resultType="int">
+		SELECT
+		count(*) from TB_Phone_Purchase where phoneModel like
 		CONCAT('%','${phoneModel}','%') and 2> status
 		and shopId = #{shopId};
 	</select>

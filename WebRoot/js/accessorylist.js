@@ -24,7 +24,7 @@ function submitCB(_flag){
 	}else{
 		alert("卖出失败");
 	}
-	location.href="http://shouji.qiqunar.com.cn/accessory/list/";
+	location.href=location.href;
 };
 
 function onpressAdd(){
