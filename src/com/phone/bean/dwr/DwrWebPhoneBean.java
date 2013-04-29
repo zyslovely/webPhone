@@ -40,8 +40,8 @@ public class DwrWebPhoneBean {
 	 */
 	public boolean deletePhoneById(long id) {
 		WebContext ctx = WebContextFactory.get();
-		String sessionId = ctx.getSession().getId();
-		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		Purchase purchase = purchaseService.getPurchase(id, myUser.getUserId(), myUser.getShopId());
 		if (purchase == null || purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
 			return false;
@@ -58,8 +58,8 @@ public class DwrWebPhoneBean {
 	 */
 	public boolean sellPhone(long phoneId, double selledPrice) {
 		WebContext ctx = WebContextFactory.get();
-		String sessionId = ctx.getSession().getId();
-		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		return selledService.addSelled(phoneId, selledPrice, myUser.getUserId(), myUser.getShopId());
 	}
 
@@ -83,8 +83,8 @@ public class DwrWebPhoneBean {
 	 */
 	public boolean sellAccessory(long id, double soldPrice) {
 		WebContext ctx = WebContextFactory.get();
-		String sessionId = ctx.getSession().getId();
-		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		return accessoryService.descCountAccessoryById(id, 1, soldPrice, myUser.getShopId(), myUser.getUserId());
 	}
 

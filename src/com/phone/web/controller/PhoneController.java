@@ -55,8 +55,8 @@ public class PhoneController extends AbstractBaseController {
 	 * @return
 	 */
 	public ModelAndView showAddPurchase(HttpServletRequest request, HttpServletResponse response) {
-		String sessionId = request.getSession().getId();
-		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		Long userId = MyUser.getMyUser(request);
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		if (myUser == null) {
 			logger.error("myUser不存在，没有经过验证");
 		}
@@ -91,8 +91,8 @@ public class PhoneController extends AbstractBaseController {
 	 */
 	public ModelAndView showAddPurchaseView(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("phoneadd");
-		String sessionId = request.getSession().getId();
-		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		Long userId = MyUser.getMyUser(request);
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		if (myUser == null) {
 			logger.error("myUser不存在，没有经过验证");
 		}
@@ -118,8 +118,8 @@ public class PhoneController extends AbstractBaseController {
 	 * @return
 	 */
 	public ModelAndView showPhoneList(HttpServletRequest request, HttpServletResponse response) {
-		String sessionId = request.getSession().getId();
-		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		Long userId = MyUser.getMyUser(request);
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		if (myUser == null) {
 			logger.error("myUser不存在，没有经过验证");
 		}
@@ -164,8 +164,8 @@ public class PhoneController extends AbstractBaseController {
 	 * @return
 	 */
 	public ModelAndView showProfitList(HttpServletRequest request, HttpServletResponse response) {
-		String sessionId = request.getSession().getId();
-		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		Long userId = MyUser.getMyUser(request);
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		if (myUser == null) {
 			logger.error("myUser不存在，没有经过验证");
 		}
@@ -262,8 +262,8 @@ public class PhoneController extends AbstractBaseController {
 		String accessoryName = ServletRequestUtils.getStringParameter(request, "accessoryName", "");
 		long accessoryInfoId = ServletRequestUtils.getLongParameter(request, "accessoryInfoId", -1L);
 		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
-		String sessionId = request.getSession().getId();
-		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		Long userId = MyUser.getMyUser(request);
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		if (myUser == null) {
 			logger.error("myUser不存在，没有经过验证");
 		}
@@ -296,8 +296,8 @@ public class PhoneController extends AbstractBaseController {
 	 * @return
 	 */
 	public ModelAndView addAccessory(HttpServletRequest request, HttpServletResponse response) {
-		String sessionId = request.getSession().getId();
-		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		Long userId = MyUser.getMyUser(request);
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		String name = ServletRequestUtils.getStringParameter(request, "name", null);
 		int count = ServletRequestUtils.getIntParameter(request, "count", 0);
 		long accessoryInfoId = ServletRequestUtils.getLongParameter(request, "accessoryInfoId", -1L);

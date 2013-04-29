@@ -28,8 +28,8 @@ public class LoginController extends AbstractBaseController {
 	 */
 	public ModelAndView showIndex(HttpServletRequest request, HttpServletResponse response) {
 		logger.info(request.getSession().getId());
-		String sessionId = request.getSession().getId();
-		MyUser myUser = MySecurityDelegatingFilter.userMap.get(sessionId);
+		Long userId = MyUser.getMyUser(request);
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		if (myUser != null) {
 			try {
 				response.sendRedirect("/phone/index/");

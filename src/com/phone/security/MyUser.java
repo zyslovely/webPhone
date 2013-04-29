@@ -1,5 +1,7 @@
 package com.phone.security;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author zhengyisheng E-mail:zhengyisheng@gmail.com
  * @version CreateTime：2013-4-28 下午09:43:18
@@ -35,4 +37,12 @@ public class MyUser {
 		this.sessionStr = sessionStr;
 	}
 
+	public static long getMyUser(HttpServletRequest request) {
+		Object obj = request.getSession().getAttribute("userId");
+		if (obj == null) {
+			return 0;
+		}
+		return Long.valueOf(obj.toString());
+
+	}
 }

@@ -36,7 +36,7 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 
 	private static final PathMatcher urlMatcher = new AntPathMatcher();
 
-	public static ConcurrentHashMap<String, MyUser> userMap = new ConcurrentHashMap<String, MyUser>();
+	public static ConcurrentHashMap<Long, MyUser> userMap = new ConcurrentHashMap<Long, MyUser>();
 
 	// @Resource
 	// private ProfileMapper profileMapper;
@@ -76,7 +76,10 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 					myUser.setUserId(profile.getUserId());
 					myUser.setSessionStr(httpRequest.getSession().getId());
 					myUser.setShopId(profile.getShopId());
-					userMap.put(httpRequest.getSession().getId(), myUser);
+					userMap.put(myUser.getUserId(), myUser);
+
+					httpRequest.getSession().setAttribute("login", true);
+					httpRequest.getSession().setAttribute("userId", myUser.getUserId());
 					arg2.doFilter(request, response);
 					return;
 				} else {
@@ -89,8 +92,8 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 
 		// 如果需要认证
 		if (this.noNeedAdminConfig(uri, httpRequest) && !this.noNeedAuthConfig(uri, httpRequest)) {
-			String sessionId = httpRequest.getSession().getId();
-			MyUser myUser = userMap.get(sessionId);
+			Long userId = MyUser.getMyUser(httpRequest);
+			MyUser myUser = userMap.get(userId);
 			if (myUser == null) {
 				logger.error("找不到用户，说明用户不没登陆，返回到最初页面");
 				httpResponse.sendRedirect("/");
