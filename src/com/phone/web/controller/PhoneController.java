@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -330,6 +331,9 @@ public class PhoneController extends AbstractBaseController {
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
 		Long userId = MyUser.getMyUser(request);
 		MySecurityDelegatingFilter.userMap.remove(userId);
+		HttpSession session = request.getSession();
+		session.removeAttribute("login");
+		session.removeAttribute("userId");
 		try {
 			response.sendRedirect("/");
 		} catch (IOException e) {
