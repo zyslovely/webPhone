@@ -35,7 +35,7 @@ public interface ProfileMapper {
 	 * @param userName
 	 * @return
 	 */
-	public Profile getProfileByUserName(@Param(value="userName")String userName);
+	public Profile getProfileByUserName(@Param(value = "userName") String userName, @Param(value = "shopId") long shopId);
 
 	/**
 	 * 获取账户列表

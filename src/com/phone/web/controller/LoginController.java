@@ -39,6 +39,7 @@ public class LoginController extends AbstractBaseController {
 				e.printStackTrace();
 			}
 		}
+		
 		// 如果已经登陆，直接重定向
 		return new ModelAndView("webIndex");
 	}

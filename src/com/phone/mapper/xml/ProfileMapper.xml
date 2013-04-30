@@ -40,7 +40,7 @@
 		SELECT *
 		from
 		TB_Profile
-		WHERE userName=#{userName};
+		WHERE userName=#{userName} and shopId=#{shopId};
 	</select>
 
 	<select id="getProfileList" resultMap="profileMap">

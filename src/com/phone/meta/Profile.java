@@ -1,6 +1,7 @@
 package com.phone.meta;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author yunshang_734 E-mail:yunshang_734@163.com
@@ -135,10 +136,11 @@ public class Profile implements Serializable {
 	 */
 	public static String getShopName(long shopId) {
 		if (shopId == 1) {
-			return "店铺B1";
+			return "宜美智能手机店";
 		} else if (shopId == 2) {
-			return "店铺A2";
+			return "天宝智能手机店";
 		}
 		return "";
 	}
+
 }

@@ -318,4 +318,26 @@ public class PhoneController extends AbstractBaseController {
 		return mv;
 
 	}
+
+	/**
+	 * 退出
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
+		Long userId = MyUser.getMyUser(request);
+		MySecurityDelegatingFilter.userMap.remove(userId);
+		try {
+			response.sendRedirect("/");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
 }
