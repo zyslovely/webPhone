@@ -16,8 +16,9 @@ public interface PurchaseService {
 	 * @param purchasePrice
 	 * @param DecideSellPirce
 	 */
-	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPirce, long operatorId,
-			long shopId);
+	public boolean addPurchase(String brand, String phoneCode,
+			String phoneModel, double purchasePrice, double DecideSellPirce,
+			long operatorId, long shopId);
 
 	/**
 	 * 通过phoneid查找Purchase
@@ -25,7 +26,7 @@ public interface PurchaseService {
 	 * @param phoneid
 	 * @return
 	 */
-	public Purchase getPurchase(long phoneid, long operatorId, long shopId);
+	public Purchase getPurchase(long phoneid, long shopId);
 
 	/**
 	 * 通过改变Status变相删除Purchase
@@ -46,5 +47,12 @@ public interface PurchaseService {
 	 */
 	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel);
 
-	
+	/**
+	 * 通过phoneCode获取入库
+	 * 
+	 * @param shopId
+	 * @param phoneCode
+	 * @return
+	 */
+	public Purchase getPurchaseByPhoneCode(long shopId, String phoneCode);
 }

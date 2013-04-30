@@ -207,8 +207,40 @@ public class AccessoryServiceImpl implements AccessoryService {
 		return accessoryProfitMapper.getAccessoryProfitList(hashMap);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.AccessoryService#getAccessoryProfitCount(long,
+	 * long, java.lang.Long)
+	 */
 	public int getAccessoryProfitCount(long startTime, long endTime, Long shopId) {
 		return accessoryProfitMapper.getAccessoryProfitCount(startTime,
 				endTime, shopId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.AccessoryService#changeAccessoryWithShop(long,
+	 * long, long, int)
+	 */
+	public boolean changeAccessoryWithShop(long id, long shopId,
+			long newShopId, int changeCount) {
+		Accessory accessory = accessoryMapper.getAccessoryById(id, shopId);
+		if (changeCount > accessory.getCount()) {
+			return false;
+		}
+		if (accessoryMapper.updateAccessoryByid(accessory.getCount()
+				- changeCount, new Date().getTime(), id, shopId) < 0) {
+			return false;
+		}
+		accessory.setCount(changeCount);
+		accessory.setCreateTime(new Date().getTime());
+		accessory.setLastUpdateTime(new Date().getTime());
+		accessory.setShopId(newShopId);
+		if (accessoryMapper.addAccessory(accessory) > 0) {
+			return false;
+		}
+		return true;
 	}
 }

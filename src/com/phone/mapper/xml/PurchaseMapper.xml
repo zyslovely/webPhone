@@ -104,4 +104,14 @@
 		CONCAT('%','${phoneModel}','%') and 2> status
 		and shopId = #{shopId};
 	</select>
+
+	<update id="changeShop" flushCache="true" statementType="PREPARED">
+		UPDATE
+		TB_Phone_Purchase
+		set shopId=#{newShopId}
+		WHERE
+		phoneCode =
+		#{phoneCode}
+		and shopId=#{shopId};
+	</update>
 </mapper>

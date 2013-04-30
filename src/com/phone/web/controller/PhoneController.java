@@ -459,5 +459,4 @@ public class PhoneController extends AbstractBaseController {
 		mv.addObject("totalPage", totalCount / 10 + 1);
 		return mv;
 	}
-
 }

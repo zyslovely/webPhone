@@ -104,4 +104,16 @@ public interface AccessoryService {
 	 * @return
 	 */
 	public int getAccessoryProfitCount(long startTime, long endTime, Long shopId);
+
+	/**
+	 * 配件转移店铺
+	 * 
+	 * @param id
+	 * @param shopId
+	 * @param newShopId
+	 * @param count
+	 * @return
+	 */
+	public boolean changeAccessoryWithShop(long id, long shopId,
+			long newShopId, int count);
 }

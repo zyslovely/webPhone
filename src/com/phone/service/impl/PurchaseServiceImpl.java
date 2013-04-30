@@ -33,8 +33,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * java.lang.String, double, double)
 	 */
 	@Override
-	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPrice, long operatorId,
-			long shopId) {
+	public boolean addPurchase(String brand, String phoneCode,
+			String phoneModel, double purchasePrice, double DecideSellPrice,
+			long operatorId, long shopId) {
 		Brand brand2 = new Brand();
 		brand2.setBrand(brand);
 		brandMapper.addBrand(brand2);
@@ -70,10 +71,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * @see com.phone.service.PurchaseService#getPurchase(long)
 	 */
 	@Override
-	public Purchase getPurchase(long phoneid, long operatorId, long shopId) {
+	public Purchase getPurchase(long phoneid, long shopId) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", phoneid);
-		hashMap.put("operatorId", operatorId);
 		hashMap.put("shopId", shopId);
 		return purchaseMapper.getPurchase(hashMap);
 	}
@@ -103,5 +103,18 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel) {
 		return purchaseMapper.getPurchaseCountByPhoneModel(phoneModel, shopId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#getPurchaseByPhoneCode(long,
+	 * java.lang.String)
+	 */
+	public Purchase getPurchaseByPhoneCode(long shopId, String phoneCode) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("shopId", shopId);
+		hashMap.put("phoneCode", phoneCode);
+		return purchaseMapper.getPurchase(hashMap);
 	}
 }
