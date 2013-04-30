@@ -19,6 +19,5 @@
 <#include "css.ftl">
 
 </head>
-<!--
+
 <#setting url_escaping_charset='gbk'>
--->
