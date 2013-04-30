@@ -125,6 +125,7 @@ public class PhoneController extends AbstractBaseController {
 		ModelAndView mv = new ModelAndView("phoneList");
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "");
+		logger.info("showPhoneList where phoneModel =" + phoneModel + " phoneCode=" + phoneCode);
 		int limit = ServletRequestUtils.getIntParameter(request, "limit", 10);
 		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
 		if (toPage == 0) {
