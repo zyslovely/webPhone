@@ -1,7 +1,6 @@
 package com.phone.service.impl;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -48,11 +47,7 @@ public class ProfileServiceImpl implements ProfileService {
 	 * @see com.phone.service.ProfileService#getProfile(long)
 	 */
 	@Override
-	public List<Profile> getProfile(long UserId) {
-		Profile profile = profileMapper.getProfile(UserId);
-		if (profile.getLevel() != Profile.ProfileLevel.Manager.getValue()) {
-			return null;
-		}
-		return profileMapper.getProfileList();
+	public Profile getProfile(long UserId) {
+		return profileMapper.getProfile(UserId);
 	}
 }

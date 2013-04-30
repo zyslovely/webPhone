@@ -1,8 +1,6 @@
 package com.phone.web.controller;
 
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -230,7 +228,9 @@ public class PhoneController extends AbstractBaseController {
 	 */
 	public ModelAndView showPhoneIndex(HttpServletRequest request, HttpServletResponse response) {
 		logger.info(request.getSession().getId());
-		return new ModelAndView("phoneIndex");
+		ModelAndView mv = new ModelAndView("phoneIndex");
+		this.setUD(mv, request);
+		return mv;
 	}
 
 	/**

@@ -1,7 +1,5 @@
 package com.phone.service;
 
-import java.util.List;
-
 import com.phone.meta.Profile;
 
 /**
@@ -26,5 +24,5 @@ public interface ProfileService {
 	 * @param UserId
 	 * @return
 	 */
-	public List<Profile> getProfile(long UserId);
+	public Profile getProfile(long UserId);
 }

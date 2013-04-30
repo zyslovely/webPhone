@@ -12,13 +12,17 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 </style>
 	
 <body style="height:1000px;">
-
+<#include "topbar.ftl">
 <h3 style="margin-top:20px;font-size:20px;"><a href="/purchase/add/show/">添加手机信息</a></h3>
 <h3 style="margin-top:20px;font-size:20px;"><a href="/phone/list/">手机查询\卖出</a></h3>
+<#if level==1>
 <h3 style="margin-top:20px;font-size:20px;"><a href="/profit/list/">手机利润查询</a></h3>
+</#if>
 <h3 style="margin-top:20px;font-size:20px;"><a href="/accessory/add/show/">添加配件信息</a></h3>
 <h3 style="margin-top:20px;font-size:20px;"><a href="/accessory/list/">配件查询\卖出</a></h3>
+<#if level==1>
 <h3 style="margin-top:20px;font-size:20px;"><a href="/accessory/profit/list/">配件利润查询</a></h3>
+</#if>
 <h3 style="margin-top:20px;font-size:20px;"><a href="/profit/list/">保修查询</a></h3>
 <h3 style="margin-top:20px;font-size:20px;"><a href="/logout/">退出</a></h3>
 
