@@ -3,6 +3,8 @@ package com.phone.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.phone.meta.AccessoryProfit;
 
 /**
@@ -26,5 +28,17 @@ public interface AccessoryProfitMapper {
 	 * @param hashMap
 	 * @return
 	 */
-	public List<AccessoryProfit> getAccessoryProfitList(Map<String, Object> hashMap);
+	public List<AccessoryProfit> getAccessoryProfitList(
+			Map<String, Object> hashMap);
+
+	/**
+	 * 通过时间获取Profit数量
+	 * 
+	 * @param shopId
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	public int getAccessoryProfitCount(@Param("shopId") long shopId,
+			@Param("startTime") long startTime, @Param("endTime") long endTime);
 }
