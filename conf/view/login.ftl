@@ -22,8 +22,9 @@
     <td class=""><span>进入的店铺:</span></td>
   </tr>
   <tr>
-      <td><input type="radio" name="shopId" value="1" checked/>宜美智能手机店 
-    <input type="radio" name="shopId" value="2" />天宝智能手机店</td>
+      <td><input type="radio" name="shopId" value="1" checked/>宜美手机店 
+    <input type="radio" name="shopId" value="2" />天宝手机店</td>
+    <input type="radio" name="shopId" value="3" />正泰手机店</td>
   </tr>
   <tr>
     <td style=""><input type="submit" value="登录" style="width: 200px; background: -moz-linear-gradient(center top , rgb(0, 168, 247), rgb(0, 157, 238)) repeat scroll 0px 0px transparent;"/> </td>
