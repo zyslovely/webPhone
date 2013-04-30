@@ -23,7 +23,7 @@
   </tr>
   <tr>
       <td><input type="radio" name="shopId" value="1" checked/>宜美手机店 
-    <input type="radio" name="shopId" value="2" />天宝手机店</td>
+    <input type="radio" name="shopId" value="2" />天宝手机店
     <input type="radio" name="shopId" value="3" />正泰手机店</td>
   </tr>
   <tr>
