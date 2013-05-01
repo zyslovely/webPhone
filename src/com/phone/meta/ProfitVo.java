@@ -12,7 +12,7 @@ public class ProfitVo {
 	private String phoneModel;
 	private double profit;
 	private double purchasePrice;
-	private double SelledPrice;
+	private double selledPrice;
 	private String selledTimeStr;
 	private String purchaseTimeStr;
 
@@ -49,11 +49,11 @@ public class ProfitVo {
 	}
 
 	public double getSelledPrice() {
-		return SelledPrice;
+		return selledPrice;
 	}
 
 	public void setSelledPrice(double selledPrice) {
-		SelledPrice = selledPrice;
+		this.selledPrice = selledPrice;
 	}
 
 	public String getSelledTimeStr() {
