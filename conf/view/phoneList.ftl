@@ -19,7 +19,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
    <span>输入手机型号:</span>
    <input type="text" value="" name="phoneModel"/>
    <span> 或者 </span>
-   <span>手机条形码:</span>
+   <span>串号:</span>
    <input type="text" value="" name="phoneCode"/>
    <input type="submit" value="确定"/>
 </div>
@@ -36,7 +36,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 				<tr>
 				    <th width="100">品牌</th>
 					<th width="100">手机型号</th>
-					<th width="150">手机编码</th>
+					<th width="150">串号</th>
 					<th width="100">进货价格</th>
 					<th width="150">进货日期</th>
 					<th width="100"">是否已经卖出</th>
@@ -62,6 +62,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>
 					   <a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a>
 					   <a href="javascript:void(0);"  onClick="phoneSell(${phone.phoneId},${phone.purchasePrice!0});">卖出</a>
+					   <a href="javascript:void(0);"  onClick="phoneChange(${phone.phoneCode});">转移库存</a>
 					</td>
 				</tr>
 			    </#list>

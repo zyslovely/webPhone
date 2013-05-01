@@ -37,8 +37,9 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
    <table id="phone_list_tb" >
 			<thead>
 				<tr>
+					<th width="100">手机品牌</th>
 					<th width="100">手机型号</th>
-					<th width="150">手机条形码</th>
+					<th width="150">串号</th>
 					<th width="100">进货价格</th>
 					<th width="150">进货日期</th>
 					<th width="100">是否已经卖出</th>
@@ -52,6 +53,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 			<tbody>
 			   <#list phoneList as phone>
 				<tr <#if phoneCode == phone.phoneCode >style="color:red;"</#if>>
+					<td>${phone.brand!""}</td>
 					<td>${phone.phoneModel!""}</td>
 					<td>${phone.phoneCode!""}</td>
 					<td>${phone.purchasePrice!0}</td>

@@ -27,7 +27,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <div style="margin-top:30px;color:red;font-size:18px;">
    <span>总销售:${accessorysaleTotal!0}</span><span>总利润:${accessoryprofitTotal!0}</span>
 </div>
-<#if accessoryProfitVoList?exists>
+<#if accessoryProfitList?exists>
 <p style="margin-top:30px;">
    <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。
    <#if extPage gt 0><a href="/accessory/profit/list/?toPage=${extPage!0}&profitDate=${profitDate!0}">上一页</a></#if>
@@ -36,7 +36,6 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
    <table id="accessory_profit_list_tb" >
 			<thead>
 				<tr>
-				    <th width="100">配件ID</th>
 				    <th width="100">购入价格</th>
 					<th width="100">卖出价格</th>
 					<th width="100">利润</th>
@@ -49,7 +48,6 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 			<tbody>
 			   <#list accessoryProfitVoList as profit>
 				<tr >
-				    <td>${accessoryProfit.accessoryid!0}</td>
 				    <td>${accessoryProfit.purchasePrice!0}</td>
 					<td>${accessoryProfit.soldPrice!0}</td>
 					<td>${accessoryProfit.profit!0}</td>

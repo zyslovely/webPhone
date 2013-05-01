@@ -36,8 +36,9 @@
 			LAST_INSERT_ID() AS VALUE
 		</selectKey>
 	</insert>
-	
-		<select id="getAccessoryProfitList" resultMap="accessoryProfitMap" parameterType="hashMap">
+
+	<select id="getAccessoryProfitList" resultMap="accessoryProfitMap"
+		parameterType="hashMap">
 		SELECT * from TB_Accessory_Profit
 		WHERE CreateTime
 		BETWEEN #{startTime}
@@ -49,4 +50,14 @@
 		offset #{offset};
 	</select>
 
+	<select id="getAccessoryProfitCount" resultType="int">
+		SELECT
+		count(*)
+		from
+		TB_Accessory_Profit WHERE ( CreateTime
+		BETWEEN #{startTime}
+		AND
+		#{endTime} )
+		and shopId = #{shopId};
+	</select>
 </mapper>

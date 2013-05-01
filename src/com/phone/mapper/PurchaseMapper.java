@@ -49,7 +49,8 @@ public interface PurchaseMapper {
 	 * @param ids
 	 * @return
 	 */
-	public List<Purchase> getPurchaseListByIds(@Param(value = "ids") List<Long> ids);
+	public List<Purchase> getPurchaseListByIds(
+			@Param(value = "ids") List<Long> ids);
 
 	/**
 	 * 通过phoneCode查找Purchase
@@ -67,5 +68,19 @@ public interface PurchaseMapper {
 	 * @param shopId
 	 * @return
 	 */
-	public int getPurchaseCountByPhoneModel(@Param(value = "phoneModel") String phoneModel, @Param(value = "shopId") long shopId);
+	public int getPurchaseCountByPhoneModel(
+			@Param(value = "phoneModel") String phoneModel,
+			@Param(value = "shopId") long shopId);
+
+	/**
+	 * 更换店铺
+	 * 
+	 * @param phoneCode
+	 * @param shopId
+	 * @param newShopId
+	 * @return
+	 */
+	public int changeShop(@Param(value = "phoneCode") String phoneCode,
+			@Param(value = "shopId") long shopId,
+			@Param(value = "newShopId") long newShopId);
 }
