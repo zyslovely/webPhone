@@ -43,6 +43,16 @@ CREATE TABLE `TB_Phone_Brand` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='手机品牌表'
 
+CREATE TABLE `TB_DayProfit` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `daytime` varchar(127) NOT NULL DEFAULT '' COMMENT '日期',
+  `totalSell` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '总销售',
+  `totalProfit` double(11,2) NOT NULL DEFAULT '0.00' COMMENT '总利润',
+  `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0手机,1配件',
+  `shopId` bigint(20) NOT NULL DEFAULT '0' COMMENT '店铺id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='手机日利润'
+
 CREATE TABLE `TB_Phone_Maintenance` (
   `id` bigint(20) NOT NULL DEFAULT '0' COMMENT 'id',
   `desc` varchar(512) NOT NULL DEFAULT '' COMMENT '保修描述',
@@ -53,6 +63,8 @@ CREATE TABLE `TB_Phone_Maintenance` (
   `operatorId` bigint(20) NOT NULL DEFAULT '0' COMMENT '最后操作人id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='手机保修表'
+
+
 
 
 
@@ -108,6 +120,7 @@ CREATE TABLE `TB_Accessory_Profit` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='配件利润表'
 
+
 CREATE TABLE TB_Profile (
 UserId bigint(20) NOT NULL  AUTO_INCREMENT  COMMENT '用户id',
 UserName varchar(64) NOT NULL DEFAULT '' COMMENT '用户名',
@@ -118,3 +131,5 @@ CreateTime bigint(20) NOT NULL default '0' COMMENT '创建时间',
 level int(11) NOT NULL DEFAULT '0' COMMENT '用户登录等级.0是店员,1店长',
 PRIMARY KEY  (`UserId`)
 )   DEFAULT CHARSET=UTF8 COMMENT '用户信息表';
+
+

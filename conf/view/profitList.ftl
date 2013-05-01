@@ -31,7 +31,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <p style="margin-top:30px;">
    <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。
    <#if extPage gt 0><a href="/profit/list/?toPage=${extPage!0}&profitDate=${profitDate!0}">上一页</a></#if>
-   <#if nextPage lt totalPage><a href="/profit/list/?toPage=${nextPage!0}&profitDate=${profitDate!0}">下一页</a></#if>
+   <#if nextPage lt totalPage+1><a href="/profit/list/?toPage=${nextPage!0}&profitDate=${profitDate!0}">下一页</a></#if>
 </p>
    <table id="profit_list_tb" >
 			<thead>

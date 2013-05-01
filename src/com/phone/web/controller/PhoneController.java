@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.phone.meta.Accessory;
 import com.phone.meta.AccessoryInfo;
 import com.phone.meta.AccessoryProfit;
+import com.phone.meta.DayProfit;
 import com.phone.meta.Phone;
 import com.phone.meta.ProfitVo;
 import com.phone.security.MySecurityDelegatingFilter;
@@ -168,6 +169,7 @@ public class PhoneController extends AbstractBaseController {
 	 * @return
 	 */
 	public ModelAndView showProfitList(HttpServletRequest request, HttpServletResponse response) {
+
 		Long userId = MyUser.getMyUser(request);
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		if (myUser == null) {
@@ -183,7 +185,7 @@ public class PhoneController extends AbstractBaseController {
 		switch (date) {
 		case 1:
 			startTime = TimeUtil.getDaybreakTime();
-			endTime = new Date().getTime();
+			endTime = TimeUtil.getDayBefore(TimeUtil.getDaybreakTime(), -1);
 			break;
 		case 2:
 			startTime = TimeUtil.getDayBefore(TimeUtil.getDaybreakTime(), 1);
@@ -191,13 +193,13 @@ public class PhoneController extends AbstractBaseController {
 			break;
 		case 3:
 			startTime = TimeUtil.firstDayInMonth();
-			endTime = new Date().getTime();
+			endTime = TimeUtil.getDayBefore(TimeUtil.getDaybreakTime(), -1);
 			break;
 		default:
 			logger.error("错误 showProfitList where date=" + date);
 		}
 		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
-		int limit = 10;
+		int limit = 20;
 		if (toPage == 0) {
 			toPage = 1;
 		}
@@ -209,16 +211,18 @@ public class PhoneController extends AbstractBaseController {
 		mv.addObject("profitDate", date);
 		List<ProfitVo> profitVoList = profitService.getProfitList(startTime, endTime, myUser.getShopId(), limit, offset);
 		int totalCount = profitService.getProfitCount(startTime, endTime, myUser.getShopId());
+		mv.addObject("profitVoList", profitVoList);
 
-		if (!ListUtils.isEmptyList(profitVoList)) {
+		List<DayProfit> dayProfits = profitService.getDayProfitListByTime(TimeUtil.getFormatTime(startTime), TimeUtil.getFormatTime(endTime), myUser
+				.getShopId());
+		if (!ListUtils.isEmptyList(dayProfits)) {
 			double saleTotal = 0, profitTotal = 0;
-			for (ProfitVo profit : profitVoList) {
-				saleTotal += profit.getSelledPrice();
-				profitTotal += profit.getProfit();
+			for (DayProfit profit : dayProfits) {
+				saleTotal += profit.getTotalSell();
+				profitTotal += profit.getTotalProfit();
 			}
 			mv.addObject("saleTotal", saleTotal);
 			mv.addObject("profitTotal", profitTotal);
-			mv.addObject("profitVoList", profitVoList);
 		}
 		mv.addObject("totalPage", totalCount / 10 + 1);
 		return mv;

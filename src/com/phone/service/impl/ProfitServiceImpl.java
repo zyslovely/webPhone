@@ -11,9 +11,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.phone.mapper.BrandMapper;
+import com.phone.mapper.DayProfitMapper;
 import com.phone.mapper.ProfitMapper;
 import com.phone.mapper.PurchaseMapper;
 import com.phone.meta.Brand;
+import com.phone.meta.DayProfit;
 import com.phone.meta.Profit;
 import com.phone.meta.ProfitVo;
 import com.phone.meta.Purchase;
@@ -34,6 +36,8 @@ public class ProfitServiceImpl implements ProfitService {
 	private PurchaseMapper purchaseMapper;
 	@Resource
 	private BrandMapper brandMapper;
+	@Resource
+	private DayProfitMapper dayProfitMapper;
 
 	/*
 	 * (non-Javadoc)
@@ -42,10 +46,34 @@ public class ProfitServiceImpl implements ProfitService {
 	 */
 	@Override
 	public List<ProfitVo> getProfitList(long startTime, long endTime, long shopId, int limit, int offset) {
+		if (TimeUtil.getFormatTime(startTime).equals("2013-05-01")) {
+			Map<String, Object> hashMap = new HashMap<String, Object>();
+			hashMap.put("startTime", startTime);
+			hashMap.put("endTime", endTime);
+			hashMap.put("shopId", shopId);
+			hashMap.put("limit", limit);
+			hashMap.put("offset", -1);
+			List<Profit> list = profitMapper.getProfitList(hashMap);
+			double saleTotal = 0, profitTotal = 0;
+			for (Profit profit : list) {
+				saleTotal += profit.getSelledPrice();
+				profitTotal += profit.getProfit();
+			}
+
+			long time = TimeUtil.getDayBefore(new Date().getTime(), 1);
+			DayProfit dayProfit = new DayProfit();
+			dayProfit.setDaytime(TimeUtil.getFormatTime(time));
+			dayProfit.setTotalProfit(profitTotal);
+			dayProfit.setTotalSell(saleTotal);
+			dayProfit.setType(DayProfit.PHONE);
+			dayProfit.setShopId(shopId);
+			dayProfitMapper.addDayProfit(dayProfit);
+		}
+		Map<String, Object> hashMap = new HashMap<String, Object>();
 		if (startTime < 0 || endTime < 0 || endTime > new Date().getTime()) {
 			return null;
 		}
-		Map<String, Object> hashMap = new HashMap<String, Object>();
+		// Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("startTime", startTime);
 		hashMap.put("endTime", endTime);
 		hashMap.put("shopId", shopId);
@@ -97,5 +125,17 @@ public class ProfitServiceImpl implements ProfitService {
 	@Override
 	public int getProfitCount(long startTime, long endTime, long shopId) {
 		return profitMapper.getProfitCountByTime(shopId, startTime, endTime);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.phone.service.ProfitService#getDayProfitListByTime(java.lang.String,
+	 * java.lang.String)
+	 */
+	@Override
+	public List<DayProfit> getDayProfitListByTime(String startTime, String endTime, long shopId) {
+		return dayProfitMapper.getDayProfitsByDayTime(startTime, endTime, DayProfit.PHONE, shopId);
 	}
 }

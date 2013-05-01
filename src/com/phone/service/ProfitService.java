@@ -2,6 +2,7 @@ package com.phone.service;
 
 import java.util.List;
 
+import com.phone.meta.DayProfit;
 import com.phone.meta.ProfitVo;
 
 /**
@@ -28,4 +29,14 @@ public interface ProfitService {
 	 * @return
 	 */
 	public int getProfitCount(long startTime, long endTime, long shopId);
+
+	/**
+	 * 按时间获得利润
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	public List<DayProfit> getDayProfitListByTime(String startTime, String endTime, long shopId);
 }

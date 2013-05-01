@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phone.mapper.DayProfitMapper">
+	<resultMap type="DayProfit" id="dayProfitMap">
+		<id property="id" column="id" />
+		<result property="daytime" column="daytime" />
+		<result property="totalSell" column="totalSell" />
+		<result property="totalProfit" column="totalProfit" />
+		<result property="type" column="type" />
+		<result property="shopId" column="shopId" />
+
+	</resultMap>
+
+	<insert id="addDayProfit" parameterType="DayProfit">
+		INSERT INTO
+		TB_DayProfit(
+		daytime,
+		totalSell,
+		totalProfit,
+		type,
+		shopId
+		)VALUES(
+		#{daytime},
+		#{totalSell},
+		#{totalProfit},
+		#{type},
+		#{shopId}
+		)
+		<selectKey keyProperty="id" resultType="long">
+			SELECT
+			LAST_INSERT_ID() AS VALUE
+		</selectKey>
+	</insert>
+
+	<update id="updateDayProfit" flushCache="true" statementType="PREPARED">
+		UPDATE
+		TB_DayProfit
+		totalSell =#{totalSell},totalProfit=#{totalProfit}
+		WHERE
+		daytime= #{daytime} and type=#{type} and shopId=#{shopId};
+	</update>
+
+	<select id="getDayProfit" resultMap="dayProfitMap">
+		SELECT * from
+		TB_DayProfit
+		WHERE daytime
+		= #{daytime}
+		and type = #{type} and shopId=#{shopId};
+	</select>
+
+	<select id="getDayProfitsByDayTime" resultMap="dayProfitMap">
+		SELECT * from
+		TB_DayProfit
+		WHERE daytime
+		>= #{beginTime}
+		and #{endTime} > daytime and type = #{type} and shopId=#{shopId};
+	</select>
+</mapper>

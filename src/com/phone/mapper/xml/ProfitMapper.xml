@@ -61,8 +61,12 @@
 		#{endTime} ) 
 		and shopId = #{shopId}
 		order by
-		createTime desc limit #{limit}
-		offset #{offset};
+		createTime desc 
+		<if test="offset >= 0 ">
+		limit #{limit}
+		offset #{offset}
+		</if>
+		;
 	</select>
 	
 		<!-- 查询用户的骑行数量Ridding -->

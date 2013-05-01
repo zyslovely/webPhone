@@ -99,4 +99,8 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 		<property name="mapperInterface" value="com.phone.mapper.AccessorySoldMapper" />
 	</bean>
+	<bean id="dayProfitMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="com.phone.mapper.DayProfitMapper" />
+	</bean>
 </beans>
