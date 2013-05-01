@@ -49,7 +49,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 			<tbody>
 			   <#list profitVoList as profit>
 				<tr >
-				    <td>${profit.phoneModel!""}</td>
+				    <td>${profit.brandName!""} ${profit.phoneModel!""}</td>
 				    <td>${profit.phoneCode!""}</td>
 					<td>${profit.purchasePrice!0}</td>
 					<td>${profit.SelledPrice!0}</td>

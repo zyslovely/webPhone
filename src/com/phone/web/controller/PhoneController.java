@@ -142,6 +142,7 @@ public class PhoneController extends AbstractBaseController {
 
 			int totalCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), phoneModel);
 			totalPage = totalCount / limit + 1;
+			mv.addObject("searchPhonetotalCount", totalCount);
 		}
 		if (!ListUtils.isEmptyList(phoneList)) {
 			mv.addObject("phoneTotalCount", ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
@@ -152,6 +153,8 @@ public class PhoneController extends AbstractBaseController {
 			mv.addObject("nextPage", toPage + 1);
 			mv.addObject("totalPage", totalPage);
 		}
+		int totalPhoneCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), null);
+		mv.addObject("totalPhoneCount", totalPhoneCount);
 		return mv;
 	}
 

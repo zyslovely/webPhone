@@ -8,6 +8,7 @@ package com.phone.meta;
 public class ProfitVo {
 
 	private String phoneCode;
+	private String brandName;
 	private String phoneModel;
 	private double profit;
 	private double purchasePrice;
@@ -69,6 +70,14 @@ public class ProfitVo {
 
 	public void setPurchaseTimeStr(String purchaseTimeStr) {
 		this.purchaseTimeStr = purchaseTimeStr;
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
 	}
 
 }

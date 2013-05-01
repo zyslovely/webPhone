@@ -13,7 +13,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 	
 <body style="height:1000px;">
 <h2 style="font-size: 25px;color: blue;margin-bottom:30px;"><a href="/phone/index/">返回</a></h2>
-<h1 style="font-size: 20px;color: red;margin-bottom:30px;">手机查询页面</h1>
+<h1 style="font-size: 20px;color: red;margin-bottom:30px;">手机查询页面(当前手机总量${totalPhoneCount!0})</h1>
 <form action="/phone/list/" method="post" target="_self"/>
 <div>
    <span>输入手机型号:</span>
@@ -27,7 +27,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 
 <#if phoneList?exists>
 <p>
-   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。
+   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页,总共${searchPhonetotalCount!1}条记录</span>。
    <#if extPage gt 0><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${extPage!0}">上一页</a></#if>
    <#if nextPage lt totalPage><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${nextPage!0}">下一页</a></#if>
 </p>

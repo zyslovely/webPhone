@@ -10,8 +10,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.phone.mapper.BrandMapper;
 import com.phone.mapper.ProfitMapper;
 import com.phone.mapper.PurchaseMapper;
+import com.phone.meta.Brand;
 import com.phone.meta.Profit;
 import com.phone.meta.ProfitVo;
 import com.phone.meta.Purchase;
@@ -30,6 +32,8 @@ public class ProfitServiceImpl implements ProfitService {
 	private ProfitMapper profitMapper;
 	@Resource
 	private PurchaseMapper purchaseMapper;
+	@Resource
+	private BrandMapper brandMapper;
 
 	/*
 	 * (non-Javadoc)
@@ -52,10 +56,17 @@ public class ProfitServiceImpl implements ProfitService {
 			return null;
 		}
 		List<Long> purchaseIdList = new ArrayList<Long>(profitList.size());
+
 		for (Profit profit : profitList) {
 			purchaseIdList.add(profit.getPhoneid());
 		}
 		List<Purchase> purchases = purchaseMapper.getPurchaseListByIds(purchaseIdList);
+		List<Long> brandIdList = new ArrayList<Long>(purchases.size());
+		for (Purchase purchase : purchases) {
+			brandIdList.add(purchase.getBrandId());
+		}
+		List<Brand> brandList = brandMapper.getBrandListByIds(brandIdList);
+		Map<Long, Brand> brandMap = HashMapMaker.listToMap(brandList, "getId", Brand.class);
 		Map<Long, Purchase> purchaseMap = HashMapMaker.listToMap(purchases, "getId", Purchase.class);
 		List<ProfitVo> profitVos = new ArrayList<ProfitVo>();
 		for (Profit profit : profitList) {
@@ -64,6 +75,8 @@ public class ProfitServiceImpl implements ProfitService {
 			if (purchase == null) {
 				continue;
 			}
+			Brand brand = brandMap.get(purchase.getBrandId());
+			profitVo.setBrandName(brand.getBrand());
 			profitVo.setPhoneCode(purchase.getPhoneCode());
 			profitVo.setPhoneModel(purchase.getPhoneModel());
 			profitVo.setProfit(profit.getProfit());
