@@ -61,7 +61,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${phone.profit!0}</td>
 					<td>
 					   <a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a>
-					   <a href="javascript:void(0);"  onClick="phoneSell(${phone.phoneId},${phone.purchasePrice!0});">卖出</a>
+					   <#if phone.status == 0><a href="javascript:void(0);"  onClick="phoneSell(${phone.phoneId},${phone.purchasePrice!0});">卖出</a></#if>
 					   <a href="javascript:void(0);"  onClick="phoneChange(${phone.phoneCode});">转移库存</a>
 					</td>
 				</tr>

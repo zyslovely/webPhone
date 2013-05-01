@@ -153,6 +153,10 @@ public class TimeUtil {
 	public static long firstDayInMonth() {
 		Calendar calendar = new GregorianCalendar();
 		calendar.set(Calendar.DATE, 1);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println(simpleDateFormat.format(calendar.getTime()));
 		return calendar.getTime().getTime();

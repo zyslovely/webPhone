@@ -10,7 +10,8 @@ function phoneDelete(id){
 function phoneSell(id,purchasePrice){
 	
     jPrompt('请输入卖出价格：', '请输入', '',function(_price){
-              if(_price<purchasePrice){
+    	
+              if(_price<purchasePrice&&_price!=null){
    	   jConfirm('卖出价格低于进货价格，确定?', '请确定',function(res){
    	   	    doSell(id,_price);
    	   });

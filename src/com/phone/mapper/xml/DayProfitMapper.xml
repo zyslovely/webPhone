@@ -35,7 +35,7 @@
 	<update id="updateDayProfit" flushCache="true" statementType="PREPARED">
 		UPDATE
 		TB_DayProfit
-		totalSell =#{totalSell},totalProfit=#{totalProfit}
+		set totalSell = #{totalSell} , totalProfit = #{totalProfit} 
 		WHERE
 		daytime= #{daytime} and type=#{type} and shopId=#{shopId};
 	</update>

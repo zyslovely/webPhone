@@ -224,7 +224,7 @@ public class PhoneController extends AbstractBaseController {
 			mv.addObject("saleTotal", saleTotal);
 			mv.addObject("profitTotal", profitTotal);
 		}
-		mv.addObject("totalPage", totalCount / 10 + 1);
+		mv.addObject("totalPage", totalCount / limit + 1);
 		return mv;
 	}
 

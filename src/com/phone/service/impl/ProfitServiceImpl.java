@@ -47,9 +47,6 @@ public class ProfitServiceImpl implements ProfitService {
 	@Override
 	public List<ProfitVo> getProfitList(long startTime, long endTime, long shopId, int limit, int offset) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
-		if (startTime < 0 || endTime < 0 || endTime > new Date().getTime()) {
-			return null;
-		}
 		hashMap.put("startTime", startTime);
 		hashMap.put("endTime", endTime);
 		hashMap.put("shopId", shopId);
