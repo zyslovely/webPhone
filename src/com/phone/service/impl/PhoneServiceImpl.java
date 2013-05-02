@@ -98,7 +98,7 @@ public class PhoneServiceImpl implements PhoneService {
 			Selled selled = selledMap.get(purchase.getId());
 			if (selled != null) {
 				phone.setSelledPrice(selled.getSelledPrice());
-				phone.setSelledTime(phone.getSelledTime());
+				phone.setSelledTime(selled.getCreateTime());
 			}
 			Profit profit = profitMap.get(purchase.getId());
 			if (profit != null) {
@@ -115,6 +115,7 @@ public class PhoneServiceImpl implements PhoneService {
 			phone.setPurchasePrice(purchase.getPurchasePrice());
 			phone.setDecideSellPrice(purchase.getDecideSellPrice());
 			phone.setPurchaseTime(purchase.getCreateTime());
+			
 			phone.setStatus(purchase.getStatus());
 			phoneList.add(phone);
 		}
