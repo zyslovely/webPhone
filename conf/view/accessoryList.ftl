@@ -35,7 +35,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <p>
    <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。
    <#if extPage gt 0><a href="/accessory/list/?accessoryName=${accessoryName!""}&toPage=${extPage!0}">上一页</a></#if>
-   <#if nextPage lt totalPage><a href="/accessory/list/?accessoryName=${accessoryName!""}&toPage=${nextPage!0}">下一页</a></#if>
+   <#if nextPage lt totalPage+1><a href="/accessory/list/?accessoryName=${accessoryName!""}&toPage=${nextPage!0}">下一页</a></#if>
 </p>
    <table id="accessory_list_tb" >
 			<thead>
