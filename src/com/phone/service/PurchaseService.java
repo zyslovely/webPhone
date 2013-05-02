@@ -1,5 +1,7 @@
 package com.phone.service;
 
+import java.util.List;
+
 import com.phone.meta.Purchase;
 
 /**
@@ -16,9 +18,8 @@ public interface PurchaseService {
 	 * @param purchasePrice
 	 * @param DecideSellPirce
 	 */
-	public boolean addPurchase(String brand, String phoneCode,
-			String phoneModel, double purchasePrice, double DecideSellPirce,
-			long operatorId, long shopId);
+	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPirce, long operatorId,
+			long shopId);
 
 	/**
 	 * 通过phoneid查找Purchase
@@ -55,4 +56,21 @@ public interface PurchaseService {
 	 * @return
 	 */
 	public Purchase getPurchaseByPhoneCode(long shopId, String phoneCode);
+
+	/**
+	 * 获得品牌列表
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @return
+	 */
+	public List<String> getBrandList();
+
+	/**
+	 * 添加新品牌名称
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param brandName
+	 * @return
+	 */
+	public boolean addNewBrand(String brandName);
 }

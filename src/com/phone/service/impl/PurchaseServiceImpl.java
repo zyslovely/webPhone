@@ -2,6 +2,7 @@ package com.phone.service.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -33,9 +34,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * java.lang.String, double, double)
 	 */
 	@Override
-	public boolean addPurchase(String brand, String phoneCode,
-			String phoneModel, double purchasePrice, double DecideSellPrice,
-			long operatorId, long shopId) {
+	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPrice, long operatorId,
+			long shopId) {
 		Brand brand2 = new Brand();
 		brand2.setBrand(brand);
 		brandMapper.addBrand(brand2);
@@ -46,6 +46,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneCode", phoneCode);
 		hashMap.put("shopId", shopId);
+		hashMap.put("brandId", brand2.getId());
 
 		if (purchaseMapper.getPurchaseByPhoneCode(hashMap) != null) {
 			return false;
@@ -116,5 +117,27 @@ public class PurchaseServiceImpl implements PurchaseService {
 		hashMap.put("shopId", shopId);
 		hashMap.put("phoneCode", phoneCode);
 		return purchaseMapper.getPurchase(hashMap);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#getBrandList()
+	 */
+	@Override
+	public List<String> getBrandList() {
+		return brandMapper.getAllBrandList();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#addNewBrand(java.lang.String)
+	 */
+	@Override
+	public boolean addNewBrand(String brandName) {
+		Brand brand = new Brand();
+		brand.setBrand(brandName);
+		return brandMapper.addBrand(brand) > 0;
 	}
 }

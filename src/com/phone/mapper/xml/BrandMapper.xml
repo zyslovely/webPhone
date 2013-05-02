@@ -4,7 +4,7 @@
 	<resultMap type="Brand" id="brandMap">
 		<id property="id" column="id" />
 		<result property="brand" column="brand" />
-	
+
 	</resultMap>
 
 	<insert id="addBrand" parameterType="Brand">
@@ -28,5 +28,9 @@
 			open="(" separator="," close=")">
 			#{item} 
 	     </foreach>
+	</select>
+
+	<select id="getAllBrandList" resultType="string">
+		SELECT brand from TB_Phone_Brand group by brand;
 	</select>
 </mapper>

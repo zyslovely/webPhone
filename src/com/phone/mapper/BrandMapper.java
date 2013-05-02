@@ -30,4 +30,12 @@ public interface BrandMapper {
 	 */
 	public List<Brand> getBrandListByIds(@Param(value = "brandIdList") List<Long> brandIds);
 
+	/**
+	 * 得到所有品牌列表
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @return
+	 */
+	public List<String> getAllBrandList();
+
 }

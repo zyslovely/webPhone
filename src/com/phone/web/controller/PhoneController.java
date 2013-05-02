@@ -1,6 +1,9 @@
 package com.phone.web.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
@@ -73,12 +77,14 @@ public class PhoneController extends AbstractBaseController {
 		}
 		if (purchaseService.addPurchase(brand, phoneCode, phoneModel, purchasePrice, DecideSellPirce, myUser.getUserId(), myUser.getShopId())) {
 			try {
-				response.sendRedirect("/purchase/add/show/?phoneModel=" + phoneModel + "&phoneCode=" + phoneCode + "&shopId=0");
+				String urlString = "/purchase/add/show/?phoneModel=" + phoneModel + "&phoneCode=" + phoneCode + "&shopId=0&brand=" + brand;
+				response.sendRedirect(urlString);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			return mv;
 		}
+
 		return mv;
 	}
 
@@ -99,8 +105,9 @@ public class PhoneController extends AbstractBaseController {
 		}
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "");
+		String brand = ServletRequestUtils.getStringParameter(request, "brand", "");
 		int limit = ServletRequestUtils.getIntParameter(request, "limit", 50);
-		int offset = ServletRequestUtils.getIntParameter(request, "offset", 0);
+		int offset = -1;
 		if (!StringUtils.isEmpty(phoneModel)) {
 			List<Phone> phoneList = phoneService.getPhoneList(phoneModel, myUser.getShopId(), limit, offset);
 			mv.addObject("phoneModel", phoneModel);
@@ -108,6 +115,9 @@ public class PhoneController extends AbstractBaseController {
 			mv.addObject("phoneList", phoneList);
 		}
 		mv.addObject("phoneCode", phoneCode);
+		List<String> brandNameList = purchaseService.getBrandList();
+		mv.addObject("brandNameList", brandNameList);
+		mv.addObject("brand", brand);
 		return mv;
 	}
 
@@ -127,6 +137,7 @@ public class PhoneController extends AbstractBaseController {
 		ModelAndView mv = new ModelAndView("phoneList");
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "");
+
 		logger.info("showPhoneList where phoneModel =" + phoneModel + " phoneCode=" + phoneCode);
 		int limit = ServletRequestUtils.getIntParameter(request, "limit", 10);
 		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
@@ -143,7 +154,12 @@ public class PhoneController extends AbstractBaseController {
 			phoneList = phoneService.getPhoneList(phoneModel, myUser.getShopId(), limit, offset);
 
 			int totalCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), phoneModel);
-			totalPage = totalCount / limit + 1;
+			if (totalCount % limit == 0) {
+				totalPage = totalCount / limit;
+			} else {
+				totalPage = totalCount / limit + 1;
+			}
+
 			mv.addObject("searchPhonetotalCount", totalCount);
 		}
 		if (!ListUtils.isEmptyList(phoneList)) {
@@ -224,7 +240,13 @@ public class PhoneController extends AbstractBaseController {
 			mv.addObject("saleTotal", saleTotal);
 			mv.addObject("profitTotal", profitTotal);
 		}
-		mv.addObject("totalPage", totalCount / limit + 1);
+		int totalPage = 0;
+		if (totalCount % limit == 0) {
+			totalPage = totalCount / limit;
+		} else {
+			totalPage = totalCount / limit + 1;
+		}
+		mv.addObject("totalPage", totalPage);
 		return mv;
 	}
 

@@ -1,3 +1,21 @@
+
+$("#brandName_add").click(function(){
+	_brandName=$("#brandName").val();
+	if(_brandName==''){
+		alert('请输入品牌名称');
+	}
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'addBrand',_brandName,submitCBBrand);
+});
+
+function submitCBBrand(_flag){
+	if(_flag){
+	    alert("添加成功");
+	}else{
+		alert("添加失败");
+	}
+	location.href=location.href;
+};
+
 $("#phone_delete").click(function(){
 	
 });

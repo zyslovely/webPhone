@@ -45,17 +45,20 @@
 
 	<select id="getPurchaseList" parameterType="hashMap" resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
-		WHERE 
-		phoneModel like CONCAT('%','${phoneModel}','%')  and 
+		WHERE
+		phoneModel like CONCAT('%','${phoneModel}','%') and
 		2> status
 		and shopId = #{shopId}
 		order
 		by
 		CreateTime desc
-		limit
-		#{limit}
-		offset
-		#{offset};
+		<if test="offset >=0 ">
+			limit
+			#{limit}
+			offset
+			#{offset}
+		</if>
+		;
 	</select>
 
 	<select id="getPurchase" parameterType="long" resultMap="purchaseMap">
@@ -84,7 +87,7 @@
 		WHERE phoneCode
 		= #{phoneCode}
 		and 2> status
-		and shopId = #{shopId};
+		and shopId = #{shopId} and brandId = #{brandId};
 	</select>
 
 	<select id="getPurchaseListByIds" resultMap="purchaseMap"
@@ -101,12 +104,12 @@
 	<!-- 查询用户的骑行数量Ridding -->
 	<select id="getPurchaseCountByPhoneModel" resultType="int">
 		SELECT
-		count(*) from TB_Phone_Purchase where 2>status 
+		count(*) from TB_Phone_Purchase where 2>status
 		and shopId = #{shopId}
 		<if test="phoneModel != null ">
-		and phoneModel like CONCAT('%','${phoneModel}','%') 
+			and phoneModel like CONCAT('%','${phoneModel}','%') 
 		</if>
-		 ;
+		;
 	</select>
 
 	<update id="changeShop" flushCache="true" statementType="PREPARED">
