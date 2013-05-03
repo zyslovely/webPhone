@@ -17,12 +17,6 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <h1 style="font-size: 20px;color: red;margin-bottom:30px;">添加手机页面</h1>
 
 <div style="margin-top:30px;">
-   <span>新增手机品牌:</span>
-   <input type="text" value="" id="brandName"/>
-   <input type="button"  id="brandName_add" value="确定"/>
-</div>
-
-<div style="margin-top:30px;">
    <span>新增手机:</span>
 </div>
 <table border="1" cellspacing="0px">
@@ -34,16 +28,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <tbody>
 <form action="/purchase/add/" method="post" target="_self">
 <th>
-   <#if brandNameList?exists>
-      <select name="brand">
-      <option value ="${brand!""}" >${brand!""}</option>
-      <#list brandNameList as brandName>
-         <#if brandName!=brand>
-         <option value ="${brandName!""}" >${brandName!""}</option>
-         </#if>
-      </#list>
-      </select>
-   </#if>
+   <input type="text" value="" name="brand"/>
 </th>
 <th><input type="text" value="" name="phoneModel"/></th>
 <th><input type="text" value="" name="phoneCode"/></th>

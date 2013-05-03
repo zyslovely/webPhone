@@ -1,9 +1,6 @@
 package com.phone.web.controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
@@ -115,8 +111,8 @@ public class PhoneController extends AbstractBaseController {
 			mv.addObject("phoneList", phoneList);
 		}
 		mv.addObject("phoneCode", phoneCode);
-		List<String> brandNameList = purchaseService.getBrandList();
-		mv.addObject("brandNameList", brandNameList);
+//		List<String> brandNameList = purchaseService.getBrandList();
+//		mv.addObject("brandNameList", brandNameList);
 		mv.addObject("brand", brand);
 		return mv;
 	}
