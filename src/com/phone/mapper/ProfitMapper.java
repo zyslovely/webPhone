@@ -56,4 +56,22 @@ public interface ProfitMapper {
 	 * @return
 	 */
 	public int getProfitCountByTime(@Param("shopId") long shopId, @Param("startTime") long startTime, @Param("endTime") long endTime);
+
+	/**
+	 * 删除
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneId
+	 * @return
+	 */
+	public int deleteProfit(@Param("phoneId") long phoneId);
+
+	/**
+	 * 更新利润
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param profit
+	 * @return
+	 */
+	public int updateProfit(Profit profit);
 }

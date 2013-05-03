@@ -42,4 +42,18 @@
 		and
 		shopId=#{shopId};
 	</select>
+
+	<delete id="deleteSelled" parameterType="long" flushCache="true"
+		statementType="PREPARED">
+		delete from TB_Phone_Selled
+		where phoneid=#{phoneId};
+	</delete>
+
+	<update id="updateSelled" parameterType="Selled" flushCache="true"
+		statementType="PREPARED">
+		update TB_Phone_Selled set
+		SelledPrice =
+		#{SelledPrice}
+		where phoneid = #{phoneid};
+	</update>
 </mapper>

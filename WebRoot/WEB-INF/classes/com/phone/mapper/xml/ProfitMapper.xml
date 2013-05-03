@@ -48,7 +48,6 @@
 
 	<select id="getProfit" resultMap="profitMap" parameterType="hashMap">
 		SELECT * from TB_Phone_Profit where phoneid=#{phoneid}
-		and
 		and shopId =
 		#{shopId};
 	</select>
@@ -58,24 +57,39 @@
 		WHERE ( CreateTime
 		BETWEEN #{startTime}
 		AND
-		#{endTime} ) 
+		#{endTime} )
 		and shopId = #{shopId}
 		order by
-		createTime desc 
+		createTime desc
 		<if test="offset >= 0 ">
-		limit #{limit}
-		offset #{offset}
+			limit #{limit}
+			offset #{offset}
 		</if>
 		;
 	</select>
-	
-		<!-- 查询用户的骑行数量Ridding -->
+
+	<!-- 查询用户的骑行数量Ridding -->
 	<select id="getProfitCountByTime" resultType="int">
 		SELECT
-		count(*) from TB_Phone_Profit WHERE ( CreateTime
+		count(*) from
+		TB_Phone_Profit WHERE ( CreateTime
 		BETWEEN #{startTime}
 		AND
 		#{endTime} )
 		and shopId = #{shopId};
 	</select>
+
+	<delete id="deleteProfit" parameterType="long" flushCache="true"
+		statementType="PREPARED">
+		delete from TB_Phone_Profit
+		where phoneid=#{phoneId};
+	</delete>
+
+	<update id="updateProfit" parameterType="Profit" flushCache="true"
+		statementType="PREPARED">
+		update TB_Phone_Profit set
+		purchasePrice =
+		#{purchasePrice} , profit=#{profit}
+		where phoneid = #{phoneid};
+	</update>
 </mapper>

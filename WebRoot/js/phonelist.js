@@ -16,9 +16,19 @@ function submitCBBrand(_flag){
 	location.href=location.href;
 };
 
-$("#phone_delete").click(function(){
+function phoneReturn(id){
 	
-});
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'returnPhone',id,submitReturnCB);
+};
+
+function submitReturnCB(_flag){
+	if(_flag){
+	    alert("退货成功");
+	}else{
+		alert("退货失败");
+	}
+	location.href=location.href;
+};
 
 function phoneDelete(id){
 	
@@ -29,7 +39,7 @@ function phoneSell(id,purchasePrice){
 	
     jPrompt('请输入卖出价格：', '请输入', '',function(_price){
     	
-              if(_price<purchasePrice&&_price!=null){
+     if(_price<purchasePrice&&_price!=null){
    	   jConfirm('卖出价格低于进货价格，确定?', '请确定',function(res){
    	   	    doSell(id,_price);
    	   });
@@ -50,6 +60,7 @@ function doSell(id,sellPrice){
 	}else{
 		alert("卖出失败");
 	}
+	location.href=location.href;
 	});
 }
 
@@ -65,3 +76,53 @@ function submitCB(_flag){
 	}
 	location.href=location.href;
 };
+
+function phonePurchasePriceChange(id){
+	  jPrompt('请输入修改价格', '请输入', '',function(_price){
+    	
+      if(_price!=null){
+   	   doChangePurchasePrice(id,_price);
+	
+	}else{
+		
+		doChangePurchasePrice(id,_price);
+	}
+    });
+};
+
+function doChangePurchasePrice(id,_price){
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'purchasePriceChange',id,_price,function(_flag){
+	   	if(_flag){
+	    alert("修改成功");
+	}else{
+		alert("修改失败");
+	}
+	location.href=location.href;
+	});
+};
+
+
+
+function phoneSelledPriceChange(id){
+	  jPrompt('请输入修改价格：', '请输入', '',function(_price){
+    	
+    if(_price!=null){
+   	    doChangeSelledPrice(id,_price);
+	}else{
+		
+		doChangeSelledPrice(id,_price);
+	}
+    });
+};
+
+function doChangeSelledPrice(id,_price){
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'sellPriceChange',id,_price,function(_flag){
+	   	if(_flag){
+	    alert("修改成功");
+	}else{
+		alert("修改失败");
+	}
+	location.href=location.href;
+	});
+}
+

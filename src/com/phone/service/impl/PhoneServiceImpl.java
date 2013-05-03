@@ -10,18 +10,22 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.phone.mapper.BrandMapper;
+import com.phone.mapper.DayProfitMapper;
 import com.phone.mapper.ProfitMapper;
 import com.phone.mapper.PurchaseMapper;
 import com.phone.mapper.SelledMapper;
 import com.phone.meta.Brand;
+import com.phone.meta.DayProfit;
 import com.phone.meta.Phone;
 import com.phone.meta.Profile;
 import com.phone.meta.Profit;
 import com.phone.meta.Purchase;
 import com.phone.meta.Selled;
+import com.phone.meta.Purchase.PurchaseStatus;
 import com.phone.service.PhoneService;
 import com.phone.util.HashMapMaker;
 import com.phone.util.ListUtils;
+import com.phone.util.TimeUtil;
 
 /**
  * @author yunshang_734 E-mail:yunshang_734@163.com
@@ -41,6 +45,9 @@ public class PhoneServiceImpl implements PhoneService {
 
 	@Resource
 	private BrandMapper brandMapper;
+
+	@Resource
+	private DayProfitMapper dayProfitMapper;
 
 	/*
 	 * (non-Javadoc)
@@ -160,5 +167,104 @@ public class PhoneServiceImpl implements PhoneService {
 			return false;
 		}
 		return (purchaseMapper.changeShop(phoneCode, shopId, newShopId) > 0);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PhoneService#returnPhone(long)
+	 */
+	@Override
+	public boolean returnPhone(long phoneId, long shopId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("phoneid", phoneId);
+		map.put("shopId", shopId);
+		Selled selled = selledMapper.getSelled(map);
+		if (selled == null) {
+			return false;
+		}
+		Profit profit = profitMapper.getProfit(map);
+		String dayTime = TimeUtil.getFormatTime(selled.getCreateTime());
+		DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime, DayProfit.PHONE, shopId);
+		double newTotalProfit = dayProfit.getTotalProfit() - profit.getProfit();
+		double newTotalSell = dayProfit.getTotalSell() - profit.getSelledPrice();
+		if (dayProfitMapper.updateDayProfit(newTotalSell, newTotalProfit, dayTime, DayProfit.PHONE, shopId) > 0) {
+			selledMapper.deleteSelled(phoneId);
+			profitMapper.deleteProfit(phoneId);
+			map.put("Status", Purchase.PurchaseStatus.NotSold.getValue());
+			purchaseMapper.updatePurchase(map);
+			return true;
+		}
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PhoneService#purchasePriceChange(long, double)
+	 */
+	@Override
+	public boolean purchasePriceChange(long phoneId, double price, long shopId) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneid", phoneId);
+		hashMap.put("shopId", shopId);
+		Purchase purchase = purchaseMapper.getPurchase(hashMap);
+		if (purchase == null || purchase.getStatus() == PurchaseStatus.Deleted.getValue()) {
+			return false;
+		}
+		purchaseMapper.updatePurchasePrice(price, shopId, phoneId);
+		if (purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("phoneid", phoneId);
+			map.put("shopId", shopId);
+			Selled selled = selledMapper.getSelled(map);
+			Profit profit = profitMapper.getProfit(map);
+			String dayTime = TimeUtil.getFormatTime(selled.getCreateTime());
+			DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime, DayProfit.PHONE, shopId);
+			double newTotalProfit = dayProfit.getTotalProfit() + purchase.getPurchasePrice() - price;
+			if (dayProfitMapper.updateDayProfit(dayProfit.getTotalSell(), newTotalProfit, dayTime, DayProfit.PHONE, shopId) > 0) {
+				profit.setPurchasePrice(price);
+				profit.setProfit(profit.getProfit() + purchase.getPurchasePrice() - price);
+				profitMapper.updateProfit(profit);
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean sellPriceChange(long phoneId, double price, long shopId) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneid", phoneId);
+		hashMap.put("shopId", shopId);
+		Purchase purchase = purchaseMapper.getPurchase(hashMap);
+		if (purchase == null || purchase.getStatus() == PurchaseStatus.Deleted.getValue()) {
+			return false;
+		}
+		if (purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("phoneid", phoneId);
+			map.put("shopId", shopId);
+			Selled selled = selledMapper.getSelled(map);
+			Profit profit = profitMapper.getProfit(map);
+			String dayTime = TimeUtil.getFormatTime(selled.getCreateTime());
+			DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime, DayProfit.PHONE, shopId);
+			double newTotalProfit = dayProfit.getTotalProfit() + price - selled.getSelledPrice();
+			double newTotalSell = dayProfit.getTotalSell() + price - selled.getSelledPrice();
+			if (dayProfitMapper.updateDayProfit(newTotalSell, newTotalProfit, dayTime, DayProfit.PHONE, shopId) > 0) {
+				profit.setSelledPrice(price);
+				profit.setProfit(profit.getProfit() + price - selled.getSelledPrice());
+				profitMapper.updateProfit(profit);
+
+				selled.setSelledPrice(price);
+				selledMapper.updateSelled(selled);
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
 	}
 }

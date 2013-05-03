@@ -112,9 +112,9 @@
 	<!-- 查询用户的骑行数量Ridding -->
 	<select id="getPurchaseCountByPhoneModel" resultType="int">
 		SELECT
-		count(*) from TB_Phone_Purchase where 
+		count(*) from TB_Phone_Purchase where
 		<if test="status>=0">
-			 status= ${status} and
+			status= ${status} and
 		</if>
 		2>status
 		and shopId =
@@ -132,6 +132,18 @@
 		WHERE
 		phoneCode =
 		#{phoneCode}
+		and shopId=#{shopId};
+	</update>
+
+	<update id="updatePurchasePrice" flushCache="true"
+		statementType="PREPARED">
+		UPDATE
+		TB_Phone_Purchase
+		set
+		purchasePrice=#{purchasePrice}
+		WHERE
+		id =
+		#{id}
 		and shopId=#{shopId};
 	</update>
 </mapper>

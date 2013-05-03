@@ -26,8 +26,7 @@ public interface SelledMapper {
 	 * @param phoneidList
 	 * @return
 	 */
-	public List<Selled> getSelledListByIds(
-			@Param("phoneidList") List<Long> phoneidList,@Param("shopId") long shopId);
+	public List<Selled> getSelledListByIds(@Param("phoneidList") List<Long> phoneidList, @Param("shopId") long shopId);
 
 	/**
 	 * 查找Selled
@@ -37,4 +36,21 @@ public interface SelledMapper {
 	 */
 	public Selled getSelled(Map<String, Object> hashMap);
 
+	/**
+	 * 删除
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneId
+	 * @return
+	 */
+	public int deleteSelled(@Param("phoneId") long phoneId);
+
+	/**
+	 * 更新selled
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param profit
+	 * @return
+	 */
+	public int updateSelled(Selled selled);
 }

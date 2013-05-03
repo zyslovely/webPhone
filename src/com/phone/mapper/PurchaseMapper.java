@@ -80,4 +80,14 @@ public interface PurchaseMapper {
 	 */
 	public int changeShop(@Param(value = "phoneCode") String phoneCode, @Param(value = "shopId") long shopId,
 			@Param(value = "newShopId") long newShopId);
+
+	/**
+	 * 更新价格
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @return
+	 */
+	public int updatePurchasePrice(@Param(value = "purchasePrice") double purchasePrice, @Param(value = "shopId") long shopId,
+			@Param(value = "id") long id);
+
 }

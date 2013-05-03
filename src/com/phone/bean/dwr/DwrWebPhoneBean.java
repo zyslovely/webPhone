@@ -144,4 +144,48 @@ public class DwrWebPhoneBean {
 	public boolean addBrand(String brand) {
 		return purchaseService.addNewBrand(brand.toLowerCase());
 	}
+
+	/**
+	 * 退货
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneId
+	 * @return
+	 */
+	public boolean returnPhone(long phoneId) {
+		WebContext ctx = WebContextFactory.get();
+		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
+		return phoneService.returnPhone(phoneId, myUser.getShopId());
+	}
+
+	/**
+	 * 购买价格改变
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneId
+	 * @param price
+	 * @return
+	 */
+	public boolean purchasePriceChange(long phoneId, double price) {
+		WebContext ctx = WebContextFactory.get();
+		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
+		return phoneService.purchasePriceChange(phoneId, price, myUser.getShopId());
+	}
+
+	/**
+	 * 卖出价格改变
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneId
+	 * @param price
+	 * @return
+	 */
+	public boolean sellPriceChange(long phoneId, double price) {
+		WebContext ctx = WebContextFactory.get();
+		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
+		return phoneService.sellPriceChange(phoneId, price, myUser.getShopId());
+	}
 }
