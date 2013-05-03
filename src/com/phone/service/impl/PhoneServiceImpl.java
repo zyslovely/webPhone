@@ -76,6 +76,9 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @param purchaseliList
 	 */
 	private void addProfitInfo(List<Phone> phoneList, List<Long> phoneIdList, List<Purchase> purchaseList, long shopId) {
+		if (ListUtils.isEmptyList(phoneIdList)) {
+			return;
+		}
 		List<Selled> selledList = selledMapper.getSelledListByIds(phoneIdList, shopId);
 		Map<Long, Selled> selledMap = HashMapMaker.listToMap(selledList, "getPhoneid", Selled.class);
 		List<Profit> profitList = profitMapper.getProfitListByIds(phoneIdList, shopId);
