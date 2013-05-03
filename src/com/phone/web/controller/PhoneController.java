@@ -105,7 +105,7 @@ public class PhoneController extends AbstractBaseController {
 		int limit = ServletRequestUtils.getIntParameter(request, "limit", 50);
 		int offset = -1;
 		if (!StringUtils.isEmpty(phoneModel)) {
-			List<Phone> phoneList = phoneService.getPhoneList(phoneModel, myUser.getShopId(), limit, offset);
+			List<Phone> phoneList = phoneService.getPhoneList(phoneModel, myUser.getShopId(), limit, offset, -1);
 			mv.addObject("phoneModel", phoneModel);
 			mv.addObject("phoneModelCount", ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
 			mv.addObject("phoneList", phoneList);
@@ -131,6 +131,7 @@ public class PhoneController extends AbstractBaseController {
 		ModelAndView mv = new ModelAndView("phoneList");
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").toLowerCase();
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").toLowerCase();
+		int status = ServletRequestUtils.getIntParameter(request, "status", -1);
 
 		logger.info("showPhoneList where phoneModel =" + phoneModel + " phoneCode=" + phoneCode);
 		int limit = ServletRequestUtils.getIntParameter(request, "limit", 10);
@@ -142,12 +143,12 @@ public class PhoneController extends AbstractBaseController {
 		List<Phone> phoneList = null;
 		int totalPage = 0;
 		if (!StringUtils.isEmpty(phoneCode)) {
-			phoneList = phoneService.getPhonesByPhoneCode(phoneCode, myUser.getShopId());
+			phoneList = phoneService.getPhonesByPhoneCode(phoneCode, myUser.getShopId(), status);
 			totalPage = 1;
-		} else if (!StringUtils.isEmpty(phoneModel)) {
-			phoneList = phoneService.getPhoneList(phoneModel, myUser.getShopId(), limit, offset);
+		} else {
+			phoneList = phoneService.getPhoneList(phoneModel, myUser.getShopId(), limit, offset, status);
 
-			int totalCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), phoneModel);
+			int totalCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), phoneModel, status);
 			if (totalCount % limit == 0) {
 				totalPage = totalCount / limit;
 			} else {
@@ -156,6 +157,7 @@ public class PhoneController extends AbstractBaseController {
 
 			mv.addObject("searchPhonetotalCount", totalCount);
 		}
+
 		if (!ListUtils.isEmptyList(phoneList)) {
 			mv.addObject("phoneTotalCount", ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
 			mv.addObject("phoneModel", phoneModel);
@@ -164,8 +166,11 @@ public class PhoneController extends AbstractBaseController {
 			mv.addObject("extPage", toPage - 1);
 			mv.addObject("nextPage", toPage + 1);
 			mv.addObject("totalPage", totalPage);
+		} else if (ListUtils.isEmptyList(phoneList) && (!StringUtils.isEmpty(phoneModel) || !StringUtils.isEmpty(phoneCode))) {
+			mv.addObject("noFound", 1);
+			mv.addObject("phoneModel", phoneModel);
 		}
-		int totalPhoneCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), null);
+		int totalPhoneCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), null, -1);
 		mv.addObject("totalPhoneCount", totalPhoneCount);
 		return mv;
 	}

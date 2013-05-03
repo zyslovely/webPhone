@@ -99,8 +99,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * java.lang.String)
 	 */
 	@Override
-	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel) {
-		return purchaseMapper.getPurchaseCountByPhoneModel(phoneModel, shopId);
+	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel, int status) {
+		return purchaseMapper.getPurchaseCountByPhoneModel(phoneModel, shopId, status);
 	}
 
 	/*

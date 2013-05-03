@@ -21,13 +21,18 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
    <span> 或者 </span>
    <span>串号:</span>
    <input type="text" value="" name="phoneCode"/>
+   <select name="status">
+       <option value ="-1" >显示全部</option>  
+       <option value ="0" >只显示未卖出的</option>  
+       <option value ="1" >只显示已卖出的</option> 
+   </select>
    <input type="submit" value="确定"/>
 </div>
 </form>
 
 <#if phoneList?exists>
 <p>
-   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页,总共${searchPhonetotalCount!1}条记录</span>。
+   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页,总共${searchPhonetotalCount!1}个手机</span>。
    <#if extPage gt 0><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${extPage!0}">上一页</a></#if>
    <#if nextPage lt totalPage+1><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${nextPage!0}">下一页</a></#if>
 </p>
@@ -69,7 +74,9 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 
 			</tbody>
 		</table>
-					</#if>
+<#elseif noFound?exists>
+<h3 color="red">找不到${phoneModel!""}</h3>
+</#if>
 </body>
 </html>
 </#escape>

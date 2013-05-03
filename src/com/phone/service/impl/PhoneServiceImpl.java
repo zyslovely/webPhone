@@ -48,11 +48,12 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @see com.phone.service.PhoneService#getPhoneList(java.lang.String)
 	 */
 	@Override
-	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit, int offset) {
+	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit, int offset, int status) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneModel", phoneModel);
 		hashMap.put("shopId", shopId);
 		hashMap.put("limit", limit);
+		hashMap.put("status", status);
 		hashMap.put("offset", offset);
 		List<Purchase> purchaseList = purchaseMapper.getPurchaseList(hashMap);
 		if (ListUtils.isEmptyList(purchaseList)) {
@@ -124,10 +125,11 @@ public class PhoneServiceImpl implements PhoneService {
 	 * com.phone.service.PhoneService#getPhonesByPhoneCode(java.lang.String)
 	 */
 	@Override
-	public List<Phone> getPhonesByPhoneCode(String phoneCode, long shopId) {
+	public List<Phone> getPhonesByPhoneCode(String phoneCode, long shopId, int status) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneCode", phoneCode);
 		hashMap.put("shopId", shopId);
+		hashMap.put("status", status);
 		Purchase purchase = purchaseMapper.getPurchaseByPhoneCode(hashMap);
 		List<Purchase> purchaseList = new ArrayList<Purchase>();
 		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());

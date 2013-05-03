@@ -46,7 +46,7 @@ public interface PurchaseService {
 	 * @param phoneModel
 	 * @return
 	 */
-	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel);
+	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel,int status);
 
 	/**
 	 * 通过phoneCode获取入库

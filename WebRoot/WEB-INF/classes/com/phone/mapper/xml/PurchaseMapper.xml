@@ -46,7 +46,12 @@
 	<select id="getPurchaseList" parameterType="hashMap" resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE
-		upper(phoneModel) like CONCAT('%','${phoneModel}','%') and
+		<if test="phoneModel !=null and phoneModel !='' ">
+			upper(phoneModel) like CONCAT('%','${phoneModel}','%') and
+		</if>
+		<if test="status>=0">
+			status= ${status} and
+		</if>
 		2> status
 		and shopId = #{shopId}
 		order
@@ -86,6 +91,9 @@
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneCode
 		= #{phoneCode}
+		<if test="status>=0">
+			and status= ${status}
+		</if>
 		and 2> status
 		and shopId = #{shopId};
 	</select>
@@ -104,10 +112,15 @@
 	<!-- 查询用户的骑行数量Ridding -->
 	<select id="getPurchaseCountByPhoneModel" resultType="int">
 		SELECT
-		count(*) from TB_Phone_Purchase where 2>status
-		and shopId = #{shopId}
-		<if test="phoneModel != null ">
-			and upper(phoneModel) like CONCAT('%','${phoneModel}','%') 
+		count(*) from TB_Phone_Purchase where 
+		<if test="status>=0">
+			 status= ${status} and
+		</if>
+		2>status
+		and shopId =
+		#{shopId}
+		<if test="phoneModel != null and phoneModel !=''">
+			and upper(phoneModel) like CONCAT('%','${phoneModel}','%')
 		</if>
 		;
 	</select>
