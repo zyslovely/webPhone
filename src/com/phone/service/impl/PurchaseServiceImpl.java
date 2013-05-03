@@ -36,21 +36,18 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPrice, long operatorId,
 			long shopId) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneCode", phoneCode);
+		hashMap.put("shopId", shopId);
+		if (purchaseMapper.getPurchaseByPhoneCode(hashMap) != null) {
+			return false;
+		}
 		Brand brand2 = new Brand();
 		brand2.setBrand(brand);
 		brandMapper.addBrand(brand2);
 
 		Purchase purchase = new Purchase();
 		purchase.setPhoneCode(phoneCode);
-
-		Map<String, Object> hashMap = new HashMap<String, Object>();
-		hashMap.put("phoneCode", phoneCode);
-		hashMap.put("shopId", shopId);
-		hashMap.put("brandId", brand2.getId());
-
-		if (purchaseMapper.getPurchaseByPhoneCode(hashMap) != null) {
-			return false;
-		}
 
 		purchase.setBrandId(brand2.getId());
 		purchase.setPhoneModel(phoneModel);

@@ -46,7 +46,7 @@
 	<select id="getAccessoryByInfoId" resultMap="accessoryMap">
 		SELECT * from
 		TB_Accessory where accessoryInfoId=#{accessoryInfoId} and name =
-		'#{name}' and shopId=#{shopId};
+		#{name} and shopId=#{shopId};
 	</select>
 
 	<select id="getAccessoryById" resultMap="accessoryMap">
@@ -69,7 +69,7 @@
 	<select id="getAccessoryList" resultMap="accessoryMap">
 		SELECT * from
 		TB_Accessory
-		WHERE name like
+		WHERE upper(name) like
 		CONCAT('%','${name}','%')
 		<if test="accessoryInfoId>0">
 			and accessoryInfoId =#{accessoryInfoId}
@@ -90,7 +90,7 @@
 	<select id="getAccessoryCount" resultType="int">
 		SELECT count(*)
 		from
-		TB_Accessory WHERE name like
+		TB_Accessory WHERE upper(name) like
 		CONCAT('%','${name}','%')
 		<if test="accessoryInfoId>0">
 			and

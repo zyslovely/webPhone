@@ -46,7 +46,7 @@
 	<select id="getPurchaseList" parameterType="hashMap" resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
 		WHERE
-		phoneModel like CONCAT('%','${phoneModel}','%') and
+		upper(phoneModel) like CONCAT('%','${phoneModel}','%') and
 		2> status
 		and shopId = #{shopId}
 		order
@@ -87,7 +87,7 @@
 		WHERE phoneCode
 		= #{phoneCode}
 		and 2> status
-		and shopId = #{shopId} and brandId = #{brandId};
+		and shopId = #{shopId};
 	</select>
 
 	<select id="getPurchaseListByIds" resultMap="purchaseMap"
@@ -107,7 +107,7 @@
 		count(*) from TB_Phone_Purchase where 2>status
 		and shopId = #{shopId}
 		<if test="phoneModel != null ">
-			and phoneModel like CONCAT('%','${phoneModel}','%') 
+			and upper(phoneModel) like CONCAT('%','${phoneModel}','%') 
 		</if>
 		;
 	</select>
