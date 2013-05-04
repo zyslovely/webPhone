@@ -91,7 +91,7 @@
 		SELECT * from TB_Phone_Purchase
 		WHERE phoneCode
 		= #{phoneCode}
-		<if test="status>=0">
+		<if test="status!=null and status>=0">
 			and status= ${status}
 		</if>
 		and 2> status
@@ -113,7 +113,7 @@
 	<select id="getPurchaseCountByPhoneModel" resultType="int">
 		SELECT
 		count(*) from TB_Phone_Purchase where
-		<if test="status>=0">
+		<if test="status!=null and status>=0">
 			status= ${status} and
 		</if>
 		2>status
@@ -147,7 +147,8 @@
 		and shopId=#{shopId};
 	</update>
 
-	<update id="updatePurchasea" parameterType="Purchase" flushCache="true" statementType="PREPARED">
+	<update id="updatePurchasea" parameterType="Purchase"
+		flushCache="true" statementType="PREPARED">
 		UPDATE
 		TB_Phone_Purchase
 		set
