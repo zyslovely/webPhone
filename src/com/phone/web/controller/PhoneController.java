@@ -27,6 +27,7 @@ import com.phone.service.PhoneService;
 import com.phone.service.ProfitService;
 import com.phone.service.PurchaseService;
 import com.phone.util.ListUtils;
+import com.phone.util.StringUtil;
 import com.phone.util.TimeUtil;
 
 /**
@@ -62,9 +63,9 @@ public class PhoneController extends AbstractBaseController {
 			logger.error("myUser不存在，没有经过验证");
 		}
 
-		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase();
-		String brand = ServletRequestUtils.getStringParameter(request, "brand", "").trim().toLowerCase();
-		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").trim().toLowerCase();
+		String phoneCode = StringUtil.ToDBC(ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase());
+		String brand = StringUtil.ToDBC(ServletRequestUtils.getStringParameter(request, "brand", "").trim().toLowerCase());
+		String phoneModel = StringUtil.ToDBC(ServletRequestUtils.getStringParameter(request, "phoneModel", "").trim().toLowerCase());
 		double purchasePrice = ServletRequestUtils.getDoubleParameter(request, "purchasePrice", 0.00);
 		double DecideSellPirce = ServletRequestUtils.getDoubleParameter(request, "DecideSellPrice", 0.00);
 		ModelAndView mv = new ModelAndView("phoneadd");
@@ -99,8 +100,8 @@ public class PhoneController extends AbstractBaseController {
 		if (myUser == null) {
 			logger.error("myUser不存在，没有经过验证");
 		}
-		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").trim().toLowerCase();
-		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase();
+		String phoneModel = StringUtil.ToDBC(ServletRequestUtils.getStringParameter(request, "phoneModel", "").trim().toLowerCase());
+		String phoneCode = StringUtil.ToDBC(ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase());
 		String brand = ServletRequestUtils.getStringParameter(request, "brand", "");
 		int limit = ServletRequestUtils.getIntParameter(request, "limit", 50);
 		int offset = -1;
@@ -290,7 +291,7 @@ public class PhoneController extends AbstractBaseController {
 	 */
 	public ModelAndView showAccessoryList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("accessoryList");
-		String accessoryName = ServletRequestUtils.getStringParameter(request, "accessoryName", "").toLowerCase();
+		String accessoryName = StringUtil.ToDBC(ServletRequestUtils.getStringParameter(request, "accessoryName", "").toLowerCase());
 		long accessoryInfoId = ServletRequestUtils.getLongParameter(request, "accessoryInfoId", -1L);
 		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
 		Long userId = MyUser.getMyUser(request);

@@ -25,6 +25,7 @@ import com.phone.meta.Purchase.PurchaseStatus;
 import com.phone.service.PhoneService;
 import com.phone.util.HashMapMaker;
 import com.phone.util.ListUtils;
+import com.phone.util.StringUtil;
 import com.phone.util.TimeUtil;
 
 /**
@@ -49,6 +50,37 @@ public class PhoneServiceImpl implements PhoneService {
 	@Resource
 	private DayProfitMapper dayProfitMapper;
 
+	private void fix() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		for (int i = 1; i < 4; i++) {
+			map.put("phoneModel", "");
+			map.put("shopId", 3);
+			map.put("status", -1);
+			map.put("offset", -1);
+			List<Purchase> purchaseList = purchaseMapper.getPurchaseList(map);
+			for (Purchase purchase : purchaseList) {
+				try {
+
+					purchase.setPhoneCode(Long.valueOf(purchase.getPhoneCode().trim()).toString());
+
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				System.out.println(purchase.getPhoneModel());
+
+				purchase.setPhoneModel(StringUtil.ToDBC(purchase.getPhoneModel().trim().toLowerCase()));
+				System.out.println(purchase.getPhoneModel());
+				purchaseMapper.updatePurchasea(purchase);
+			}
+
+		}
+
+	}
+
+	public static boolean isNum(String str) {
+		return str.matches("^[-+]?(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)$");
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -56,6 +88,9 @@ public class PhoneServiceImpl implements PhoneService {
 	 */
 	@Override
 	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit, int offset, int status) {
+
+		this.fix();
+
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneModel", phoneModel);
 		hashMap.put("shopId", shopId);

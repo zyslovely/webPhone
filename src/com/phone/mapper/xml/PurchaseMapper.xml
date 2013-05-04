@@ -146,4 +146,14 @@
 		#{id}
 		and shopId=#{shopId};
 	</update>
+
+	<update id="updatePurchasea" parameterType="Purchase" flushCache="true" statementType="PREPARED">
+		UPDATE
+		TB_Phone_Purchase
+		set
+		phoneCode=#{phoneCode},phoneModel=#{phoneModel}
+		WHERE
+		id =
+		#{id};
+	</update>
 </mapper>

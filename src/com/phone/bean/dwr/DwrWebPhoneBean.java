@@ -14,6 +14,7 @@ import com.phone.service.AccessoryService;
 import com.phone.service.PhoneService;
 import com.phone.service.PurchaseService;
 import com.phone.service.SelledService;
+import com.phone.util.StringUtil;
 
 /**
  * @author zhengyisheng E-mail:zhengyisheng@gmail.com
@@ -75,7 +76,7 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean addAccessoryInfo(String name) {
-		return accessoryService.addAccessoryInfo(name.trim().toLowerCase());
+		return accessoryService.addAccessoryInfo(StringUtil.ToDBC(name.trim().toLowerCase()));
 	}
 
 	/**
@@ -142,7 +143,7 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean addBrand(String brand) {
-		return purchaseService.addNewBrand(brand.trim().toLowerCase());
+		return purchaseService.addNewBrand(StringUtil.ToDBC(brand.trim().toLowerCase()));
 	}
 
 	/**

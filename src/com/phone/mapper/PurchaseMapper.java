@@ -90,4 +90,6 @@ public interface PurchaseMapper {
 	public int updatePurchasePrice(@Param(value = "purchasePrice") double purchasePrice, @Param(value = "shopId") long shopId,
 			@Param(value = "id") long id);
 
+	public int updatePurchasea(Purchase purchase);
+
 }
