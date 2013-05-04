@@ -77,9 +77,7 @@ public class PhoneServiceImpl implements PhoneService {
 
 	}
 
-	public static boolean isNum(String str) {
-		return str.matches("^[-+]?(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)$");
-	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -88,9 +86,6 @@ public class PhoneServiceImpl implements PhoneService {
 	 */
 	@Override
 	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit, int offset, int status) {
-
-		this.fix();
-
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneModel", phoneModel);
 		hashMap.put("shopId", shopId);
