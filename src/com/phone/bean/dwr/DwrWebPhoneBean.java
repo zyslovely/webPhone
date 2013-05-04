@@ -142,7 +142,7 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean addBrand(String brand) {
-		return purchaseService.addNewBrand(brand.toLowerCase());
+		return purchaseService.addNewBrand(brand.trim().toLowerCase());
 	}
 
 	/**

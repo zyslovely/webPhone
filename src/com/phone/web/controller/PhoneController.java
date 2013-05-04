@@ -62,9 +62,9 @@ public class PhoneController extends AbstractBaseController {
 			logger.error("myUser不存在，没有经过验证");
 		}
 
-		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").toLowerCase();
-		String brand = ServletRequestUtils.getStringParameter(request, "brand", "").toLowerCase();
-		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").toLowerCase();
+		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase();
+		String brand = ServletRequestUtils.getStringParameter(request, "brand", "").trim().toLowerCase();
+		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").trim().toLowerCase();
 		double purchasePrice = ServletRequestUtils.getDoubleParameter(request, "purchasePrice", 0.00);
 		double DecideSellPirce = ServletRequestUtils.getDoubleParameter(request, "DecideSellPrice", 0.00);
 		ModelAndView mv = new ModelAndView("phoneadd");
@@ -99,8 +99,8 @@ public class PhoneController extends AbstractBaseController {
 		if (myUser == null) {
 			logger.error("myUser不存在，没有经过验证");
 		}
-		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").toLowerCase();
-		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").toLowerCase();
+		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").trim().toLowerCase();
+		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase();
 		String brand = ServletRequestUtils.getStringParameter(request, "brand", "");
 		int limit = ServletRequestUtils.getIntParameter(request, "limit", 50);
 		int offset = -1;
@@ -129,8 +129,8 @@ public class PhoneController extends AbstractBaseController {
 			logger.error("myUser不存在，没有经过验证");
 		}
 		ModelAndView mv = new ModelAndView("phoneList");
-		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").toLowerCase();
-		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").toLowerCase();
+		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").trim().toLowerCase();
+		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase();
 		int status = ServletRequestUtils.getIntParameter(request, "status", -1);
 
 		logger.info("showPhoneList where phoneModel =" + phoneModel + " phoneCode=" + phoneCode);
@@ -329,7 +329,7 @@ public class PhoneController extends AbstractBaseController {
 	public ModelAndView addAccessory(HttpServletRequest request, HttpServletResponse response) {
 		Long userId = MyUser.getMyUser(request);
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
-		String name = ServletRequestUtils.getStringParameter(request, "name", null).toLowerCase();
+		String name = ServletRequestUtils.getStringParameter(request, "name", null).trim().toLowerCase();
 		int count = ServletRequestUtils.getIntParameter(request, "count", 0);
 		long accessoryInfoId = ServletRequestUtils.getLongParameter(request, "accessoryInfoId", -1L);
 		double unitPrice = ServletRequestUtils.getDoubleParameter(request, "unitPrice", -1L);
