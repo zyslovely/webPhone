@@ -54,7 +54,7 @@ public class PhoneServiceImpl implements PhoneService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		for (int i = 1; i < 4; i++) {
 			map.put("phoneModel", "");
-			map.put("shopId", 3);
+			map.put("shopId", i);
 			map.put("status", -1);
 			map.put("offset", -1);
 			List<Purchase> purchaseList = purchaseMapper.getPurchaseList(map);
