@@ -1,3 +1,8 @@
+
+function accessoryDelete(_id){
+	
+    dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'deleteAccessory',_id,submitDeleteCB);
+};
 function accessorySell(id,unitPrice){
 	
 	jPrompt('请输入卖出价格：', '请输入', '',function(_price){
@@ -15,7 +20,7 @@ function accessorySell(id,unitPrice){
 
 function doSell(id,sellPrice){
 	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'sellAccessory',id,sellPrice,submitCB);
-}
+};
 
 
 function submitCB(_flag){
@@ -27,10 +32,7 @@ function submitCB(_flag){
 	location.href=location.href;
 };
 
-function accessoryDelete(id){
-	
-dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'deleteAccessory',id,submitDeleteCB);
-};
+
 
 function submitDeleteCB(_flag){
 	if(_flag){

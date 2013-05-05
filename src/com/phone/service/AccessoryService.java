@@ -29,8 +29,7 @@ public interface AccessoryService {
 	 * @param accessoryInfoId
 	 * @return
 	 */
-	public boolean addAccessory(String name, int count, long accessoryInfoId,
-			double unitPrice, long userId, long shopId);
+	public boolean addAccessory(String name, int count, long accessoryInfoId, double unitPrice, long userId, long shopId);
 
 	/**
 	 * 卖出配件
@@ -38,8 +37,7 @@ public interface AccessoryService {
 	 * @auther zyslovely@gmail.com
 	 * @return
 	 */
-	public boolean descCountAccessoryById(long id, int count, double soldPrice,
-			long shopId, long userId);
+	public boolean descCountAccessoryById(long id, int count, double soldPrice, long shopId, long userId);
 
 	/**
 	 * 获取所有配件类型
@@ -68,8 +66,7 @@ public interface AccessoryService {
 	 * @param accessoryInfoId
 	 * @return
 	 */
-	public List<Accessory> getAccessoryList(String name, long shopId,
-			int limit, int offset, long accessoryInfoId);
+	public List<Accessory> getAccessoryList(String name, long shopId, int limit, int offset, long accessoryInfoId);
 
 	/**
 	 * 获取配件数量
@@ -92,8 +89,7 @@ public interface AccessoryService {
 	 * @param offset
 	 * @return
 	 */
-	public List<AccessoryProfit> getProfitList(long startTime, long endTime,
-			long shopId, int limit, int offset);
+	public List<AccessoryProfit> getProfitList(long startTime, long endTime, long shopId, int limit, int offset);
 
 	/**
 	 * 获取配件利润数量
@@ -114,6 +110,14 @@ public interface AccessoryService {
 	 * @param count
 	 * @return
 	 */
-	public boolean changeAccessoryWithShop(long id, long shopId,
-			long newShopId, int count);
+	public boolean changeAccessoryWithShop(long id, long shopId, long newShopId, int count);
+
+	/**
+	 * 删除
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteAccessory(long id, long shopId);
 }

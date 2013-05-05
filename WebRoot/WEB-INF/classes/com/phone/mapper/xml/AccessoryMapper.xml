@@ -102,4 +102,9 @@
 		</if>
 		;
 	</select>
+
+	<delete id="deleteAccessory" flushCache="true" statementType="PREPARED">
+		delete from TB_Accessory
+		where id=#{id} and shopId=#{shopId};
+	</delete>
 </mapper>

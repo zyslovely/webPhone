@@ -250,4 +250,14 @@ public class AccessoryServiceImpl implements AccessoryService {
 		}
 		return true;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.AccessoryService#deleteAccessory(long)
+	 */
+	@Override
+	public boolean deleteAccessory(long id, long shopId) {
+		return accessoryMapper.deleteAccessory(id, shopId) > 0;
+	}
 }
