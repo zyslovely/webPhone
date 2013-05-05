@@ -27,6 +27,21 @@ function submitCB(_flag){
 	location.href=location.href;
 };
 
+function accessoryDelete(id){
+	
+dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'deleteAccessory',id,submitDeleteCB);
+};
+
+function submitDeleteCB(_flag){
+	if(_flag){
+	    alert("删除成功");
+	}else{
+		alert("删除失败");
+	}
+	location.href=location.href;
+};
+
+
 function onpressAdd(){
 	window.open("/accessory/add/show/");
 };

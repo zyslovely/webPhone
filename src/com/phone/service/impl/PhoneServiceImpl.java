@@ -50,35 +50,6 @@ public class PhoneServiceImpl implements PhoneService {
 	@Resource
 	private DayProfitMapper dayProfitMapper;
 
-	private void fix() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		for (int i = 1; i < 4; i++) {
-			map.put("phoneModel", "");
-			map.put("shopId", i);
-			map.put("status", -1);
-			map.put("offset", -1);
-			List<Purchase> purchaseList = purchaseMapper.getPurchaseList(map);
-			for (Purchase purchase : purchaseList) {
-				try {
-
-					purchase.setPhoneCode(Long.valueOf(purchase.getPhoneCode().trim()).toString());
-
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
-				System.out.println(purchase.getPhoneModel());
-
-				purchase.setPhoneModel(StringUtil.ToDBC(purchase.getPhoneModel().trim().toLowerCase()));
-				System.out.println(purchase.getPhoneModel());
-				purchaseMapper.updatePurchasea(purchase);
-			}
-
-		}
-
-	}
-
-
-
 	/*
 	 * (non-Javadoc)
 	 * 

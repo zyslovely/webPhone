@@ -58,6 +58,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${accessory.unitPrice!0}</td>
 					<td>${accessory.createTimeStr!""}</td>
 					<td>
+					   <a href="javascript:void(0);"  onClick="accessoryDelete(${accessory.id});">删除</a>
 					   <a href="javascript:void(0);"  onClick="accessorySell(${accessory.id},${accessory.unitPrice!0});">卖出</a>
 					</td>
 				</tr>
