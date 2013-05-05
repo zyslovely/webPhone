@@ -19,6 +19,17 @@ public interface PhoneService {
 	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit, int offset, int status);
 
 	/**
+	 * 没有被盘点的
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param shopId
+	 * @param limit
+	 * @param offset
+	 * @return
+	 */
+	public List<Phone> getPhoneListNoInventory(long shopId, int limit, int offset);
+
+	/**
 	 * 通过条形码获取
 	 * 
 	 * @auther zyslovely@gmail.com
@@ -55,7 +66,7 @@ public interface PhoneService {
 	 * @return
 	 */
 	public boolean purchasePriceChange(long phoneId, double price, long shopId);
-	
+
 	/**
 	 * 修改购入价格
 	 * 

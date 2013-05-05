@@ -46,7 +46,17 @@ public interface PurchaseService {
 	 * @param phoneModel
 	 * @return
 	 */
-	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel,int status);
+	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel, int status);
+
+	/**
+	 * 没有盘点的手机数量
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param shopId
+	 * @param phoneModel
+	 * @return
+	 */
+	public int getPurchaseCountNotInventory(long shopId);
 
 	/**
 	 * 通过phoneCode获取入库
@@ -73,4 +83,22 @@ public interface PurchaseService {
 	 * @return
 	 */
 	public boolean addNewBrand(String brandName);
+
+	/**
+	 * 重置盘点
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param shopId
+	 * @return
+	 */
+	public boolean resetAllInventory(long shopId);
+
+	/**
+	 * 添加盘点
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneId
+	 * @return
+	 */
+	public boolean addInventoryPhone(long phoneId, long shopId);
 }

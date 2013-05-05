@@ -134,8 +134,10 @@ public class PhoneController extends AbstractBaseController {
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase();
 		int status = ServletRequestUtils.getIntParameter(request, "status", -1);
 
+		int inventory = ServletRequestUtils.getIntParameter(request, "inventory", -1);
+		mv.addObject("inventory", 0);
 		logger.info("showPhoneList where phoneModel =" + phoneModel + " phoneCode=" + phoneCode);
-		int limit = ServletRequestUtils.getIntParameter(request, "limit", 10);
+		int limit = ServletRequestUtils.getIntParameter(request, "limit", 20);
 		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
 		if (toPage == 0) {
 			toPage = 1;
@@ -146,7 +148,31 @@ public class PhoneController extends AbstractBaseController {
 		if (!StringUtils.isEmpty(phoneCode)) {
 			phoneList = phoneService.getPhonesByPhoneCode(phoneCode, myUser.getShopId(), status);
 			totalPage = 1;
-		} else {
+		} else if(!StringUtils.isEmpty(phoneModel)){
+			phoneList = phoneService.getPhoneList(phoneModel, myUser.getShopId(), limit, offset, status);
+
+			int totalCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), phoneModel, status);
+			if (totalCount % limit == 0) {
+				totalPage = totalCount / limit;
+			} else {
+				totalPage = totalCount / limit + 1;
+			}
+
+			mv.addObject("searchPhonetotalCount", totalCount);
+		} else if (inventory == 1) {
+			phoneList = phoneService.getPhoneListNoInventory(myUser.getShopId(), limit, offset);
+
+			int totalCount = purchaseService.getPurchaseCountNotInventory(myUser.getShopId());
+			if (totalCount % limit == 0) {
+				totalPage = totalCount / limit;
+			} else {
+				totalPage = totalCount / limit + 1;
+			}
+
+			mv.addObject("searchPhonetotalCount", totalCount);
+			mv.addObject("inventory", inventory);
+		} else{
+			
 			phoneList = phoneService.getPhoneList(phoneModel, myUser.getShopId(), limit, offset, status);
 
 			int totalCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), phoneModel, status);
@@ -171,7 +197,7 @@ public class PhoneController extends AbstractBaseController {
 			mv.addObject("noFound", 1);
 			mv.addObject("phoneModel", phoneModel);
 		}
-		int totalPhoneCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), null, -1);
+		int totalPhoneCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), null, 0);
 		mv.addObject("totalPhoneCount", totalPhoneCount);
 		return mv;
 	}

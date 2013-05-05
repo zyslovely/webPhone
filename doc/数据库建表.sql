@@ -9,6 +9,7 @@ CREATE TABLE TB_Phone_Purchase (
   `Status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '当前状态,0未卖出,1已卖出',
   `operatorId` bigint(20) NOT NULL DEFAULT '0' COMMENT '操作人id',
   `shopId` bigint(20) NOT NULL DEFAULT '0' COMMENT '店铺id',
+  `Inventory` tinyint(4) NOT NULL DEFAULT '0' COMMENT '当前状态,0未卖出,1已卖出',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='手机进货表'
 

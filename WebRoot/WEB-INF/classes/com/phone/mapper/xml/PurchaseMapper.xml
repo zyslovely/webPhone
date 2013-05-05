@@ -12,6 +12,7 @@
 		<result property="Status" column="Status" />
 		<result property="operatorId" column="operatorId" />
 		<result property="shopId" column="shopId" />
+		<result property="Inventory" column="Inventory" />
 	</resultMap>
 
 	<insert id="addPurchase" parameterType="Purchase">
@@ -25,7 +26,8 @@
 		CreateTime,
 		Status,
 		operatorId,
-		shopId
+		shopId,
+		inventory
 		)VALUES(
 		#{brandId},
 		#{phoneCode},
@@ -35,7 +37,8 @@
 		#{CreateTime},
 		#{Status},
 		#{operatorId},
-		#{shopId}
+		#{shopId},
+		#{inventory}
 		)
 		<selectKey keyProperty="id" resultType="long">
 			SELECT
@@ -147,14 +150,46 @@
 		and shopId=#{shopId};
 	</update>
 
-	<update id="updatePurchasea" parameterType="Purchase"
-		flushCache="true" statementType="PREPARED">
+	<update id="updatePurchaseWithMeta" parameterType="Purchase" flushCache="true"
+		statementType="PREPARED">
 		UPDATE
 		TB_Phone_Purchase
 		set
-		phoneCode=#{phoneCode},phoneModel=#{phoneModel}
+		phoneCode=#{phoneCode},phoneModel=#{phoneModel},inventory=#{inventory}
 		WHERE
 		id =
 		#{id};
 	</update>
+
+	<update id="resetAllInventory" flushCache="true" statementType="PREPARED">
+		UPDATE
+		TB_Phone_Purchase
+		set
+		inventory=0 where shopId=#{shopId};
+	</update>
+
+	<select id="getNotInventoryList" resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase
+		WHERE status = 0
+		and shopId = #{shopId}
+		and inventory=0
+		<if test="offset >=0 ">
+			limit
+			#{limit}
+			offset
+			#{offset}
+		</if>
+	</select>
+
+
+	<!-- 查询用户的骑行数量Ridding -->
+	<select id="getPurchaseCountNotInventory" resultType="int">
+		SELECT
+		count(*) from TB_Phone_Purchase where
+		status = 0 
+		and shopId =
+		#{shopId}
+		and inventory=0 
+		;
+	</select>
 </mapper>

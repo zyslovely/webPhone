@@ -1,3 +1,8 @@
+function resetAllInventory(){
+	
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'resetAllInventory',submitReturnCB);
+};
+
 
 $("#brandName_add").click(function(){
 	_brandName=$("#brandName").val();
@@ -21,11 +26,22 @@ function phoneReturn(id){
 	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'returnPhone',id,submitReturnCB);
 };
 
+function phoneInventory(id){
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'inventoryPhone',id,function cb(_flag){
+	if(_flag){
+		alert('成功');
+	}else{
+		alert('失败');
+	}
+	location.href="http://shouji.qiqunar.com.cn/phone/list/?inventory=1";
+	});
+};
+
 function submitReturnCB(_flag){
 	if(_flag){
-	    alert("退货成功");
+	    alert("成功");
 	}else{
-		alert("退货失败");
+		alert("失败");
 	}
 	location.href=location.href;
 };

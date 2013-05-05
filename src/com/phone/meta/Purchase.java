@@ -62,6 +62,14 @@ public class Purchase implements Serializable {
 	 * 店铺id
 	 */
 	private long shopId;
+	/**
+	 * 是否盘点
+	 */
+	private int Inventory;
+
+	public static final int DONE = 1;
+
+	public static final int UNDO = 1;
 
 	public enum PurchaseStatus {
 		/**
@@ -181,4 +189,13 @@ public class Purchase implements Serializable {
 	public void setShopId(long shopId) {
 		this.shopId = shopId;
 	}
+
+	public int getInventory() {
+		return Inventory;
+	}
+
+	public void setInventory(int inventory) {
+		Inventory = inventory;
+	}
+
 }

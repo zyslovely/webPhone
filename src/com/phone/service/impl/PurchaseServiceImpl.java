@@ -57,6 +57,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		purchase.setStatus(Purchase.PurchaseStatus.NotSold.getValue());
 		purchase.setOperatorId(operatorId);
 		purchase.setShopId(shopId);
+		
 		if (purchaseMapper.addPurchase(purchase) > 0) {
 			return true;
 		}
@@ -136,5 +137,43 @@ public class PurchaseServiceImpl implements PurchaseService {
 		Brand brand = new Brand();
 		brand.setBrand(brandName);
 		return brandMapper.addBrand(brand) > 0;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#addInventoryPhone(long)
+	 */
+	@Override
+	public boolean addInventoryPhone(long phoneId, long shopId) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneid", phoneId);
+		hashMap.put("shopId", shopId);
+		Purchase purchase = purchaseMapper.getPurchase(hashMap);
+		if (purchase == null) {
+			return false;
+		}
+		purchase.setInventory(Purchase.DONE);
+		return purchaseMapper.updatePurchaseWithMeta(purchase) > 0;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#resetAllInventory(long)
+	 */
+	@Override
+	public boolean resetAllInventory(long shopId) {
+		return purchaseMapper.resetAllInventory(shopId) > 0;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#getPurchaseCountNotInventory(long)
+	 */
+	@Override
+	public int getPurchaseCountNotInventory(long shopId) {
+		return purchaseMapper.getPurchaseCountNotInventory(shopId);
 	}
 }

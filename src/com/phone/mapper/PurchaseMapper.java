@@ -90,6 +90,42 @@ public interface PurchaseMapper {
 	public int updatePurchasePrice(@Param(value = "purchasePrice") double purchasePrice, @Param(value = "shopId") long shopId,
 			@Param(value = "id") long id);
 
-	public int updatePurchasea(Purchase purchase);
+	/**
+	 * 更新
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param purchase
+	 * @return
+	 */
+	public int updatePurchaseWithMeta(Purchase purchase);
+
+	/**
+	 * 重置盘点
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @return
+	 */
+	public int resetAllInventory(@Param(value = "shopId") long shopId);
+
+	/**
+	 * 得到没有在盘点中的
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param limit
+	 * @param shopId
+	 * @param offset
+	 * @return
+	 */
+	public List<Purchase> getNotInventoryList(@Param(value = "limit") int limit, @Param(value = "shopId") long shopId,
+			@Param(value = "offset") int offset);
+
+	/**
+	 * 没有盘点的数量
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param shopId
+	 * @return
+	 */
+	public int getPurchaseCountNotInventory(@Param(value = "shopId") long shopId);
 
 }

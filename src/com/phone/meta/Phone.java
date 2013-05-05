@@ -82,6 +82,8 @@ public class Phone implements Serializable {
 	 */
 	private String operatorName;
 
+	private int inventory;
+
 	public double getProfit() {
 		return profit;
 	}
@@ -203,6 +205,14 @@ public class Phone implements Serializable {
 
 	public void setOperatorName(String operatorName) {
 		this.operatorName = operatorName;
+	}
+
+	public int getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(int inventory) {
+		this.inventory = inventory;
 	}
 
 }

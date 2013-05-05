@@ -192,4 +192,31 @@ public class DwrWebPhoneBean {
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		return phoneService.sellPriceChange(phoneId, price, myUser.getShopId());
 	}
+
+	/**
+	 * 添加盘点
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneId
+	 * @return
+	 */
+	public boolean inventoryPhone(long phoneId) {
+		WebContext ctx = WebContextFactory.get();
+		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
+		return purchaseService.addInventoryPhone(phoneId, myUser.getShopId());
+	}
+
+	/**
+	 * 重置盘点
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @return
+	 */
+	public boolean resetAllInventory() {
+		WebContext ctx = WebContextFactory.get();
+		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
+		return purchaseService.resetAllInventory(myUser.getShopId());
+	}
 }

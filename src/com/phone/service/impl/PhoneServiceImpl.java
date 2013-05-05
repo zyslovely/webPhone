@@ -25,7 +25,6 @@ import com.phone.meta.Purchase.PurchaseStatus;
 import com.phone.service.PhoneService;
 import com.phone.util.HashMapMaker;
 import com.phone.util.ListUtils;
-import com.phone.util.StringUtil;
 import com.phone.util.TimeUtil;
 
 /**
@@ -113,6 +112,7 @@ public class PhoneServiceImpl implements PhoneService {
 			if (brand != null) {
 				phone.setBrand(brand.getBrand());
 			}
+			phone.setInventory(purchase.getInventory());
 			phone.setShopName(Profile.getShopName(purchase.getShopId()));
 			phone.setPhoneId(purchase.getId());
 			phone.setPhoneCode(purchase.getPhoneCode());
@@ -267,5 +267,26 @@ public class PhoneServiceImpl implements PhoneService {
 			}
 		}
 		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PhoneService#getPhoneListNoInventory(long, int,
+	 * int)
+	 */
+	@Override
+	public List<Phone> getPhoneListNoInventory(long shopId, int limit, int offset) {
+		List<Purchase> purchaseList = purchaseMapper.getNotInventoryList(limit, shopId, offset);
+		if (ListUtils.isEmptyList(purchaseList)) {
+			return null;
+		}
+		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());
+		for (Purchase purchase : purchaseList) {
+			phoneIdList.add(purchase.getId());
+		}
+		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
+		this.addProfitInfo(phoneList, phoneIdList, purchaseList, shopId);
+		return phoneList;
 	}
 }
