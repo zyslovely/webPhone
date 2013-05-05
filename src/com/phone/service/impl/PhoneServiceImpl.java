@@ -192,6 +192,7 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @see com.phone.service.PhoneService#changeShop(java.lang.String, long,
 	 * long)
 	 */
+	@Override
 	public boolean changeShop(String phoneCode, long shopId, long newShopId) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneCode", phoneCode);

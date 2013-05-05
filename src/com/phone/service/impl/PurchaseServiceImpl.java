@@ -112,6 +112,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * @see com.phone.service.PurchaseService#getPurchaseByPhoneCode(long,
 	 * java.lang.String)
 	 */
+	@Override
 	public Purchase getPurchaseByPhoneCode(long shopId, String phoneCode) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("shopId", shopId);

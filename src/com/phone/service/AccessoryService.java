@@ -124,5 +124,6 @@ public interface AccessoryService {
 	 * @param price
 	 * @return
 	 */
-	boolean purchasePriceChange(long accessoryId, double price, long shopId);
+	public boolean purchasePriceChange(long accessoryId, double price,
+			long shopId);
 }

@@ -55,9 +55,10 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 				    <td>${accessory.accessoryInfoName!""}</td>
 					<td>${accessory.name!""}</td>
 					<td>${accessory.count!0}</td>
-					<td>${accessory.unitPrice!0}</td>
+					<td>${accessory.unitPrice!0}</td><#if level==1><a href="javascript:void(0);"  onClick="accessoryPurchasePriceChange(${accessory.id});"><修改></a></#if>
 					<td>${accessory.createTimeStr!""}</td>
 					<td>
+					   <a href="javascript:void(0);"  onClick="accessoryDelete(${accessory.id});">删除</a>
 					   <a href="javascript:void(0);"  onClick="accessorySell(${accessory.id},${accessory.unitPrice!0});">卖出</a>
 					</td>
 				</tr>

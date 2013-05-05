@@ -237,6 +237,7 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * @see com.phone.service.AccessoryService#getAccessoryProfitCount(long,
 	 * long, java.lang.Long)
 	 */
+	@Override
 	public int getAccessoryProfitCount(long startTime, long endTime, Long shopId) {
 		return accessoryProfitMapper.getAccessoryProfitCount(startTime,
 				endTime, shopId);
@@ -248,6 +249,7 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * @see com.phone.service.AccessoryService#changeAccessoryWithShop(long,
 	 * long, long, int)
 	 */
+	@Override
 	public boolean changeAccessoryWithShop(long id, long shopId,
 			long newShopId, int changeCount) {
 		Accessory accessory = accessoryMapper.getAccessoryById(id, shopId);
@@ -268,6 +270,13 @@ public class AccessoryServiceImpl implements AccessoryService {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.AccessoryService#purchasePriceChange(long, double,
+	 * long)
+	 */
+	@Override
 	public boolean purchasePriceChange(long accessoryId, double price,
 			long shopId) {
 		if (accessoryMapper.updateAccessoryUnitPriceByid(accessoryId, price,
