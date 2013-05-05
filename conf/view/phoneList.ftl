@@ -21,6 +21,9 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
    <span> 或者 </span>
    <span>串号:</span>
    <input type="text" value="" name="phoneCode"/>
+   <span> 或者 </span>
+   <span>品牌:</span>
+   <input type="text" value="" name="brand"/>
    <select name="status">
        <option value ="-1" >显示全部</option>  
        <option value ="0" >只显示未卖出的</option>  
@@ -33,8 +36,8 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <#if phoneList?exists>
 <p>
    <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页,总共${searchPhonetotalCount!1}个手机</span>。
-   <#if extPage gt 0><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${extPage!0}">上一页</a></#if>
-   <#if nextPage lt totalPage+1><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${nextPage!0}">下一页</a></#if>
+   <#if extPage gt 0><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${extPage!0}&status=${status}">上一页</a></#if>
+   <#if nextPage lt totalPage+1><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${nextPage!0}&status=${status}">下一页</a></#if>
 </p>
    <table id="phone_list_tb" >
 			<thead>
@@ -58,15 +61,17 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 				    <td>${phone.brand!""}</td>
 					<td>${phone.phoneModel!""}</td>
 					<td>${phone.phoneCode!""}</td>
-					<td>${phone.purchasePrice!0}<a href="javascript:void(0);"  onClick="phonePurchasePriceChange(${phone.phoneId});"><修改></a></td>
+					<td>${phone.purchasePrice!0}<#if level==1><a href="javascript:void(0);"  onClick="phonePurchasePriceChange(${phone.phoneId});"><修改></a></#if></td>
 					<td>${phone.purchaseTimeStr!""}</td>
 					<td><#if phone.status == 0><span style="color:green">没有卖出</span><#elseif phone.status == 1><span style="color:red">已卖出</span></#if></td>
-					<td>${phone.selledPrice!0}<#if phone.status==1><a href="javascript:void(0);"  onClick="phoneSelledPriceChange(${phone.phoneId});"><修改></a></#if></td>
+					<td>${phone.selledPrice!0}<#if phone.status==1&level=1=><a href="javascript:void(0);"  onClick="phoneSelledPriceChange(${phone.phoneId});"><修改></a></#if></td>
 					<td>${phone.selledTimeStr!0}</td>
 					<td>${phone.profit!0}</td>
 					<td>
 					   <#if phone.status == 0>
+					   	<#if level==1>
 					      <a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a>
+					    </#if>
 					      <a href="javascript:void(0);"  onClick="phoneSell(${phone.phoneId},${phone.purchasePrice!0});">卖出</a>
 					      <a href="javascript:void(0);"  onClick="phoneChange(${phone.phoneCode});">转移库存</a>
 					   <#elseif phone.status == 1>
