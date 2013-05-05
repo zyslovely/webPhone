@@ -102,4 +102,15 @@
 		</if>
 		;
 	</select>
+
+	<update id="updateAccessoryUnitPriceByid" flushCache="true"
+		statementType="PREPARED">
+		UPDATE
+		TB_Accessory
+		set
+		unitPrice =#{unitPrice}
+		WHERE
+		id =
+		#{id} and shopId=#{shopId};
+	</update>
 </mapper>

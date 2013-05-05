@@ -16,7 +16,8 @@ public interface PhoneService {
 	 * @param phoneModel
 	 * @return
 	 */
-	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit, int offset, int status);
+	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit,
+			int offset, int status);
 
 	/**
 	 * 通过条形码获取
@@ -25,7 +26,8 @@ public interface PhoneService {
 	 * @param phoneCode
 	 * @return
 	 */
-	public List<Phone> getPhonesByPhoneCode(String phoneCode, long shopId, int status);
+	public List<Phone> getPhonesByPhoneCode(String phoneCode, long shopId,
+			int status);
 
 	/**
 	 * 更改手机库存店铺
@@ -55,7 +57,7 @@ public interface PhoneService {
 	 * @return
 	 */
 	public boolean purchasePriceChange(long phoneId, double price, long shopId);
-	
+
 	/**
 	 * 修改购入价格
 	 * 
@@ -65,4 +67,17 @@ public interface PhoneService {
 	 * @return
 	 */
 	public boolean sellPriceChange(long phoneId, double price, long shopId);
+
+	/**
+	 * 通过品牌名称查找
+	 * 
+	 * @param brand
+	 * @param shopId
+	 * @param limit
+	 * @param offset
+	 * @param status
+	 * @return
+	 */
+	public List<Phone> getPhoneListByBrand(String brand, long shopId,
+			int limit, int offset, int status);
 }

@@ -34,8 +34,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * java.lang.String, double, double)
 	 */
 	@Override
-	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPrice, long operatorId,
-			long shopId) {
+	public boolean addPurchase(String brand, String phoneCode,
+			String phoneModel, double purchasePrice, double DecideSellPrice,
+			long operatorId, long shopId) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneCode", phoneCode);
 		hashMap.put("shopId", shopId);
@@ -99,8 +100,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * java.lang.String)
 	 */
 	@Override
-	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel, int status) {
-		return purchaseMapper.getPurchaseCountByPhoneModel(phoneModel, shopId, status);
+	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel,
+			int status) {
+		return purchaseMapper.getPurchaseCountByPhoneModel(phoneModel, shopId,
+				status);
 	}
 
 	/*
@@ -136,5 +139,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 		Brand brand = new Brand();
 		brand.setBrand(brandName);
 		return brandMapper.addBrand(brand) > 0;
+	}
+
+	public int getPurchaseCountByBrand(long shopId, String brand, int status) {
+		long brandId = brandMapper.getBrandByBrand(brand);
+		if (brandId > 0) {
+			return purchaseMapper.getPurchaseCountByBrand(brandId, shopId,
+					status);
+		}
+		return 0;
 	}
 }

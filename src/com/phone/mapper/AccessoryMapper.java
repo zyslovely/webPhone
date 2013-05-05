@@ -84,4 +84,16 @@ public interface AccessoryMapper {
 	public int getAccessoryCount(@Param(value = "name") String name,
 			@Param(value = "accessoryInfoId") long accessoryInfoId,
 			@Param(value = "shopId") long shopId);
+
+	/**
+	 * 改变配件购入价格
+	 * 
+	 * @param unitPrice
+	 * @param id
+	 * @param shopId
+	 * @return
+	 */
+	public int updateAccessoryUnitPriceByid(@Param(value = "id") long id,
+			@Param(value = "unitPrice") double unitPrice,
+			@Param(value = "shopId") long shopId);
 }

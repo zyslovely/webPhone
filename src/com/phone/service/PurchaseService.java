@@ -18,8 +18,9 @@ public interface PurchaseService {
 	 * @param purchasePrice
 	 * @param DecideSellPirce
 	 */
-	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPirce, long operatorId,
-			long shopId);
+	public boolean addPurchase(String brand, String phoneCode,
+			String phoneModel, double purchasePrice, double DecideSellPirce,
+			long operatorId, long shopId);
 
 	/**
 	 * 通过phoneid查找Purchase
@@ -46,7 +47,8 @@ public interface PurchaseService {
 	 * @param phoneModel
 	 * @return
 	 */
-	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel,int status);
+	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel,
+			int status);
 
 	/**
 	 * 通过phoneCode获取入库
@@ -73,4 +75,14 @@ public interface PurchaseService {
 	 * @return
 	 */
 	public boolean addNewBrand(String brandName);
+
+	/**
+	 * 得到所有的手机数量
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param shopId
+	 * @param phoneModel
+	 * @return
+	 */
+	public int getPurchaseCountByBrand(long shopId, String brand, int status);
 }

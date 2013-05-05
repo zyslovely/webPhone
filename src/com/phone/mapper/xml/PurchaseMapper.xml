@@ -109,7 +109,6 @@
 		;
 	</select>
 
-	<!-- 查询用户的骑行数量Ridding -->
 	<select id="getPurchaseCountByPhoneModel" resultType="int">
 		SELECT
 		count(*) from TB_Phone_Purchase where
@@ -157,4 +156,38 @@
 		id =
 		#{id};
 	</update>
+
+	<select id="getPurchaseListByBrand" parameterType="hashMap"
+		resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase
+		WHERE brand
+		= #{brand}
+		<if test="status!=null and status>=0">
+			and status= ${status}
+		</if>
+		and 2> status
+		and shopId = #{shopId}
+		order
+		by
+		CreateTime desc
+		<if test="offset >=0 ">
+			limit
+			#{limit}
+			offset
+			#{offset}
+		</if>
+		;
+	</select>
+
+	<select id="getPurchaseCountByBrand" resultType="int">
+		SELECT
+		count(*) from TB_Phone_Purchase where
+		<if test="status!=null and status>=0">
+			status= ${status} and
+		</if>
+		2>status
+		and shopId =
+		#{shopId} and brandId=#{brandId}
+		;
+	</select>
 </mapper>

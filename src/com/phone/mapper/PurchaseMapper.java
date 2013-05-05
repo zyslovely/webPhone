@@ -49,7 +49,8 @@ public interface PurchaseMapper {
 	 * @param ids
 	 * @return
 	 */
-	public List<Purchase> getPurchaseListByIds(@Param(value = "ids") List<Long> ids);
+	public List<Purchase> getPurchaseListByIds(
+			@Param(value = "ids") List<Long> ids);
 
 	/**
 	 * 通过phoneCode查找Purchase
@@ -67,7 +68,9 @@ public interface PurchaseMapper {
 	 * @param shopId
 	 * @return
 	 */
-	public int getPurchaseCountByPhoneModel(@Param(value = "phoneModel") String phoneModel, @Param(value = "shopId") long shopId,
+	public int getPurchaseCountByPhoneModel(
+			@Param(value = "phoneModel") String phoneModel,
+			@Param(value = "shopId") long shopId,
 			@Param(value = "status") int status);
 
 	/**
@@ -78,7 +81,8 @@ public interface PurchaseMapper {
 	 * @param newShopId
 	 * @return
 	 */
-	public int changeShop(@Param(value = "phoneCode") String phoneCode, @Param(value = "shopId") long shopId,
+	public int changeShop(@Param(value = "phoneCode") String phoneCode,
+			@Param(value = "shopId") long shopId,
 			@Param(value = "newShopId") long newShopId);
 
 	/**
@@ -87,9 +91,34 @@ public interface PurchaseMapper {
 	 * @auther zyslovely@gmail.com
 	 * @return
 	 */
-	public int updatePurchasePrice(@Param(value = "purchasePrice") double purchasePrice, @Param(value = "shopId") long shopId,
-			@Param(value = "id") long id);
+	public int updatePurchasePrice(
+			@Param(value = "purchasePrice") double purchasePrice,
+			@Param(value = "shopId") long shopId, @Param(value = "id") long id);
 
+	/**
+	 * 
+	 * @param purchase
+	 * @return
+	 */
 	public int updatePurchasea(Purchase purchase);
 
+	/**
+	 * 通过品牌获取
+	 * 
+	 * @param hashMap
+	 * @return
+	 */
+	public List<Purchase> getPurchaseListByBrand(Map<String, Object> hashMap);
+
+	/**
+	 * 通过品牌获取手机数量
+	 * 
+	 * @param brand
+	 * @param shopId
+	 * @param status
+	 * @return
+	 */
+	public int getPurchaseCountByBrand(@Param(value = "brand") long brandId,
+			@Param(value = "shopId") long shopId,
+			@Param(value = "status") int status);
 }

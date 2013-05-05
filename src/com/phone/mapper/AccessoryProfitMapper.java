@@ -41,4 +41,17 @@ public interface AccessoryProfitMapper {
 	 */
 	public int getAccessoryProfitCount(@Param("shopId") long shopId,
 			@Param("startTime") long startTime, @Param("endTime") long endTime);
+
+	/**
+	 * 改变purchasePrice
+	 * 
+	 * @param accessoryid
+	 * @param purchasePrice
+	 * @param shopId
+	 * @return
+	 */
+	public int updatePurchasePriceByid(
+			@Param(value = "accessoryid") long accessoryid,
+			@Param(value = "purchasePrice") double purchasePrice,
+			@Param(value = "shopId") long shopId);
 }

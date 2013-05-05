@@ -28,7 +28,8 @@ public interface BrandMapper {
 	 * @param brandId
 	 * @return
 	 */
-	public List<Brand> getBrandListByIds(@Param(value = "brandIdList") List<Long> brandIds);
+	public List<Brand> getBrandListByIds(
+			@Param(value = "brandIdList") List<Long> brandIds);
 
 	/**
 	 * 得到所有品牌列表
@@ -38,4 +39,11 @@ public interface BrandMapper {
 	 */
 	public List<String> getAllBrandList();
 
+	/**
+	 * 通过品牌名称获取品牌ID
+	 * 
+	 * @param brand
+	 * @return
+	 */
+	public long getBrandByBrand(@Param(value = "brand") String brand);
 }

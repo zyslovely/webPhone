@@ -116,4 +116,13 @@ public interface AccessoryService {
 	 */
 	public boolean changeAccessoryWithShop(long id, long shopId,
 			long newShopId, int count);
+
+	/**
+	 * 修改购入价格
+	 * 
+	 * @param accessoryId
+	 * @param price
+	 * @return
+	 */
+	boolean purchasePriceChange(long accessoryId, double price, long shopId);
 }

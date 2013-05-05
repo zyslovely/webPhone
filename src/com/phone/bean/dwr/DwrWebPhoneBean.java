@@ -48,10 +48,12 @@ public class DwrWebPhoneBean {
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		Purchase purchase = purchaseService.getPurchase(id, myUser.getShopId());
-		if (purchase == null || purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
+		if (purchase == null
+				|| purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
 			return false;
 		}
-		return purchaseService.deletePurchase(id, myUser.getUserId(), myUser.getShopId());
+		return purchaseService.deletePurchase(id, myUser.getUserId(),
+				myUser.getShopId());
 	}
 
 	/**
@@ -65,7 +67,8 @@ public class DwrWebPhoneBean {
 		WebContext ctx = WebContextFactory.get();
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
-		return selledService.addSelled(phoneId, selledPrice, myUser.getUserId(), myUser.getShopId());
+		return selledService.addSelled(phoneId, selledPrice,
+				myUser.getUserId(), myUser.getShopId());
 	}
 
 	/**
@@ -76,7 +79,8 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean addAccessoryInfo(String name) {
-		return accessoryService.addAccessoryInfo(StringUtil.ToDBC(name.trim().toLowerCase()));
+		return accessoryService.addAccessoryInfo(StringUtil.ToDBC(name.trim()
+				.toLowerCase()));
 	}
 
 	/**
@@ -90,7 +94,8 @@ public class DwrWebPhoneBean {
 		WebContext ctx = WebContextFactory.get();
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
-		return accessoryService.descCountAccessoryById(id, 1, soldPrice, myUser.getShopId(), myUser.getUserId());
+		return accessoryService.descCountAccessoryById(id, 1, soldPrice,
+				myUser.getShopId(), myUser.getUserId());
 	}
 
 	/**
@@ -116,7 +121,8 @@ public class DwrWebPhoneBean {
 		WebContext ctx = WebContextFactory.get();
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
-		return phoneService.changeShop(phoneCode.toLowerCase(), myUser.getShopId(), newShopId);
+		return phoneService.changeShop(phoneCode.toLowerCase(),
+				myUser.getShopId(), newShopId);
 	}
 
 	/**
@@ -128,11 +134,13 @@ public class DwrWebPhoneBean {
 	 * @param count
 	 * @return
 	 */
-	public boolean changeAccessoryWithShop(long id, long newShopId, int changeCount) {
+	public boolean changeAccessoryWithShop(long id, long newShopId,
+			int changeCount) {
 		WebContext ctx = WebContextFactory.get();
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
-		return accessoryService.changeAccessoryWithShop(id, myUser.getShopId(), newShopId, changeCount);
+		return accessoryService.changeAccessoryWithShop(id, myUser.getShopId(),
+				newShopId, changeCount);
 	}
 
 	/**
@@ -143,7 +151,8 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean addBrand(String brand) {
-		return purchaseService.addNewBrand(StringUtil.ToDBC(brand.trim().toLowerCase()));
+		return purchaseService.addNewBrand(StringUtil.ToDBC(brand.trim()
+				.toLowerCase()));
 	}
 
 	/**
@@ -172,7 +181,8 @@ public class DwrWebPhoneBean {
 		WebContext ctx = WebContextFactory.get();
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
-		return phoneService.purchasePriceChange(phoneId, price, myUser.getShopId());
+		return phoneService.purchasePriceChange(phoneId, price,
+				myUser.getShopId());
 	}
 
 	/**
@@ -188,5 +198,20 @@ public class DwrWebPhoneBean {
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		return phoneService.sellPriceChange(phoneId, price, myUser.getShopId());
+	}
+
+	/**
+	 * 改变配件购入价格
+	 * 
+	 * @param phoneId
+	 * @param price
+	 * @return
+	 */
+	public boolean accessoryPurchasePriceChange(long accessoryId, double price) {
+		WebContext ctx = WebContextFactory.get();
+		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
+		return accessoryService.purchasePriceChange(accessoryId, price,
+				myUser.getShopId());
 	}
 }
