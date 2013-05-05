@@ -106,7 +106,10 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean deleteAccessory(long id) {
-		return false;
+		WebContext ctx = WebContextFactory.get();
+		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
+		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
+		return accessoryService.deleteAccessory(id, myUser.getShopId());
 	}
 
 	/**

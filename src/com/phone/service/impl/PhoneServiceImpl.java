@@ -321,6 +321,7 @@ public class PhoneServiceImpl implements PhoneService {
 		return true;
 	}
 
+	@Override
 	public List<Phone> getPhoneListByBrand(String brand, long shopId,
 			int limit, int offset, int status) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();

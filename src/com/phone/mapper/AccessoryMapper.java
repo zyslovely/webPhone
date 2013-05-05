@@ -96,4 +96,14 @@ public interface AccessoryMapper {
 	public int updateAccessoryUnitPriceByid(@Param(value = "id") long id,
 			@Param(value = "unitPrice") double unitPrice,
 			@Param(value = "shopId") long shopId);
+
+	/**
+	 * 删除配件
+	 * 
+	 * @param id
+	 * @param shopId
+	 * @return
+	 */
+	public int deleteAccessory(@Param(value = "status") int status,
+			@Param(value = "id") long id, @Param(value = "shopId") long shopId);
 }

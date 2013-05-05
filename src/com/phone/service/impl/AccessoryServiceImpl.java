@@ -20,6 +20,7 @@ import com.phone.meta.AccessoryInfo;
 import com.phone.meta.AccessoryProfit;
 import com.phone.meta.AccessorySold;
 import com.phone.meta.DayProfit;
+import com.phone.meta.Purchase;
 import com.phone.service.AccessoryService;
 import com.phone.util.ListUtils;
 import com.phone.util.TimeUtil;
@@ -283,6 +284,17 @@ public class AccessoryServiceImpl implements AccessoryService {
 				shopId) > 0
 				&& accessoryProfitMapper.updatePurchasePriceByid(accessoryId,
 						price, shopId) > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean deleteAccessory(long id, long shopId) {
+		if (accessorySoldMapper.getAccessorySold(id, shopId) != null) {
+			return false;
+		}
+		int status = Purchase.PurchaseStatus.Deleted.getValue();
+		if (accessoryMapper.deleteAccessory(status, id, shopId) > 0) {
 			return true;
 		}
 		return false;

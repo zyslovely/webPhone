@@ -1,5 +1,7 @@
 package com.phone.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.phone.meta.AccessorySold;
 
 /**
@@ -17,4 +19,14 @@ public interface AccessorySoldMapper {
 	 */
 	public int addAccessorySold(AccessorySold accessorySold);
 
+	/**
+	 * 查询配件卖出
+	 * 
+	 * @param accessoryid
+	 * @param shopId
+	 * @return
+	 */
+	public AccessorySold getAccessorySold(
+			@Param(value = "accessoryid") long accessoryid,
+			@Param(value = "shopId") long shopId);
 }

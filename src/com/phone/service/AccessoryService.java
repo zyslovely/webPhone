@@ -126,4 +126,14 @@ public interface AccessoryService {
 	 */
 	public boolean purchasePriceChange(long accessoryId, double price,
 			long shopId);
+
+	/**
+	 * 删除配件
+	 * 
+	 * @param id
+	 * @param userId
+	 * @param shopId
+	 * @return
+	 */
+	public boolean deleteAccessory(long id, long shopId);
 }

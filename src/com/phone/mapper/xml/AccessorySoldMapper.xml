@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.phone.mapper.AccessorySoldMapper">
 	<resultMap type="AccessorySold" id="accessorySoldMap">
-     	<id property="id" column="id" />
+		<id property="id" column="id" />
 		<result property="accessoryid" column="accessoryid" />
 		<result property="soldPrice" column="soldPrice" />
 		<result property="createTime" column="createTime" />
@@ -30,4 +30,9 @@
 			LAST_INSERT_ID() AS VALUE
 		</selectKey>
 	</insert>
+
+	<select id="getAccessorySold" resultMap="accessorySoldMap">
+		SELECT * FROM TB_Accessory_Sold WHERE accessoryid=#{accessoryid} AND
+		shopId=#{shopId};
+	</select>
 </mapper>

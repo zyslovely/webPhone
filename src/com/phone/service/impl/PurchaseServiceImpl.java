@@ -142,6 +142,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return brandMapper.addBrand(brand) > 0;
 	}
 
+	@Override
 	public int getPurchaseCountByBrand(long shopId, String brand, int status) {
 		long brandId = brandMapper.getBrandByBrand(brand);
 		if (brandId > 0) {
