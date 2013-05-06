@@ -83,7 +83,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td><#if phone.inventory==0><span color="green">未入库</span><#else><span color="red">已入库</span></#if> </td>
 					<td>
 					   <#if phone.status == 0>
-					      <#if phone.inventory==0><a href="javascript:void(0);"  onClick="phoneInventory(${phone.phoneId});">盘点入库</a></#if>
+					      <#if phone.inventory==0&&phone.status == 0><a href="javascript:void(0);"  onClick="phoneInventory(${phone.phoneId});">盘点入库</a></#if>
 					      <a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a>
 					      <a href="javascript:void(0);"  onClick="phoneSell(${phone.phoneId},${phone.purchasePrice!0});">卖出</a>
 					      <a href="javascript:void(0);"  onClick="phoneChange(${phone.phoneCode});">转移库存</a>
