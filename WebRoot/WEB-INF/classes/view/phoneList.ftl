@@ -63,6 +63,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<th width="100">实际卖出价格</th>
 					<th width="150">卖出日期</th>
 					<th width="100">利润</th>
+					<th width="100">是否盘点入库</th>
 					<th width="150">操作</th>
 				</tr>
 			</thead>
@@ -79,6 +80,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${phone.selledPrice!0}<#if phone.status==1><a href="javascript:void(0);"  onClick="phoneSelledPriceChange(${phone.phoneId});"><修改></a></#if></td>
 					<td>${phone.selledTimeStr!0}</td>
 					<td>${phone.profit!0}</td>
+					<td><#if phone.inventory==0><span color="green">未入库</span><#else><span color="red">已入库</span><#/if> </td>
 					<td>
 					   <#if phone.status == 0>
 					      <#if phone.inventory==0><a href="javascript:void(0);"  onClick="phoneInventory(${phone.phoneId});">盘点入库</a></#if>
