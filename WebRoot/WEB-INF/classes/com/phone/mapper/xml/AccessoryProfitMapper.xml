@@ -60,4 +60,16 @@
 		#{endTime} )
 		and shopId = #{shopId};
 	</select>
+	<update id="updateAccessoryUnitPriceByid" flushCache="true"
+		statementType="PREPARED">
+		UPDATE
+		TB_Accessory_Profit
+		set
+		purchasePrice
+		=#{purchasePrice}
+		WHERE
+		accessoryid =
+		#{accessoryid} and
+		shopId=#{shopId};
+	</update>
 </mapper>

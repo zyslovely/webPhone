@@ -12,6 +12,9 @@ public class MyUser {
 	private long userId;
 	private long shopId;
 	private String sessionStr;
+	public static boolean isTest = true;
+	public static long testUserId = 2L;
+	public static long testShopId = 1L;
 
 	public long getUserId() {
 		return userId;
@@ -37,7 +40,17 @@ public class MyUser {
 		this.sessionStr = sessionStr;
 	}
 
+	public static MyUser setTestUser() {
+		MyUser myUser = new MyUser();
+		myUser.setUserId(MyUser.testUserId);
+		myUser.setShopId(MyUser.testShopId);
+		return myUser;
+	}
+
 	public static long getMyUser(HttpServletRequest request) {
+		if (isTest) {
+			return MyUser.testUserId;
+		}
 		Object obj = request.getSession().getAttribute("userId");
 		if (obj == null) {
 			return 0;

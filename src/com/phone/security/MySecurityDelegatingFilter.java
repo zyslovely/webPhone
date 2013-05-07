@@ -30,11 +30,9 @@ import com.phone.meta.Profile;
  */
 public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 
-	private static final String[] noAuthURIConfig = { "/**/phonePub.do*",
-			"/**/login.do*" };
+	private static final String[] noAuthURIConfig = { "/**/phonePub.do*", "/**/login.do*" };
 
-	private static final String[] noAdminURIConfig = { "/**/phone.do*",
-			"/**/*.dwr" };
+	private static final String[] noAdminURIConfig = { "/**/phone.do*", "/**/*.dwr" };
 
 	private static final PathMatcher urlMatcher = new AntPathMatcher();
 
@@ -47,8 +45,7 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger logger = Logger
-			.getLogger(MySecurityDelegatingFilter.class);
+	private static final Logger logger = Logger.getLogger(MySecurityDelegatingFilter.class);
 
 	@Override
 	public void destroy() {
@@ -57,33 +54,31 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain arg2) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain arg2) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		logger.info("in MySecurityDelegatingFilter");
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		String uri = httpRequest.getRequestURI();
-		if (this.noNeedAuthConfig(uri, httpRequest)
-				&& this.noNeedAdminConfig(uri, httpRequest)) {
+		if (this.noNeedAuthConfig(uri, httpRequest) && this.noNeedAdminConfig(uri, httpRequest)) {
 			throw new ServletException();
 		}
 		if (this.noNeedAuthConfig(uri, httpRequest)) {
-			String actionName = ServletRequestUtils.getStringParameter(
-					httpRequest, "action", "null");
+			String actionName = ServletRequestUtils.getStringParameter(httpRequest, "action", "null");
 			if (actionName != null && actionName.equals("login")) {
-				String userName = ServletRequestUtils.getStringParameter(
-						httpRequest, "username", null);
-				String passWord = ServletRequestUtils.getStringParameter(
-						httpRequest, "password", null);
-				long shopId = ServletRequestUtils.getLongParameter(httpRequest,
-						"shopId", 0L);
-				ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
-						"applicationContext-phonecore-dao.xml");
-				ProfileMapper profileMapper = (ProfileMapper) ctx
-						.getBean("profileMapper");
-				Profile profile = profileMapper.getProfileByUserName(userName,
-						shopId);
+
+				if (MyUser.isTest) {
+					MyUser myUser = MyUser.setTestUser();
+					userMap.put(myUser.getUserId(), myUser);
+					arg2.doFilter(request, response);
+					return;
+				}
+				String userName = ServletRequestUtils.getStringParameter(httpRequest, "username", null);
+				String passWord = ServletRequestUtils.getStringParameter(httpRequest, "password", null);
+				long shopId = ServletRequestUtils.getLongParameter(httpRequest, "shopId", 0L);
+				ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext-phonecore-dao.xml");
+				ProfileMapper profileMapper = (ProfileMapper) ctx.getBean("profileMapper");
+				Profile profile = profileMapper.getProfileByUserName(userName, shopId);
 				if (profile != null && profile.getPassword().equals(passWord)) {
 					MyUser myUser = new MyUser();
 					myUser.setUserId(profile.getUserId());
@@ -92,8 +87,7 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 					userMap.put(myUser.getUserId(), myUser);
 
 					httpRequest.getSession().setAttribute("login", true);
-					httpRequest.getSession().setAttribute("userId",
-							myUser.getUserId());
+					httpRequest.getSession().setAttribute("userId", myUser.getUserId());
 					arg2.doFilter(request, response);
 					return;
 				} else {
@@ -105,8 +99,7 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 		}
 
 		// 如果需要认证
-		if (this.noNeedAdminConfig(uri, httpRequest)
-				&& !this.noNeedAuthConfig(uri, httpRequest)) {
+		if (this.noNeedAdminConfig(uri, httpRequest) && !this.noNeedAuthConfig(uri, httpRequest)) {
 			Long userId = MyUser.getMyUser(httpRequest);
 			MyUser myUser = userMap.get(userId);
 			if (myUser == null) {
