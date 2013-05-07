@@ -48,7 +48,14 @@ function submitReturnCB(_flag){
 
 function phoneDelete(id){
 	
-	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'deletePhoneById',id,submitCB);
+	jConfirm('确定要删除么','删除操作',function(_flag){
+	if(_flag){
+		dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'deletePhoneById',id,submitCB);
+	}else{
+		
+	}
+	});
+	
 };
 
 function phoneSell(id,purchasePrice){
