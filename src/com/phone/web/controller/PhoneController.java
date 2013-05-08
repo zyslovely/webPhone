@@ -133,7 +133,7 @@ public class PhoneController extends AbstractBaseController {
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").trim().toLowerCase();
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase();
 		int status = ServletRequestUtils.getIntParameter(request, "status", -1);
-
+		mv.addObject("status", status);
 		int inventory = ServletRequestUtils.getIntParameter(request, "inventory", -1);
 		mv.addObject("inventory", 0);
 		logger.info("showPhoneList where phoneModel =" + phoneModel + " phoneCode=" + phoneCode);
