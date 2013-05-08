@@ -1,5 +1,6 @@
 package com.phone.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -176,5 +177,23 @@ public class TimeUtil {
 		cal.set(Calendar.MILLISECOND, 0);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		return cal.getTimeInMillis();
+	}
+
+	/**
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param date
+	 * @return
+	 */
+	public static long getDateFromStringYYYYMMdd(String date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date adate;
+		try {
+			adate = sdf.parse(date);
+			return adate.getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return -1L;
 	}
 }

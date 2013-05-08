@@ -148,7 +148,7 @@ public class PhoneController extends AbstractBaseController {
 		if (!StringUtils.isEmpty(phoneCode)) {
 			phoneList = phoneService.getPhonesByPhoneCode(phoneCode, myUser.getShopId(), status);
 			totalPage = 1;
-		} else if(!StringUtils.isEmpty(phoneModel)){
+		} else if (!StringUtils.isEmpty(phoneModel)) {
 			phoneList = phoneService.getPhoneList(phoneModel, myUser.getShopId(), limit, offset, status);
 
 			int totalCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), phoneModel, status);
@@ -171,8 +171,8 @@ public class PhoneController extends AbstractBaseController {
 
 			mv.addObject("searchPhonetotalCount", totalCount);
 			mv.addObject("inventory", inventory);
-		} else{
-			
+		} else {
+
 			phoneList = phoneService.getPhoneList(phoneModel, myUser.getShopId(), limit, offset, status);
 
 			int totalCount = purchaseService.getPurchaseCountByPhoneModel(myUser.getShopId(), phoneModel, status);
@@ -219,6 +219,7 @@ public class PhoneController extends AbstractBaseController {
 		}
 		ModelAndView mv = new ModelAndView("profitList");
 		int date = ServletRequestUtils.getIntParameter(request, "profitDate", 0);
+
 		long startTime = 0;
 		long endTime = 0;
 		if (date == 0) {
@@ -238,7 +239,12 @@ public class PhoneController extends AbstractBaseController {
 			endTime = TimeUtil.getDayBefore(TimeUtil.getDaybreakTime(), -1);
 			break;
 		default:
-			logger.error("错误 showProfitList where date=" + date);
+			String beginDate = ServletRequestUtils.getStringParameter(request, "beginDate", "");
+			String endDate = ServletRequestUtils.getStringParameter(request, "endDate", "");
+			startTime = TimeUtil.getDateFromStringYYYYMMdd(beginDate);
+			endTime = TimeUtil.getDateFromStringYYYYMMdd(endDate);
+			mv.addObject("beginDate", beginDate);
+			mv.addObject("endDate", endDate);
 		}
 		int toPage = ServletRequestUtils.getIntParameter(request, "toPage", 0);
 		int limit = 20;
