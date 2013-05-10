@@ -84,5 +84,5 @@ public interface PurchaseService {
 	 * @param phoneModel
 	 * @return
 	 */
-	public int getPurchaseCountByBrand(long shopId, String brand, int status);
+	public int getPurchaseCountByBrand(long shopId, String brandId, int status);
 }

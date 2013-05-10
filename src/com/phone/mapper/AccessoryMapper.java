@@ -104,6 +104,6 @@ public interface AccessoryMapper {
 	 * @param shopId
 	 * @return
 	 */
-	public int deleteAccessory(@Param(value = "status") int status,
-			@Param(value = "id") long id, @Param(value = "shopId") long shopId);
+	public int deleteAccessory(@Param(value = "id") long id,
+			@Param(value = "shopId") long shopId);
 }

@@ -103,7 +103,7 @@ public interface AccessoryService {
 	 * @param shopId
 	 * @return
 	 */
-	public int getAccessoryProfitCount(long startTime, long endTime, Long shopId);
+	public int getAccessoryProfitCount(long startTime, long endTime, long shopId);
 
 	/**
 	 * 配件转移店铺

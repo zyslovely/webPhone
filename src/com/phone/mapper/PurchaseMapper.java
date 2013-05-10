@@ -118,7 +118,7 @@ public interface PurchaseMapper {
 	 * @param status
 	 * @return
 	 */
-	public int getPurchaseCountByBrand(@Param(value = "brand") long brandId,
+	public int getPurchaseCountByBrand(@Param(value = "brandId") long brandId,
 			@Param(value = "shopId") long shopId,
 			@Param(value = "status") int status);
 }

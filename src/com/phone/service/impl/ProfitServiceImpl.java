@@ -44,7 +44,8 @@ public class ProfitServiceImpl implements ProfitService {
 	 * @see com.phone.service.ProfitService#getProfitList(long, long)
 	 */
 	@Override
-	public List<ProfitVo> getProfitList(long startTime, long endTime, long shopId, int limit, int offset) {
+	public List<ProfitVo> getProfitList(long startTime, long endTime,
+			long shopId, int limit, int offset) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("startTime", startTime);
 		hashMap.put("endTime", endTime);
@@ -60,14 +61,17 @@ public class ProfitServiceImpl implements ProfitService {
 		for (Profit profit : profitList) {
 			purchaseIdList.add(profit.getPhoneid());
 		}
-		List<Purchase> purchases = purchaseMapper.getPurchaseListByIds(purchaseIdList);
+		List<Purchase> purchases = purchaseMapper
+				.getPurchaseListByIds(purchaseIdList);
 		List<Long> brandIdList = new ArrayList<Long>(purchases.size());
 		for (Purchase purchase : purchases) {
 			brandIdList.add(purchase.getBrandId());
 		}
 		List<Brand> brandList = brandMapper.getBrandListByIds(brandIdList);
-		Map<Long, Brand> brandMap = HashMapMaker.listToMap(brandList, "getId", Brand.class);
-		Map<Long, Purchase> purchaseMap = HashMapMaker.listToMap(purchases, "getId", Purchase.class);
+		Map<Long, Brand> brandMap = HashMapMaker.listToMap(brandList, "getId",
+				Brand.class);
+		Map<Long, Purchase> purchaseMap = HashMapMaker.listToMap(purchases,
+				"getId", Purchase.class);
 		List<ProfitVo> profitVos = new ArrayList<ProfitVo>();
 		for (Profit profit : profitList) {
 			ProfitVo profitVo = new ProfitVo();
@@ -81,9 +85,11 @@ public class ProfitServiceImpl implements ProfitService {
 			profitVo.setPhoneModel(purchase.getPhoneModel());
 			profitVo.setProfit(profit.getProfit());
 			profitVo.setPurchasePrice(purchase.getPurchasePrice());
-			profitVo.setPurchaseTimeStr(TimeUtil.getFormatTimeInMinute(purchase.getCreateTime()));
+			profitVo.setPurchaseTimeStr(TimeUtil.getFormatTimeInMinute(purchase
+					.getCreateTime()));
 			profitVo.setSelledPrice(profit.getSelledPrice());
-			profitVo.setSelledTimeStr(TimeUtil.getFormatTimeInMinute(profit.getCreateTime()));
+			profitVo.setSelledTimeStr(TimeUtil.getFormatTimeInMinute(profit
+					.getCreateTime()));
 			profitVos.add(profitVo);
 		}
 		return profitVos;
@@ -107,7 +113,9 @@ public class ProfitServiceImpl implements ProfitService {
 	 * java.lang.String)
 	 */
 	@Override
-	public List<DayProfit> getDayProfitListByTime(String startTime, String endTime, long shopId) {
-		return dayProfitMapper.getDayProfitsByDayTime(startTime, endTime, DayProfit.PHONE, shopId);
+	public List<DayProfit> getDayProfitListByTime(String startTime,
+			String endTime, long shopId) {
+		return dayProfitMapper.getDayProfitsByDayTime(startTime, endTime,
+				DayProfit.PHONE, shopId);
 	}
 }

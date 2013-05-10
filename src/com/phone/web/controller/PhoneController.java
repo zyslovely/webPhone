@@ -500,6 +500,8 @@ public class PhoneController extends AbstractBaseController {
 		int totalCount = accessoryService.getAccessoryProfitCount(startTime,
 				endTime, myUser.getShopId());
 
+		mv.addObject("accessoryProfitList", accessoryProfitList);
+
 		if (!ListUtils.isEmptyList(accessoryProfitList)) {
 			double saleTotal = 0, profitTotal = 0;
 			for (AccessoryProfit accessoryProfit : accessoryProfitList) {
@@ -508,8 +510,8 @@ public class PhoneController extends AbstractBaseController {
 			}
 			mv.addObject("saleTotal", saleTotal);
 			mv.addObject("profitTotal", profitTotal);
-			mv.addObject("accessoryProfitList", accessoryProfitList);
 		}
+		mv.addObject("accessoryprofitDate", date);
 		mv.addObject("totalPage", totalCount / 10 + 1);
 		return mv;
 	}

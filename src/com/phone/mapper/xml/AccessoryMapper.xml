@@ -10,7 +10,6 @@
 		<result property="lastUpdateTime" column="lastUpdateTime" />
 		<result property="accessoryInfoId" column="accessoryInfoId" />
 		<result property="accessoryTypeId" column="accessoryTypeId" />
-		<result property="status" column="status" />
 		<result property="operatorId" column="operatorId" />
 		<result property="shopId" column="shopId" />
 	</resultMap>
@@ -25,7 +24,6 @@
 		lastUpdateTime,
 		accessoryInfoId,
 		accessoryTypeId,
-		status,
 		operatorId,
 		shopId
 		)VALUES(
@@ -36,7 +34,6 @@
 		#{lastUpdateTime},
 		#{accessoryInfoId},
 		#{accessoryTypeId},
-		#{status}
 		#{operatorId},
 		#{shopId}
 		)
@@ -117,14 +114,12 @@
 		#{id} and shopId=#{shopId};
 	</update>
 
-	<update id="deleteAccessory" flushCache="true" statementType="PREPARED">
-		UPDATE
+	<delete id="deleteAccessory" flushCache="true" statementType="PREPARED">
+		DELETE from
 		TB_Accessory
-		set
-		status =#{status}
 		WHERE
 		id =
 		#{id} and
 		shopId=#{shopId};
-	</update>
+	</delete>
 </mapper>

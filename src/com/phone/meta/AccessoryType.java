@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @version CreateTime：2013-4-27 下午07:22:35
  * @see Class Description
  */
-public class AccessoryType implements Serializable{
+public class AccessoryType implements Serializable {
 
 	/**
 	 * 

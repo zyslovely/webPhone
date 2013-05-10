@@ -26,7 +26,8 @@ public class LoginController extends AbstractBaseController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView showIndex(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView showIndex(HttpServletRequest request,
+			HttpServletResponse response) {
 		logger.info(request.getSession().getId());
 		Long userId = MyUser.getMyUser(request);
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
@@ -39,7 +40,7 @@ public class LoginController extends AbstractBaseController {
 				e.printStackTrace();
 			}
 		}
-		
+
 		// 如果已经登陆，直接重定向
 		return new ModelAndView("webIndex");
 	}
@@ -52,7 +53,8 @@ public class LoginController extends AbstractBaseController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView login(HttpServletRequest request,
+			HttpServletResponse response) {
 		logger.info(request.getSession().getId());
 		try {
 			response.sendRedirect("/phone/index/");

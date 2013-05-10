@@ -324,8 +324,9 @@ public class PhoneServiceImpl implements PhoneService {
 	@Override
 	public List<Phone> getPhoneListByBrand(String brand, long shopId,
 			int limit, int offset, int status) {
+		long brandId = brandMapper.getBrandByBrand(brand);
 		Map<String, Object> hashMap = new HashMap<String, Object>();
-		hashMap.put("brand", brand);
+		hashMap.put("brandId", brandId);
 		hashMap.put("shopId", shopId);
 		hashMap.put("limit", limit);
 		hashMap.put("status", status);

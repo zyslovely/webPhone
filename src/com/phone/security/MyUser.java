@@ -42,8 +42,8 @@ public class MyUser {
 
 	public static MyUser setTestUser() {
 		MyUser myUser = new MyUser();
-		myUser.setUserId(MyUser.testUserId);
-		myUser.setShopId(MyUser.testShopId);
+		myUser.setUserId(2/* MyUser.testUserId */);
+		myUser.setShopId(2/* MyUser.testShopId */);
 		return myUser;
 	}
 

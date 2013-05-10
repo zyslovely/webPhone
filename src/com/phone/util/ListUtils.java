@@ -79,7 +79,8 @@ public final class ListUtils {
 		}
 		for (int l = 0; l < num; ++l) {
 			if (l != num - 1)
-				splits.add(idList.subList(l * splitLength, (l + 1) * splitLength));
+				splits.add(idList.subList(l * splitLength, (l + 1)
+						* splitLength));
 			else
 				splits.add(idList.subList(l * splitLength, idList.size()));
 		}

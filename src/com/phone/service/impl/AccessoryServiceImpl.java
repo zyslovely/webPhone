@@ -20,7 +20,6 @@ import com.phone.meta.AccessoryInfo;
 import com.phone.meta.AccessoryProfit;
 import com.phone.meta.AccessorySold;
 import com.phone.meta.DayProfit;
-import com.phone.meta.Purchase;
 import com.phone.service.AccessoryService;
 import com.phone.util.ListUtils;
 import com.phone.util.TimeUtil;
@@ -227,8 +226,8 @@ public class AccessoryServiceImpl implements AccessoryService {
 		hashMap.put("startTime", startTime);
 		hashMap.put("endTime", endTime);
 		hashMap.put("shopId", shopId);
-		hashMap.put("limit", shopId);
-		hashMap.put("offset", shopId);
+		hashMap.put("limit", limit);
+		hashMap.put("offset", offset);
 		return accessoryProfitMapper.getAccessoryProfitList(hashMap);
 	}
 
@@ -239,9 +238,9 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * long, java.lang.Long)
 	 */
 	@Override
-	public int getAccessoryProfitCount(long startTime, long endTime, Long shopId) {
-		return accessoryProfitMapper.getAccessoryProfitCount(startTime,
-				endTime, shopId);
+	public int getAccessoryProfitCount(long startTime, long endTime, long shopId) {
+		return accessoryProfitMapper.getAccessoryProfitCount(shopId,
+				startTime, endTime);
 	}
 
 	/*
@@ -289,12 +288,12 @@ public class AccessoryServiceImpl implements AccessoryService {
 		return false;
 	}
 
+	@Override
 	public boolean deleteAccessory(long id, long shopId) {
 		if (accessorySoldMapper.getAccessorySold(id, shopId) != null) {
 			return false;
 		}
-		int status = Purchase.PurchaseStatus.Deleted.getValue();
-		if (accessoryMapper.deleteAccessory(status, id, shopId) > 0) {
+		if (accessoryMapper.deleteAccessory(id, shopId) > 0) {
 			return true;
 		}
 		return false;
