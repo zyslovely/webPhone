@@ -16,7 +16,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 
 <form action="/profit/list/?toPage=0" method="post" target="_self">
 <div style="margin-right:10px;">
-    <input type="radio" name="profitDate" value="1" <#if profitDate==1>checked</#if> />今天的利润
+    <input type="radio" name="profitDate" value="1" <#if profitDate==1>checked</#if>/>今天的利润
     <input type="radio" name="profitDate" value="2" <#if profitDate==2>checked</#if>/>昨天的利润
     <input type="radio" name="profitDate" value="3" <#if profitDate==3>checked</#if>/>当月的利润
     <input type="submit" value="提交"/>
