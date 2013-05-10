@@ -35,4 +35,14 @@
 		SELECT * FROM TB_Accessory_Sold WHERE accessoryid=#{accessoryid} AND
 		shopId=#{shopId};
 	</select>
+	
+	<select id="getAccessorySoldByIds" resultMap="accessorySoldMap"
+		parameterType="list">
+		SELECT * from TB_Accessory_Sold where
+		accessoryid in
+		<foreach item="item" collection="accessoryIdList" index="index"
+			open="(" separator="," close=")">
+			#{item} 
+	     </foreach>
+	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.phone.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.phone.meta.AccessorySold;
@@ -29,4 +31,13 @@ public interface AccessorySoldMapper {
 	public AccessorySold getAccessorySold(
 			@Param(value = "accessoryid") long accessoryid,
 			@Param(value = "shopId") long shopId);
+
+	/**
+	 * 
+	 * 
+	 * @param accessoryIdList
+	 * @return
+	 */
+	public List<AccessorySold> getAccessorySoldByIds(
+			@Param(value = "accessoryIdList") List<Long> accessoryIdList);
 }

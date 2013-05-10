@@ -5,6 +5,7 @@ import java.util.List;
 import com.phone.meta.Accessory;
 import com.phone.meta.AccessoryInfo;
 import com.phone.meta.AccessoryProfit;
+import com.phone.meta.AccessoryProfitVO;
 
 /**
  * @author zhengyisheng E-mail:zhengyisheng@gmail.com
@@ -92,7 +93,7 @@ public interface AccessoryService {
 	 * @param offset
 	 * @return
 	 */
-	public List<AccessoryProfit> getProfitList(long startTime, long endTime,
+	public List<AccessoryProfitVO> getProfitList(long startTime, long endTime,
 			long shopId, int limit, int offset);
 
 	/**

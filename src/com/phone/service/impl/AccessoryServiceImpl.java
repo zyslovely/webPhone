@@ -1,5 +1,6 @@
 package com.phone.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +19,11 @@ import com.phone.mapper.DayProfitMapper;
 import com.phone.meta.Accessory;
 import com.phone.meta.AccessoryInfo;
 import com.phone.meta.AccessoryProfit;
+import com.phone.meta.AccessoryProfitVO;
 import com.phone.meta.AccessorySold;
 import com.phone.meta.DayProfit;
 import com.phone.service.AccessoryService;
+import com.phone.util.HashMapMaker;
 import com.phone.util.ListUtils;
 import com.phone.util.TimeUtil;
 
@@ -217,7 +220,7 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * int, int)
 	 */
 	@Override
-	public List<AccessoryProfit> getProfitList(long startTime, long endTime,
+	public List<AccessoryProfitVO> getProfitList(long startTime, long endTime,
 			long shopId, int limit, int offset) {
 		if (startTime < 0 || endTime < 0 || endTime > new Date().getTime()) {
 			return null;
@@ -228,7 +231,52 @@ public class AccessoryServiceImpl implements AccessoryService {
 		hashMap.put("shopId", shopId);
 		hashMap.put("limit", limit);
 		hashMap.put("offset", offset);
-		return accessoryProfitMapper.getAccessoryProfitList(hashMap);
+		List<AccessoryProfit> accessoryProfitList = accessoryProfitMapper
+				.getAccessoryProfitList(hashMap);
+		if (ListUtils.isEmptyList(accessoryProfitList)) {
+			return null;
+		}
+		List<Long> accessoryIdList = new ArrayList<Long>(
+				accessoryProfitList.size());
+		for (AccessoryProfit accessoryProfit : accessoryProfitList) {
+			accessoryIdList.add(accessoryProfit.getAccessoryid());
+		}
+		List<AccessorySold> accessorySoldList = accessorySoldMapper
+				.getAccessorySoldByIds(accessoryIdList);
+		List<Accessory> accessoryList = accessoryMapper
+				.getAccessoryListByIds(accessoryIdList);
+		List<Long> accessoryInfoIdList = new ArrayList<Long>();
+		for (Accessory accessory : accessoryList) {
+			accessoryInfoIdList.add(accessory.getAccessoryInfoId());
+		}
+		List<AccessoryInfo> accessoryInfoList = accessoryInfoMapper
+				.getAccessoryInfoByIds(accessoryInfoIdList);
+		Map<Long, AccessoryInfo> accessoryInfoMap = HashMapMaker.listToMap(
+				accessoryInfoList, "getId", AccessoryInfo.class);
+		Map<Long, AccessorySold> accessorySoldMap = HashMapMaker.listToMap(
+				accessorySoldList, "getAccessoryid", AccessorySold.class);
+		Map<Long, AccessoryProfit> accessoryProfitMap = HashMapMaker.listToMap(
+				accessoryProfitList, "getAccessoryid", AccessoryProfit.class);
+		List<AccessoryProfitVO> accessoryProfitVOList = new ArrayList<AccessoryProfitVO>();
+		for (Accessory accessory : accessoryList) {
+			AccessoryProfitVO accessoryProfitVO = new AccessoryProfitVO();
+			AccessoryProfit accessoryProfit = accessoryProfitMap.get(accessory
+					.getId());
+			AccessoryInfo accessoryInfo = accessoryInfoMap.get(accessory
+					.getAccessoryInfoId());
+			AccessorySold accessorySold = accessorySoldMap.get(accessory
+					.getId());
+			accessoryProfitVO.setName(accessory.getName());
+			accessoryProfitVO.setAccessoryInfoName(accessoryInfo
+					.getAccessoryInfoName());
+			accessoryProfitVO.setUnitPrice(accessory.getUnitPrice());
+			accessoryProfitVO.setSoldPrice(accessorySold.getSoldPrice());
+			accessoryProfitVO.setProfit(accessoryProfit.getProfit());
+			accessoryProfitVO.setLastUpdateTime(TimeUtil
+					.getFormatTimeInMinute(accessoryProfit.getCreateTime()));
+			accessoryProfitVOList.add(accessoryProfitVO);
+		}
+		return accessoryProfitVOList;
 	}
 
 	/*
@@ -239,8 +287,8 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 */
 	@Override
 	public int getAccessoryProfitCount(long startTime, long endTime, long shopId) {
-		return accessoryProfitMapper.getAccessoryProfitCount(shopId,
-				startTime, endTime);
+		return accessoryProfitMapper.getAccessoryProfitCount(shopId, startTime,
+				endTime);
 	}
 
 	/*

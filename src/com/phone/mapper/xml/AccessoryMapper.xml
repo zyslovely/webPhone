@@ -122,4 +122,14 @@
 		#{id} and
 		shopId=#{shopId};
 	</delete>
+	
+	<select id="getAccessoryListByIds" resultMap="accessoryMap"
+		parameterType="list">
+		SELECT * from TB_Accessory where
+		id in
+		<foreach item="item" collection="accessoryIdList" index="index"
+			open="(" separator="," close=")">
+			#{item} 
+	     </foreach>
+	</select>
 </mapper>

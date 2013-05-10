@@ -47,4 +47,12 @@ public interface AccessoryInfoMapper {
 	 */
 	public AccessoryInfo getAccessoryInfoById(@Param(value = "id") long id);
 
+	/**
+	 * 
+	 * 
+	 * @param accessoryIdList
+	 * @return
+	 */
+	public List<AccessoryInfo> getAccessoryInfoByIds(
+			@Param(value = "accessoryInfoIdList") List<Long> accessoryInfoIdList);
 }

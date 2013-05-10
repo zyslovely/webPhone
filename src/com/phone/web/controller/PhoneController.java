@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.phone.meta.Accessory;
 import com.phone.meta.AccessoryInfo;
 import com.phone.meta.AccessoryProfit;
+import com.phone.meta.AccessoryProfitVO;
 import com.phone.meta.DayProfit;
 import com.phone.meta.Phone;
 import com.phone.meta.ProfitVo;
@@ -494,19 +495,19 @@ public class PhoneController extends AbstractBaseController {
 		mv.addObject("extPage", toPage - 1);
 		mv.addObject("nextPage", toPage + 1);
 		mv.addObject("profitDate", date);
-		List<AccessoryProfit> accessoryProfitList = accessoryService
+		List<AccessoryProfitVO> accessoryProfitVOList = accessoryService
 				.getProfitList(startTime, endTime, myUser.getShopId(), limit,
 						offset);
 		int totalCount = accessoryService.getAccessoryProfitCount(startTime,
 				endTime, myUser.getShopId());
 
-		mv.addObject("accessoryProfitList", accessoryProfitList);
+		mv.addObject("accessoryProfitVOList", accessoryProfitVOList);
 
-		if (!ListUtils.isEmptyList(accessoryProfitList)) {
+		if (!ListUtils.isEmptyList(accessoryProfitVOList)) {
 			double saleTotal = 0, profitTotal = 0;
-			for (AccessoryProfit accessoryProfit : accessoryProfitList) {
-				saleTotal += accessoryProfit.getSoldPrice();
-				profitTotal += accessoryProfit.getProfit();
+			for (AccessoryProfitVO accessoryProfitVO : accessoryProfitVOList) {
+				saleTotal += accessoryProfitVO.getSoldPrice();
+				profitTotal += accessoryProfitVO.getProfit();
 			}
 			mv.addObject("saleTotal", saleTotal);
 			mv.addObject("profitTotal", profitTotal);
