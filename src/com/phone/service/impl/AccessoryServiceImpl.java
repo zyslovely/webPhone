@@ -35,8 +35,7 @@ import com.phone.util.TimeUtil;
 @Service("accessoryService")
 public class AccessoryServiceImpl implements AccessoryService {
 
-	private static final Logger logger = Logger
-			.getLogger(AccessoryServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(AccessoryServiceImpl.class);
 	@Resource
 	private AccessoryInfoMapper accessoryInfoMapper;
 
@@ -76,8 +75,7 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * int, long)
 	 */
 	@Override
-	public boolean addAccessory(String name, int count, long accessoryInfoId,
-			double unitPrice, long userId, long shopId) {
+	public boolean addAccessory(String name, int count, long accessoryInfoId, double unitPrice, long userId, long shopId) {
 		long nowTime = new Date().getTime();
 		Accessory accessory = new Accessory();
 		accessory = new Accessory();
@@ -99,8 +97,7 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * @see com.phone.service.AccessoryService#deleteAccessoryById(long, int)
 	 */
 	@Override
-	public boolean descCountAccessoryById(long id, int count, double soldPrice,
-			long shopId, long userId) {
+	public boolean descCountAccessoryById(long id, int count, double soldPrice, long shopId, long userId) {
 		Accessory accessory = accessoryMapper.getAccessoryById(id, shopId);
 		if (accessory == null) {
 			logger.error("deleteAccessoryById accessory 不存在 id=" + id);
@@ -111,8 +108,7 @@ public class AccessoryServiceImpl implements AccessoryService {
 			return false;
 		}
 		long nowTime = new Date().getTime();
-		if (accessoryMapper.updateAccessoryByid(accessory.getCount() - count,
-				new Date().getTime(), id, shopId) > 0) {
+		if (accessoryMapper.updateAccessoryByid(accessory.getCount() - count, new Date().getTime(), id, shopId) > 0) {
 			AccessorySold accessorySold = new AccessorySold();
 			accessorySold.setAccessoryid(accessory.getId());
 			accessorySold.setCreateTime(nowTime);
@@ -132,8 +128,7 @@ public class AccessoryServiceImpl implements AccessoryService {
 			accessoryProfitMapper.addAccessoryProfit(accessoryProfit);
 
 			String dayTime = TimeUtil.getFormatTime(nowTime);
-			DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime,
-					DayProfit.ACCESSORY, shopId);
+			DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime, DayProfit.ACCESSORY, shopId);
 			if (dayProfit == null) {
 				dayProfit = new DayProfit();
 				dayProfit.setDaytime(dayTime);
@@ -142,12 +137,8 @@ public class AccessoryServiceImpl implements AccessoryService {
 				dayProfit.setShopId(shopId);
 				dayProfitMapper.addDayProfit(dayProfit);
 			} else {
-				dayProfitMapper.updateDayProfit(
-						dayProfit.getTotalSell()
-								+ accessoryProfit.getSoldPrice(),
-						dayProfit.getTotalProfit()
-								+ accessoryProfit.getProfit(), dayTime,
-						DayProfit.ACCESSORY, shopId);
+				dayProfitMapper.updateDayProfit(dayProfit.getTotalSell() + accessoryProfit.getSoldPrice(), dayProfit.getTotalProfit()
+						+ accessoryProfit.getProfit(), dayTime, DayProfit.ACCESSORY, shopId);
 			}
 			return true;
 		}
@@ -183,19 +174,15 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * int, int, long)
 	 */
 	@Override
-	public List<Accessory> getAccessoryList(String name, long shopId,
-			int limit, int offset, long accessoryInfoId) {
-		List<Accessory> accessories = accessoryMapper.getAccessoryList(name,
-				accessoryInfoId, shopId, limit, offset);
+	public List<Accessory> getAccessoryList(String name, long shopId, int limit, int offset, long accessoryInfoId) {
+		List<Accessory> accessories = accessoryMapper.getAccessoryList(name, accessoryInfoId, shopId, limit, offset);
 		if (ListUtils.isEmptyList(accessories)) {
 			return null;
 		}
 		for (Accessory accessory : accessories) {
-			AccessoryInfo accessoryInfo = accessoryInfoMapper
-					.getAccessoryInfoById(accessory.getAccessoryInfoId());
+			AccessoryInfo accessoryInfo = accessoryInfoMapper.getAccessoryInfoById(accessory.getAccessoryInfoId());
 			if (accessoryInfo != null) {
-				accessory.setAccessoryInfoName(accessoryInfo
-						.getAccessoryInfoName());
+				accessory.setAccessoryInfoName(accessoryInfo.getAccessoryInfoName());
 			}
 		}
 		return accessories;
@@ -220,8 +207,7 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * int, int)
 	 */
 	@Override
-	public List<AccessoryProfitVO> getProfitList(long startTime, long endTime,
-			long shopId, int limit, int offset) {
+	public List<AccessoryProfitVO> getProfitList(long startTime, long endTime, long shopId, int limit, int offset) {
 		if (startTime < 0 || endTime < 0 || endTime > new Date().getTime()) {
 			return null;
 		}
@@ -231,49 +217,40 @@ public class AccessoryServiceImpl implements AccessoryService {
 		hashMap.put("shopId", shopId);
 		hashMap.put("limit", limit);
 		hashMap.put("offset", offset);
-		List<AccessoryProfit> accessoryProfitList = accessoryProfitMapper
-				.getAccessoryProfitList(hashMap);
+		List<AccessoryProfit> accessoryProfitList = accessoryProfitMapper.getAccessoryProfitList(hashMap);
 		if (ListUtils.isEmptyList(accessoryProfitList)) {
 			return null;
 		}
-		List<Long> accessoryIdList = new ArrayList<Long>(
-				accessoryProfitList.size());
+		List<Long> accessoryIdList = new ArrayList<Long>(accessoryProfitList.size());
 		for (AccessoryProfit accessoryProfit : accessoryProfitList) {
 			accessoryIdList.add(accessoryProfit.getAccessoryid());
 		}
-		List<AccessorySold> accessorySoldList = accessorySoldMapper
-				.getAccessorySoldByIds(accessoryIdList);
-		List<Accessory> accessoryList = accessoryMapper
-				.getAccessoryListByIds(accessoryIdList);
+		List<AccessorySold> accessorySoldList = accessorySoldMapper.getAccessorySoldByIds(accessoryIdList);
+		List<Accessory> accessoryList = accessoryMapper.getAccessoryListByIds(accessoryIdList);
 		List<Long> accessoryInfoIdList = new ArrayList<Long>();
 		for (Accessory accessory : accessoryList) {
 			accessoryInfoIdList.add(accessory.getAccessoryInfoId());
 		}
-		List<AccessoryInfo> accessoryInfoList = accessoryInfoMapper
-				.getAccessoryInfoByIds(accessoryInfoIdList);
-		Map<Long, AccessoryInfo> accessoryInfoMap = HashMapMaker.listToMap(
-				accessoryInfoList, "getId", AccessoryInfo.class);
-		Map<Long, AccessorySold> accessorySoldMap = HashMapMaker.listToMap(
-				accessorySoldList, "getAccessoryid", AccessorySold.class);
-		Map<Long, AccessoryProfit> accessoryProfitMap = HashMapMaker.listToMap(
-				accessoryProfitList, "getAccessoryid", AccessoryProfit.class);
+		List<AccessoryInfo> accessoryInfoList = accessoryInfoMapper.getAccessoryInfoByIds(accessoryInfoIdList);
+		Map<Long, AccessoryInfo> accessoryInfoMap = HashMapMaker.listToMap(accessoryInfoList, "getId", AccessoryInfo.class);
+		Map<Long, AccessorySold> accessorySoldMap = HashMapMaker.listToMap(accessorySoldList, "getAccessoryid", AccessorySold.class);
+		Map<Long, Accessory> accessoryMap = HashMapMaker.listToMap(accessoryList, "getId", Accessory.class);
 		List<AccessoryProfitVO> accessoryProfitVOList = new ArrayList<AccessoryProfitVO>();
-		for (Accessory accessory : accessoryList) {
+		for (AccessoryProfit accessoryProfit : accessoryProfitList) {
 			AccessoryProfitVO accessoryProfitVO = new AccessoryProfitVO();
-			AccessoryProfit accessoryProfit = accessoryProfitMap.get(accessory
-					.getId());
-			AccessoryInfo accessoryInfo = accessoryInfoMap.get(accessory
-					.getAccessoryInfoId());
-			AccessorySold accessorySold = accessorySoldMap.get(accessory
-					.getId());
+			Accessory accessory = accessoryMap.get(accessoryProfit.getAccessoryid());
+			AccessoryInfo accessoryInfo = accessoryInfoMap.get(accessory.getAccessoryInfoId());
+			AccessorySold accessorySold = accessorySoldMap.get(accessory.getId());
+			if (accessoryProfit == null || accessoryInfo == null || accessorySold == null) {
+				continue;
+			}
+			
 			accessoryProfitVO.setName(accessory.getName());
-			accessoryProfitVO.setAccessoryInfoName(accessoryInfo
-					.getAccessoryInfoName());
-			accessoryProfitVO.setUnitPrice(accessory.getUnitPrice());
-			accessoryProfitVO.setSoldPrice(accessorySold.getSoldPrice());
+			accessoryProfitVO.setAccessoryInfoName(accessoryInfo.getAccessoryInfoName());
+			accessoryProfitVO.setUnitPrice(accessoryProfit.getPurchasePrice());
+			accessoryProfitVO.setSoldPrice(accessoryProfit.getSoldPrice());
 			accessoryProfitVO.setProfit(accessoryProfit.getProfit());
-			accessoryProfitVO.setLastUpdateTime(TimeUtil
-					.getFormatTimeInMinute(accessoryProfit.getCreateTime()));
+			accessoryProfitVO.setLastUpdateTime(TimeUtil.getFormatTimeInMinute(accessoryProfit.getCreateTime()));
 			accessoryProfitVOList.add(accessoryProfitVO);
 		}
 		return accessoryProfitVOList;
@@ -287,8 +264,7 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 */
 	@Override
 	public int getAccessoryProfitCount(long startTime, long endTime, long shopId) {
-		return accessoryProfitMapper.getAccessoryProfitCount(shopId, startTime,
-				endTime);
+		return accessoryProfitMapper.getAccessoryProfitCount(shopId, startTime, endTime);
 	}
 
 	/*
@@ -298,14 +274,12 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * long, long, int)
 	 */
 	@Override
-	public boolean changeAccessoryWithShop(long id, long shopId,
-			long newShopId, int changeCount) {
+	public boolean changeAccessoryWithShop(long id, long shopId, long newShopId, int changeCount) {
 		Accessory accessory = accessoryMapper.getAccessoryById(id, shopId);
 		if (changeCount > accessory.getCount()) {
 			return false;
 		}
-		if (accessoryMapper.updateAccessoryByid(accessory.getCount()
-				- changeCount, new Date().getTime(), id, shopId) < 0) {
+		if (accessoryMapper.updateAccessoryByid(accessory.getCount() - changeCount, new Date().getTime(), id, shopId) < 0) {
 			return false;
 		}
 		accessory.setCount(changeCount);
@@ -325,12 +299,8 @@ public class AccessoryServiceImpl implements AccessoryService {
 	 * long)
 	 */
 	@Override
-	public boolean purchasePriceChange(long accessoryId, double price,
-			long shopId) {
-		if (accessoryMapper.updateAccessoryUnitPriceByid(accessoryId, price,
-				shopId) > 0
-				&& accessoryProfitMapper.updatePurchasePriceByid(accessoryId,
-						price, shopId) > 0) {
+	public boolean purchasePriceChange(long accessoryId, double price, long shopId) {
+		if (accessoryMapper.updateAccessoryUnitPriceByid(accessoryId, price, shopId) > 0) {
 			return true;
 		}
 		return false;

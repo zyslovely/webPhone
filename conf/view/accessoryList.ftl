@@ -19,6 +19,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
    <div>
    <#if accessoryInfos?exists>
       <select name="accessoryInfoId">
+      <option value ="" ></option>
       <#list accessoryInfos as info>
          <option value ="${info.id!0}" >${info.accessoryInfoName!""}</option>
       </#list>

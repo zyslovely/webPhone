@@ -1,7 +1,7 @@
 $("#accessory_info_add").click(
 		function() {
 			_name = $("#accessoryInfo").val();
-			dwr.engine._execute("http://localhost:8080/WebPhone/dwr",
+			dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr",
 					'WebPhoneBean', 'addAccessoryInfo', _name, submitCB);
 		});
 

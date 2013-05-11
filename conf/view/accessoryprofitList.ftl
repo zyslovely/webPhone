@@ -29,9 +29,9 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 </div>
 <#if accessoryProfitVOList?exists>
 <p style="margin-top:30px;">
-   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页</span>。
+   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页,总共#{totalCount!0}条数据</span>。
    <#if extPage gt 0><a href="/accessory/profit/list/?toPage=${extPage!0}&accessoryprofitDate=${accessoryprofitDate!0}">上一页</a></#if>
-   <#if nextPage lt totalPage><a href="/accessory/profit/list/?toPage=${nextPage!0}&accessoryprofitDate=${accessoryprofitDate!0}">下一页</a></#if>
+   <#if nextPage lt totalPage+1><a href="/accessory/profit/list/?toPage=${nextPage!0}&accessoryprofitDate=${accessoryprofitDate!0}">下一页</a></#if>
 </p>
    <table id="accessory_profit_list_tb" >
 				<tr>

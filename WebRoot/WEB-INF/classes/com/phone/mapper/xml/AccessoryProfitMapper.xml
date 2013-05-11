@@ -40,26 +40,30 @@
 	<select id="getAccessoryProfitList" resultMap="accessoryProfitMap"
 		parameterType="hashMap">
 		SELECT * from TB_Accessory_Profit
-		WHERE CreateTime
+		WHERE ( createTime
 		BETWEEN #{startTime}
 		AND
-		#{endTime}
+		#{endTime} )
 		and shopId = #{shopId}
 		order by
-		createTime desc limit #{limit}
-		offset #{offset};
+		createTime desc
+		<if test="offset >= 0 ">
+			limit #{limit}
+			offset #{offset}
+		</if>
+		;
 	</select>
 
 	<select id="getAccessoryProfitCount" resultType="int">
 		SELECT
-		count(*)
-		from
-		TB_Accessory_Profit WHERE ( CreateTime
+		count(*) from
+		TB_Accessory_Profit WHERE ( createTime
 		BETWEEN #{startTime}
 		AND
 		#{endTime} )
 		and shopId = #{shopId};
 	</select>
+	
 	<update id="updateAccessoryUnitPriceByid" flushCache="true"
 		statementType="PREPARED">
 		UPDATE

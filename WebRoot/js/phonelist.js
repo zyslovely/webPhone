@@ -4,7 +4,7 @@ $("#brandName_add").click(
 			if (_brandName == '') {
 				alert('请输入品牌名称');
 			}
-			dwr.engine._execute("http://localhost:8080/WebPhone/dwr",
+			dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr",
 					'WebPhoneBean', 'addBrand', _brandName, submitCBBrand);
 		});
 
@@ -19,7 +19,7 @@ function submitCBBrand(_flag) {
 
 function phoneReturn(id) {
 
-	dwr.engine._execute("http://localhost:8080/WebPhone/dwr", 'WebPhoneBean',
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr", 'WebPhoneBean',
 			'returnPhone', id, submitReturnCB);
 };
 
@@ -34,7 +34,7 @@ function submitReturnCB(_flag) {
 
 function phoneDelete(id) {
 
-	dwr.engine._execute("http://localhost:8080/WebPhone/dwr", 'WebPhoneBean',
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr", 'WebPhoneBean',
 			'deletePhoneById', id, submitCB);
 };
 
@@ -55,7 +55,7 @@ function phoneSell(id, purchasePrice) {
 };
 
 function doSell(id, sellPrice) {
-	dwr.engine._execute("http://localhost:8080/WebPhone/dwr", 'WebPhoneBean',
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr", 'WebPhoneBean',
 			'sellPhone', id, sellPrice, function(_flag) {
 				if (_flag) {
 					alert("卖出成功");
@@ -93,7 +93,7 @@ function phonePurchasePriceChange(id) {
 };
 
 function doChangePurchasePrice(id, _price) {
-	dwr.engine._execute("http://localhost:8080/WebPhone/dwr", 'WebPhoneBean',
+	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr", 'WebPhoneBean',
 			'purchasePriceChange', id, _price, function(_flag) {
 				if (_flag) {
 					alert("修改成功");

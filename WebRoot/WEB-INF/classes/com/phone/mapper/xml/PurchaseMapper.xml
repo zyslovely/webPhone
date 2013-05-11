@@ -160,8 +160,8 @@
 	<select id="getPurchaseListByBrand" parameterType="hashMap"
 		resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
-		WHERE brand
-		= #{brand}
+		WHERE brandId
+		= #{brandId}
 		<if test="status!=null and status>=0">
 			and status= ${status}
 		</if>

@@ -19,6 +19,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
    <div>
    <#if accessoryInfos?exists>
       <select name="accessoryInfoId">
+      <option value ="" ></option>
       <#list accessoryInfos as info>
          <option value ="${info.id!0}" >${info.accessoryInfoName!""}</option>
       </#list>
@@ -55,7 +56,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 				    <td>${accessory.accessoryInfoName!""}</td>
 					<td>${accessory.name!""}</td>
 					<td>${accessory.count!0}</td>
-					<td>${accessory.unitPrice!0}</td><#if level==1><a href="javascript:void(0);"  onClick="accessoryPurchasePriceChange(${accessory.id});"><修改></a></#if>
+					<td>${accessory.unitPrice!0}<a href="javascript:void(0);"  onClick="accessoryPurchasePriceChange(${accessory.id});"><修改></a></td>
 					<td>${accessory.createTimeStr!""}</td>
 					<td>
 					   <a href="javascript:void(0);"  onClick="accessoryDelete(${accessory.id});">删除</a>

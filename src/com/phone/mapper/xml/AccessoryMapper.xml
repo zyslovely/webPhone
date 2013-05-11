@@ -69,13 +69,16 @@
 	<select id="getAccessoryList" resultMap="accessoryMap">
 		SELECT * from
 		TB_Accessory
-		WHERE upper(name) like
-		CONCAT('%','${name}','%')
+		WHERE
+		<if test="name !=null and name !='' ">
+			upper(name) like
+			CONCAT('%','${name}','%') and
+		</if>
 		<if test="accessoryInfoId>0">
-			and accessoryInfoId =#{accessoryInfoId}
+			accessoryInfoId =#{accessoryInfoId} and
 		</if>
 		<if test="shopId>0">
-			and shopId=#{shopId}
+			shopId=#{shopId} 
 		</if>
 		order by
 		createtime
@@ -90,15 +93,18 @@
 	<select id="getAccessoryCount" resultType="int">
 		SELECT count(*)
 		from
-		TB_Accessory WHERE upper(name) like
-		CONCAT('%','${name}','%')
+		TB_Accessory WHERE
+		<if test="name !=null and name !='' ">
+			upper(name) like
+			CONCAT('%','${name}','%') and
+		</if>
+
 		<if test="accessoryInfoId>0">
-			and
 			accessoryInfoId
-			=#{accessoryInfoId} 
+			=#{accessoryInfoId} and
 		</if>
 		<if test="shopId>0">
-			and shopId=#{shopId}
+			shopId=#{shopId}
 		</if>
 		;
 	</select>
@@ -122,7 +128,7 @@
 		#{id} and
 		shopId=#{shopId};
 	</delete>
-	
+
 	<select id="getAccessoryListByIds" resultMap="accessoryMap"
 		parameterType="list">
 		SELECT * from TB_Accessory where

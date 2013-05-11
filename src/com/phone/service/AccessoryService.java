@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.phone.meta.Accessory;
 import com.phone.meta.AccessoryInfo;
-import com.phone.meta.AccessoryProfit;
 import com.phone.meta.AccessoryProfitVO;
 
 /**
