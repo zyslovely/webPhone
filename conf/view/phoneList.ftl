@@ -18,10 +18,13 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <form action="/phone/list/" method="post" target="_self"/>
 <div>
    <span>输入手机型号:</span>
-   <input type="text" value="" name="phoneModel"/>
+   <input type="text" value="${phoneModel!""}" name="phoneModel"/>
    <span> 或者 </span>
    <span>串号:</span>
    <input type="text" value="" name="phoneCode"/>
+   <span> 或者 </span>
+   <span>品牌:</span>
+   <input type="text" value="${brandName!""}" name="brandName"/>
    <select name="status">
        <option value ="-1" >显示全部</option>  
        <option value ="0" >只显示未卖出的</option>  

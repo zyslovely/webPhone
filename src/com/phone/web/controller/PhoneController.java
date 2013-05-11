@@ -132,6 +132,7 @@ public class PhoneController extends AbstractBaseController {
 		ModelAndView mv = new ModelAndView("phoneList");
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").trim().toLowerCase();
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase();
+		String brandName = ServletRequestUtils.getStringParameter(request, "brandName").trim().toLowerCase();
 		int status = ServletRequestUtils.getIntParameter(request, "status", -1);
 		mv.addObject("status", status);
 		int inventory = ServletRequestUtils.getIntParameter(request, "inventory", -1);
@@ -159,7 +160,8 @@ public class PhoneController extends AbstractBaseController {
 			}
 
 			mv.addObject("searchPhonetotalCount", totalCount);
-		} else if (inventory == 1) {
+		} else if(!StringUtils.isEmpty(ph)) 
+		else if (inventory == 1) {
 			phoneList = phoneService.getPhoneListNoInventory(myUser.getShopId(), limit, offset);
 
 			int totalCount = purchaseService.getPurchaseCountNotInventory(myUser.getShopId());
