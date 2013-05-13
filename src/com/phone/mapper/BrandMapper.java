@@ -38,4 +38,14 @@ public interface BrandMapper {
 	 */
 	public List<String> getAllBrandList();
 
+	/**
+	 * 根据名称获得品牌
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param brand
+	 * @return
+	 */
+	public List<Brand> getBrandListByName(@Param(value = "brand") String brand);
+	
+
 }

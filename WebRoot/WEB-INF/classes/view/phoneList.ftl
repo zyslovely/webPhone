@@ -24,7 +24,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
    <input type="text" value="" name="phoneCode"/>
    <span> 或者 </span>
    <span>品牌:</span>
-   <input type="text" value="${brandName!""}" name="brandName"/>
+   <input type="text" value="" name="brandName"/>
    <select name="status">
        <option value ="-1" >显示全部</option>  
        <option value ="0" >只显示未卖出的</option>  
@@ -51,8 +51,8 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 <#if phoneList?exists>
 <p>
    <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页,总共${searchPhonetotalCount!1}个手机</span>。
-   <#if extPage gt 0><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${extPage!0}&inventory=${inventory!0}&status=${status!-1}">上一页</a></#if>
-   <#if nextPage lt totalPage+1><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${nextPage!0}&inventory=${inventory!0}&status=${status!-1}">下一页</a></#if>
+   <#if extPage gt 0><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${extPage!0}&inventory=${inventory!0}&status=${status!-1}&brandName=${brandName!""}">上一页</a></#if>
+   <#if nextPage lt totalPage+1><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${nextPage!0}&inventory=${inventory!0}&status=${status!-1}&brandName=${brandName!""}">下一页</a></#if>
 </p>
    <table id="phone_list_tb" >
 			<thead>
@@ -87,11 +87,11 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>
 					   <#if phone.status == 0>
 					      <#if phone.inventory==0&&phone.status == 0><a href="javascript:void(0);"  onClick="phoneInventory(${phone.phoneId});">盘点入库</a></#if>
-					      <a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a>
+					      <#if level==3><a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a></#if>
 					      <a href="javascript:void(0);"  onClick="phoneSell(${phone.phoneId},${phone.purchasePrice!0});">卖出</a>
-					      <a href="javascript:void(0);"  onClick="phoneChange(${phone.phoneCode});">转移库存</a>
+					      <#if level==3><a href="javascript:void(0);"  onClick="phoneChange(${phone.phoneCode});">转移库存</a></#if>
 					   <#elseif phone.status == 1>
-					      <a href="javascript:void(0);"  onClick="phoneReturn(${phone.phoneId});">退货了</a>
+					      <a href="javascript:void(0);"  onClick="phoneReturn(${phone.phoneId});">退货</a>
 					   </#if>
 					</td>
 				</tr>

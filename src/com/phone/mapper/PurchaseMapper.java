@@ -128,4 +128,27 @@ public interface PurchaseMapper {
 	 */
 	public int getPurchaseCountNotInventory(@Param(value = "shopId") long shopId);
 
+	/**
+	 * 通过品牌获得
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param brandIds
+	 * @param limit
+	 * @param shopId
+	 * @param offset
+	 * @return
+	 */
+	public List<Purchase> getPurchaseListByBrandIds(@Param(value = "list") List<Long> brandIds, @Param(value = "limit") int limit,
+			@Param(value = "shopId") long shopId, @Param(value = "offset") int offset);
+
+	/**
+	 * 根据品牌得到数量
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param brandIds
+	 * @param shopId
+	 * @return
+	 */
+	public int getPurchaseCountByBrandIds(@Param(value = "list") List<Long> brandIds, @Param(value = "shopId") long shopId);
+
 }

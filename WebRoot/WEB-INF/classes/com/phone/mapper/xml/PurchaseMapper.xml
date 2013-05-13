@@ -150,8 +150,8 @@
 		and shopId=#{shopId};
 	</update>
 
-	<update id="updatePurchaseWithMeta" parameterType="Purchase" flushCache="true"
-		statementType="PREPARED">
+	<update id="updatePurchaseWithMeta" parameterType="Purchase"
+		flushCache="true" statementType="PREPARED">
 		UPDATE
 		TB_Phone_Purchase
 		set
@@ -182,14 +182,46 @@
 	</select>
 
 
-	<!-- 查询用户的骑行数量Ridding -->
+	<!-- 查询入库 -->
 	<select id="getPurchaseCountNotInventory" resultType="int">
 		SELECT
 		count(*) from TB_Phone_Purchase where
-		status = 0 
+		status = 0
 		and shopId =
 		#{shopId}
-		and inventory=0 
+		and inventory=0 and 2>status
+		;
+	</select>
+
+	<select id="getPurchaseListByBrandIds" resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase where
+		(brandId in
+		<foreach item="item" collection="list" index="index" open="("
+			separator="," close=")">
+			#{item} 
+	     </foreach>
+		) and  shopId = #{shopId} and 2>status
+		<if test="offset >=0 ">
+			limit
+			#{limit}
+			offset
+			#{offset}
+		</if>
+		;
+	</select>
+
+	<!-- 查询入库 -->
+	<select id="getPurchaseCountByBrandIds" resultType="int">
+		SELECT
+		count(*) from TB_Phone_Purchase where
+		(brandId in
+		<foreach item="item" collection="list" index="index" open="("
+			separator="," close=")">
+			#{item} 
+	     </foreach>
+		)
+		and shopId =
+		#{shopId} and 2>status
 		;
 	</select>
 </mapper>

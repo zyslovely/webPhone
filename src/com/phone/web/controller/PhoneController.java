@@ -130,9 +130,10 @@ public class PhoneController extends AbstractBaseController {
 			logger.error("myUser不存在，没有经过验证");
 		}
 		ModelAndView mv = new ModelAndView("phoneList");
+		this.setUD(mv, request);
 		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").trim().toLowerCase();
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase();
-		String brandName = ServletRequestUtils.getStringParameter(request, "brandName").trim().toLowerCase();
+		String brandName = ServletRequestUtils.getStringParameter(request, "brandName", "").trim().toLowerCase();
 		int status = ServletRequestUtils.getIntParameter(request, "status", -1);
 		mv.addObject("status", status);
 		int inventory = ServletRequestUtils.getIntParameter(request, "inventory", -1);
@@ -160,8 +161,19 @@ public class PhoneController extends AbstractBaseController {
 			}
 
 			mv.addObject("searchPhonetotalCount", totalCount);
-		} else if(!StringUtils.isEmpty(ph)) 
-		else if (inventory == 1) {
+		} else if (!StringUtils.isEmpty(brandName)) {
+			phoneList = phoneService.getPhoneListByBrandName(brandName, limit, offset, myUser.getShopId());
+
+			int totalCount = phoneService.getPhoneCountByBrandName(brandName, myUser.getShopId());
+			if (totalCount % limit == 0) {
+				totalPage = totalCount / limit;
+			} else {
+				totalPage = totalCount / limit + 1;
+			}
+
+			mv.addObject("searchPhonetotalCount", totalCount);
+			mv.addObject("brandName", brandName);
+		} else if (inventory == 1) {
 			phoneList = phoneService.getPhoneListNoInventory(myUser.getShopId(), limit, offset);
 
 			int totalCount = purchaseService.getPurchaseCountNotInventory(myUser.getShopId());

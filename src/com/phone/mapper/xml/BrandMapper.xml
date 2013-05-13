@@ -31,6 +31,17 @@
 	</select>
 
 	<select id="getAllBrandList" resultType="string">
-		SELECT brand from TB_Phone_Brand group by brand;
+		SELECT brand from
+		TB_Phone_Brand group by brand;
+	</select>
+
+
+	<select id="getBrandListByName" resultMap="brandMap">
+		SELECT
+		* from TB_Phone_Brand where 
+		<if test="brand != null and brand !=''">
+		 upper(brand) like CONCAT('%','${brand}','%')
+		</if>
+		;
 	</select>
 </mapper>

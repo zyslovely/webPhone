@@ -289,4 +289,54 @@ public class PhoneServiceImpl implements PhoneService {
 		this.addProfitInfo(phoneList, phoneIdList, purchaseList, shopId);
 		return phoneList;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.phone.service.PhoneService#getPhoneListByBrandName(java.lang.String,
+	 * int, int, long)
+	 */
+	@Override
+	public List<Phone> getPhoneListByBrandName(String brandName, int limit, int offset, long shopId) {
+		List<Brand> brands = brandMapper.getBrandListByName(brandName);
+		if (ListUtils.isEmptyList(brands)) {
+			return null;
+		}
+		List<Long> brandIds = new ArrayList<Long>();
+		for (Brand brand : brands) {
+			brandIds.add(brand.getId());
+		}
+		List<Purchase> purchaseList = purchaseMapper.getPurchaseListByBrandIds(brandIds, limit, shopId, offset);
+		if (ListUtils.isEmptyList(purchaseList)) {
+			return null;
+		}
+		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());
+		for (Purchase purchase : purchaseList) {
+			phoneIdList.add(purchase.getId());
+		}
+		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
+		this.addProfitInfo(phoneList, phoneIdList, purchaseList, shopId);
+		return phoneList;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.phone.service.PhoneService#getPhoneCountByBrandName(java.lang.String,
+	 * long)
+	 */
+	@Override
+	public int getPhoneCountByBrandName(String brandName, long shopId) {
+		List<Brand> brands = brandMapper.getBrandListByName(brandName);
+		if (ListUtils.isEmptyList(brands)) {
+			return 0;
+		}
+		List<Long> brandIds = new ArrayList<Long>();
+		for (Brand brand : brands) {
+			brandIds.add(brand.getId());
+		}
+		return purchaseMapper.getPurchaseCountByBrandIds(brandIds, shopId);
+	}
 }

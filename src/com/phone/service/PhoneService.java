@@ -76,4 +76,26 @@ public interface PhoneService {
 	 * @return
 	 */
 	public boolean sellPriceChange(long phoneId, double price, long shopId);
+
+	/**
+	 * 通过品牌
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param brandName
+	 * @param limit
+	 * @param offset
+	 * @param shopId
+	 * @return
+	 */
+	public List<Phone> getPhoneListByBrandName(String brandName, int limit, int offset, long shopId);
+
+	/**
+	 * 根据品牌名称获得手机数量
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param brandName
+	 * @param shopId
+	 * @return
+	 */
+	public int getPhoneCountByBrandName(String brandName, long shopId);
 }
