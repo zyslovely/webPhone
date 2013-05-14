@@ -159,6 +159,7 @@ function phoneChange(id,opt){
 		   dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'changePhoneWithShop',id,_shopId,function(_flag){
 		      if(_flag){
 		      	alert("转移成功");
+		      		location.href=location.href;
 		      }else{
 		      	alert("转移失败");
 		      }
