@@ -149,3 +149,22 @@ function doChangeSelledPrice(id,_price){
 	});
 }
 
+function phoneChange(id,opt){
+	
+	_shopId=$(opt).val();
+	
+	if(_shopId!=0){
+		jConfirm('确定要转移到'+opt.options[_shopId].text+'吗?','转移操作',function(_flag){
+	    if(_flag){
+		   dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'changePhoneWithShop',id,_shopId,function(_flag){
+		      if(_flag){
+		      	alert("转移成功");
+		      }else{
+		      	alert("转移失败");
+		      }
+		   });
+	    }
+	    });
+	}
+}
+

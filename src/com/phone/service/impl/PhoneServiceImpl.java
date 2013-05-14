@@ -156,18 +156,16 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @see com.phone.service.PhoneService#changeShop(java.lang.String, long,
 	 * long)
 	 */
-	public boolean changeShop(String phoneCode, long shopId, long newShopId) {
+	public boolean changeShop(long phoneId, long newShopId, long shopId) {
+
 		Map<String, Object> hashMap = new HashMap<String, Object>();
-		hashMap.put("phoneCode", phoneCode);
+		hashMap.put("phoneid", phoneId);
 		hashMap.put("shopId", shopId);
-		Purchase purchase = purchaseMapper.getPurchaseByPhoneCode(hashMap);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("phoneid", purchase.getId());
-		map.put("shopId", shopId);
-		if (selledMapper.getSelled(map) != null || profitMapper.getProfit(map) != null) {
+		Purchase purchase = purchaseMapper.getPurchase(hashMap);
+		if (purchase.getStatus() != PurchaseStatus.NotSold.getValue()) {
 			return false;
 		}
-		return (purchaseMapper.changeShop(phoneCode, shopId, newShopId) > 0);
+		return purchaseMapper.changeShop(phoneId, newShopId) > 0;
 	}
 
 	/*

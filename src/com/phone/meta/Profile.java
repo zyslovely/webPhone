@@ -58,6 +58,15 @@ public class Profile implements Serializable {
 			public int getValue() {
 				return 1;
 			}
+		},
+		/**
+		 * 超级店长
+		 */
+		SuperManager {
+			@Override
+			public int getValue() {
+				return 3;
+			}
 		};
 		public abstract int getValue();
 

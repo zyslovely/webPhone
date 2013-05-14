@@ -57,17 +57,18 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
    <table id="phone_list_tb" >
 			<thead>
 				<tr>
-				    <th width="100">品牌</th>
-					<th width="100">手机型号</th>
-					<th width="150">串号</th>
-					<th width="100">进货价格</th>
-					<th width="150">进货日期</th>
-					<th width="100"">是否已经卖出</th>
+				    <th width="50">品牌</th>
+					<th width="50">手机型号</th>
+					<th width="80">串号</th>
+					<th width="80">进货价格</th>
+					<th width="80">进货日期</th>
+					<th width="50"">是否卖出</th>
 					<th width="100">实际卖出价格</th>
 					<th width="150">卖出日期</th>
-					<th width="100">利润</th>
+					<th width="50">利润</th>
 					<th width="100">是否盘点入库</th>
 					<th width="150">操作</th>
+					<th width="150">转移店铺 </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -79,7 +80,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					<td>${phone.phoneCode!""}</td>
 					<td>${phone.purchasePrice!0}<a href="javascript:void(0);"  onClick="phonePurchasePriceChange(${phone.phoneId});"><修改></a></td>
 					<td>${phone.purchaseTimeStr!""}</td>
-					<td><#if phone.status == 0><span style="color:green">没有卖出</span><#elseif phone.status == 1><span style="color:red">已卖出</span></#if></td>
+					<td><#if phone.status == 0><span style="color:green">否</span><#elseif phone.status == 1><span style="color:red">已卖出</span></#if></td>
 					<td>${phone.selledPrice!0}<#if phone.status==1><a href="javascript:void(0);"  onClick="phoneSelledPriceChange(${phone.phoneId});"><修改></a></#if></td>
 					<td>${phone.selledTimeStr!0}</td>
 					<td>${phone.profit!0}</td>
@@ -89,10 +90,24 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					      <#if phone.inventory==0&&phone.status == 0><a href="javascript:void(0);"  onClick="phoneInventory(${phone.phoneId});">盘点入库</a></#if>
 					      <#if level==3><a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a></#if>
 					      <a href="javascript:void(0);"  onClick="phoneSell(${phone.phoneId},${phone.purchasePrice!0});">卖出</a>
-					      <!--<#if level==3><a href="javascript:void(0);"  onClick="phoneChange(${phone.phoneCode});">转移库存</a></#if>-->
+			
 					   <#elseif phone.status == 1>
 					      <a href="javascript:void(0);"  onClick="phoneReturn(${phone.phoneId});">退货</a>
 					   </#if>
+					</td>
+					<td>
+					<#if level==3>
+					    <#if phone.status == 0>
+					    <select onChange="phoneChange(${phone.phoneId},this);return;">
+					          <option value ="0" >转移店铺</option>
+					          <option value ="1" >宜美店</option>
+                              <option value ="2" >天宝店</option>
+                              <option value ="3" >正泰店</option>
+                          </select>
+                         <#elseif phone.status==1>
+                              已卖出
+                         </#if>
+                         </#if>
 					</td>
 				</tr>
 			    </#list>

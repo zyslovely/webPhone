@@ -71,12 +71,13 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 				long shopId = ServletRequestUtils.getLongParameter(httpRequest, "shopId", 0L);
 				ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext-phonecore-dao.xml");
 				ProfileMapper profileMapper = (ProfileMapper) ctx.getBean("profileMapper");
-				Profile profile = profileMapper.getProfileByUserName(userName,shopId);
+				Profile profile = profileMapper.getProfileByUserName(userName, shopId);
 				if (profile != null && profile.getPassword().equals(passWord)) {
 					MyUser myUser = new MyUser();
 					myUser.setUserId(profile.getUserId());
 					myUser.setSessionStr(httpRequest.getSession().getId());
 					myUser.setShopId(profile.getShopId());
+					myUser.setLevel(profile.getLevel());
 					userMap.put(myUser.getUserId(), myUser);
 
 					httpRequest.getSession().setAttribute("login", true);

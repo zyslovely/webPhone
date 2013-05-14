@@ -11,6 +11,7 @@ public class MyUser {
 
 	private long userId;
 	private long shopId;
+	private int level;
 	private String sessionStr;
 
 	public long getUserId() {
@@ -35,6 +36,14 @@ public class MyUser {
 
 	public void setSessionStr(String sessionStr) {
 		this.sessionStr = sessionStr;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	public static long getMyUser(HttpServletRequest request) {

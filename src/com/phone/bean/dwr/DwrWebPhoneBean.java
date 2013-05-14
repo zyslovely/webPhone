@@ -8,6 +8,7 @@ import org.directwebremoting.WebContextFactory;
 import org.springframework.stereotype.Service;
 
 import com.phone.meta.Purchase;
+import com.phone.meta.Profile.ProfileLevel;
 import com.phone.meta.Purchase.PurchaseStatus;
 import com.phone.security.MySecurityDelegatingFilter;
 import com.phone.security.MyUser;
@@ -121,11 +122,15 @@ public class DwrWebPhoneBean {
 	 * @param newShopId
 	 * @return
 	 */
-	public boolean changePhoneWithShop(String phoneCode, long newShopId) {
+	public boolean changePhoneWithShop(long phoneId, long newShopId) {
 		WebContext ctx = WebContextFactory.get();
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
-		return phoneService.changeShop(phoneCode.toLowerCase(), myUser.getShopId(), newShopId);
+		if (myUser.getLevel() != ProfileLevel.SuperManager.getValue()) {
+			return false;
+		}
+		logger.info("转移手机操作，手机id=" + phoneId + " 操作人id+" + userId + "  转移到新店id=" + newShopId);
+		return phoneService.changeShop(phoneId, newShopId, myUser.getShopId());
 	}
 
 	/**

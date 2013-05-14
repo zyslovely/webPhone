@@ -133,9 +133,7 @@
 		TB_Phone_Purchase
 		set shopId=#{newShopId}
 		WHERE
-		phoneCode =
-		#{phoneCode}
-		and shopId=#{shopId};
+		id=#{id};
 	</update>
 
 	<update id="updatePurchasePrice" flushCache="true"
@@ -200,7 +198,7 @@
 			separator="," close=")">
 			#{item} 
 	     </foreach>
-		) and  shopId = #{shopId} and 2>status
+		) and shopId = #{shopId} and 2>status
 		<if test="offset >=0 ">
 			limit
 			#{limit}

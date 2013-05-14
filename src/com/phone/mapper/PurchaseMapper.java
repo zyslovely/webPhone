@@ -78,8 +78,7 @@ public interface PurchaseMapper {
 	 * @param newShopId
 	 * @return
 	 */
-	public int changeShop(@Param(value = "phoneCode") String phoneCode, @Param(value = "shopId") long shopId,
-			@Param(value = "newShopId") long newShopId);
+	public int changeShop(@Param(value = "id") long phoneId, @Param(value = "newShopId") long newShopId);
 
 	/**
 	 * 更新价格
