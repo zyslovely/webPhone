@@ -1,6 +1,9 @@
 package com.phone.web.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -9,10 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.Encoder;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.security.web.util.UrlUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
+
+import sun.net.util.URLUtil;
 
 import com.phone.meta.Accessory;
 import com.phone.meta.AccessoryInfo;
@@ -122,8 +129,10 @@ public class PhoneController extends AbstractBaseController {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws UnsupportedEncodingException
 	 */
-	public ModelAndView showPhoneList(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView showPhoneList(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		response.setCharacterEncoding("UTF-8");
 		Long userId = MyUser.getMyUser(request);
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		if (myUser == null) {
@@ -131,9 +140,11 @@ public class PhoneController extends AbstractBaseController {
 		}
 		ModelAndView mv = new ModelAndView("phoneList");
 		this.setUD(mv, request);
-		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "").trim().toLowerCase();
+		String phoneModel = ServletRequestUtils.getStringParameter(request, "phoneModel", "");
+		phoneModel = new String(phoneModel.getBytes("iso-8859-1"), "UTF-8").trim().toLowerCase();
 		String phoneCode = ServletRequestUtils.getStringParameter(request, "phoneCode", "").trim().toLowerCase();
-		String brandName = ServletRequestUtils.getStringParameter(request, "brandName", "").trim().toLowerCase();
+		String brandName = ServletRequestUtils.getStringParameter(request, "brandName", "");
+		brandName = new String(brandName.getBytes("iso-8859-1"), "UTF-8").trim().toLowerCase();
 		int status = ServletRequestUtils.getIntParameter(request, "status", -1);
 		mv.addObject("status", status);
 		int inventory = ServletRequestUtils.getIntParameter(request, "inventory", -1);
