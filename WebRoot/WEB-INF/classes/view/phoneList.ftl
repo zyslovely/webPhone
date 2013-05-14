@@ -89,7 +89,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 					      <#if phone.inventory==0&&phone.status == 0><a href="javascript:void(0);"  onClick="phoneInventory(${phone.phoneId});">盘点入库</a></#if>
 					      <#if level==3><a href="javascript:void(0);"  onClick="phoneDelete(${phone.phoneId});">删除</a></#if>
 					      <a href="javascript:void(0);"  onClick="phoneSell(${phone.phoneId},${phone.purchasePrice!0});">卖出</a>
-					      <#if level==3><a href="javascript:void(0);"  onClick="phoneChange(${phone.phoneCode});">转移库存</a></#if>
+					      <!--<#if level==3><a href="javascript:void(0);"  onClick="phoneChange(${phone.phoneCode});">转移库存</a></#if>-->
 					   <#elseif phone.status == 1>
 					      <a href="javascript:void(0);"  onClick="phoneReturn(${phone.phoneId});">退货</a>
 					   </#if>
