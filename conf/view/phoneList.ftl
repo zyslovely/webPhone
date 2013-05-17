@@ -78,10 +78,10 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 				    <td>${phone.brand!""}</td>
 					<td>${phone.phoneModel!""}</td>
 					<td>${phone.phoneCode!""}</td>
-					<td>${phone.purchasePrice!0}<a href="javascript:void(0);"  onClick="phonePurchasePriceChange(${phone.phoneId});"><修改></a></td>
+					<td>${phone.purchasePrice!0}<#if level==3><a href="javascript:void(0);"  onClick="phonePurchasePriceChange(${phone.phoneId});"><修改></a></#if></td>
 					<td>${phone.purchaseTimeStr!""}</td>
 					<td><#if phone.status == 0><span style="color:green">否</span><#elseif phone.status == 1><span style="color:red">已卖出</span></#if></td>
-					<td>${phone.selledPrice!0}<#if phone.status==1><a href="javascript:void(0);"  onClick="phoneSelledPriceChange(${phone.phoneId});"><修改></a></#if></td>
+					<td>${phone.selledPrice!0}<#if phone.status==1><#if level==3><a href="javascript:void(0);"  onClick="phoneSelledPriceChange(${phone.phoneId});"><修改></a></#if></#if></td>
 					<td>${phone.selledTimeStr!0}</td>
 					<td>${phone.profit!0}</td>
 					<td><#if phone.inventory==0><span color="green">未入库</span><#else><span color="red">已入库</span></#if> </td>
