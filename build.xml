@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="webphone" default="compile" basedir=".">
         <property name="webapp.name"    value="WebPhone"/>
-        <property name="catalina.home" value="/root/code/tomcat6_1"/>
+        <property name="catalina.home" value="/home/server/tomcat6_2"/>
         <property name="src.dir"      value="src"/>
         <property name="conf.dir"   value="conf"/>
         <property name="lib.dir"    value="lib"/>
