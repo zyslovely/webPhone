@@ -24,6 +24,14 @@ CREATE TABLE `TB_Phone_Selled` (
 ) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='手机卖出表'
 
 
+CREATE TABLE `TB_Operation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `createTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '纪录创建时间',
+  `comment` varchar(512) NOT NULL DEFAULT '' COMMENT '操作记录',
+  `shopId` bigint(20) NOT NULL DEFAULT '0' COMMENT '店铺id',
+  `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0转移,1删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13580 DEFAULT CHARSET=utf8 COMMENT='操作记录表'
 
 CREATE TABLE `TB_Phone_Profit` (
   `phoneid` bigint(20) NOT NULL DEFAULT '0' COMMENT 'id',

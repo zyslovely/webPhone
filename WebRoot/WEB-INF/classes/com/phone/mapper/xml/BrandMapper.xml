@@ -44,4 +44,9 @@
 		</if>
 		;
 	</select>
+	
+	<select id="getBrandById" resultMap="brandMap">
+		SELECT * from
+		TB_Phone_Brand where id=#{id}
+	</select>
 </mapper>

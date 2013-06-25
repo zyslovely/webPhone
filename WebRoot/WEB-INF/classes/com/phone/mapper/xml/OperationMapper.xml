@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phone.mapper.OperationMapper">
+	<resultMap type="Operation" id="operationMap ">
+		<id property="id" column="id" />
+		<result property="createTime" column="createTime" />
+		<result property="comment" column="comment" />
+		<result property="shopId" column="shopId" />
+		<result property="type" column="type" />
+	</resultMap>
+	<insert id="addOperation" parameterType="Operation">
+		INSERT INTO TB_Operation
+		(createTime,comment,shopId,type
+		)VALUES(
+		#{createTime},#{comment},#{shopId},#{type}
+		)
+		<selectKey keyProperty="id" resultType="long">
+			SELECT
+			LAST_INSERT_ID() AS VALUE
+		</selectKey>
+	</insert>
+
+	<select id="getOperationsByType" resultType="Operation">
+		SELECT * from
+		TB_Operation where
+		type=#{type} and createTime> #{beginTime} and #{endTime} > createTime
+		 order by id desc
+	</select>
+
+</mapper>

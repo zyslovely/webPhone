@@ -46,7 +46,7 @@ public interface PhoneService {
 	 * @param newShopId
 	 * @return
 	 */
-	public boolean changeShop(long phoneId, long newShopId,long shopId);
+	public boolean changeShop(long phoneId, long newShopId,long shopId,long operatorUserId);
 
 	/**
 	 * 退货

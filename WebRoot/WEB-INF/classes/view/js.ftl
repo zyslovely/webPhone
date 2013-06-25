@@ -36,5 +36,9 @@
     	   <script type="text/javascript" src="/js/flexigrid/flexigrid.js" charset="utf-8"></script>
     	   <script type="text/javascript" src="/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
     	<#break>
+    	<#case "operation">
+    	   <script type="text/javascript" src="/js/flexigrid/flexigrid.js" charset="utf-8"></script>
+    	   <script type="text/javascript" src="/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
+    	<#break>
     </#switch>
 </#if>

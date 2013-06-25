@@ -2,6 +2,7 @@ package com.phone.service;
 
 import java.util.List;
 
+import com.phone.meta.Operation;
 import com.phone.meta.Purchase;
 
 /**
@@ -18,8 +19,9 @@ public interface PurchaseService {
 	 * @param purchasePrice
 	 * @param DecideSellPirce
 	 */
-	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPirce, long operatorId,
-			long shopId);
+	public boolean addPurchase(String brand, String phoneCode,
+			String phoneModel, double purchasePrice, double DecideSellPirce,
+			long operatorId, long shopId);
 
 	/**
 	 * 通过phoneid查找Purchase
@@ -46,7 +48,8 @@ public interface PurchaseService {
 	 * @param phoneModel
 	 * @return
 	 */
-	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel, int status);
+	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel,
+			int status);
 
 	/**
 	 * 没有盘点的手机数量
@@ -101,4 +104,7 @@ public interface PurchaseService {
 	 * @return
 	 */
 	public boolean addInventoryPhone(long phoneId, long shopId);
+
+	public List<Operation> getOperationByType(long beginTime, long endTime,
+			int type);
 }
