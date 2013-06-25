@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="webphone" default="compile" basedir=".">
         <property name="webapp.name"    value="WebPhone"/>
-        <property name="catalina.home" value="/home/server/tomcat6_2"/>
+        <property name="catalina.home" value="/home/ubuntu/server/tomcat6_2"/>
         <property name="src.dir"      value="src"/>
         <property name="conf.dir"   value="conf"/>
         <property name="lib.dir"    value="lib"/>
@@ -80,13 +80,6 @@
 		  	</fileset>
 		</copy>
 
-<!--
-                <copy file="/root/friendTrack.mp4" tofile="/root/code/tomcat6/webapps/Ridding/app/friendTrack.mp4" overwrite="true" />
--->    
-            <copy file="/root/ridding.mov" tofile="/root/code/tomcat6/webapps/Ridding/app/ridding.mov" overwrite="true" />
-<!--
-<copy file="/root/mapCreate.mov" tofile="/root/code/tomcat6/webapps/Ridding/app/mapCreate.mov" overwrite="true" />        
--->
 </target>
 </project>
 
