@@ -1,7 +1,7 @@
 
 function accessoryDelete(_id){
 	
-    dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'deleteAccessory',_id,submitDeleteCB);
+    dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'deleteAccessory',_id,submitDeleteCB);
 };
 function accessorySell(id,unitPrice){
 	
@@ -19,7 +19,7 @@ function accessorySell(id,unitPrice){
 };
 
 function doSell(id,sellPrice){
-	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'sellAccessory',id,sellPrice,submitCB);
+	dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'sellAccessory',id,sellPrice,submitCB);
 };
 
 

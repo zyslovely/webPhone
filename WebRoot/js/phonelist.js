@@ -1,6 +1,6 @@
 function resetAllInventory(){
 	
-	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'resetAllInventory',submitReturnCB);
+	dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'resetAllInventory',submitReturnCB);
 };
 
 
@@ -9,7 +9,7 @@ $("#brandName_add").click(function(){
 	if(_brandName==''){
 		alert('请输入品牌名称');
 	}
-	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'addBrand',_brandName,submitCBBrand);
+	dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'addBrand',_brandName,submitCBBrand);
 });
 
 function submitCBBrand(_flag){
@@ -23,17 +23,17 @@ function submitCBBrand(_flag){
 
 function phoneReturn(id){
 	
-	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'returnPhone',id,submitReturnCB);
+	dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'returnPhone',id,submitReturnCB);
 };
 
 function phoneInventory(id){
-	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'inventoryPhone',id,function cb(_flag){
+	dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'inventoryPhone',id,function cb(_flag){
 	if(_flag){
 		alert('成功');
 	}else{
 		alert('失败');
 	}
-	location.href="http://shouji.qiqunar.com.cn/phone/list/?inventory=1";
+	location.href=_cfg_host+"/phone/list/?inventory=1";
 	});
 };
 
@@ -50,7 +50,7 @@ function phoneDelete(id){
 	
 	jConfirm('确定要删除么','删除操作',function(_flag){
 	if(_flag){
-		dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'deletePhoneById',id,submitCB);
+		dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'deletePhoneById',id,submitCB);
 	}else{
 		
 	}
@@ -77,7 +77,7 @@ function phoneSell(id,purchasePrice){
 
 
 function doSell(id,sellPrice){
-	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'sellPhone',id,sellPrice,function(_flag){
+	dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'sellPhone',id,sellPrice,function(_flag){
 	   	if(_flag){
 	    alert("卖出成功");
 	}else{
@@ -114,7 +114,7 @@ function phonePurchasePriceChange(id){
 };
 
 function doChangePurchasePrice(id,_price){
-	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'purchasePriceChange',id,_price,function(_flag){
+	dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'purchasePriceChange',id,_price,function(_flag){
 	   	if(_flag){
 	    alert("修改成功");
 	}else{
@@ -139,7 +139,7 @@ function phoneSelledPriceChange(id){
 };
 
 function doChangeSelledPrice(id,_price){
-	dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'sellPriceChange',id,_price,function(_flag){
+	dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'sellPriceChange',id,_price,function(_flag){
 	   	if(_flag){
 	    alert("修改成功");
 	}else{
@@ -156,7 +156,7 @@ function phoneChange(id,opt){
 	if(_shopId!=0){
 		jConfirm('确定要转移到'+opt.options[_shopId].text+'吗?','转移操作',function(_flag){
 	    if(_flag){
-		   dwr.engine._execute("http://shouji.qiqunar.com.cn/dwr/", 'WebPhoneBean', 'changePhoneWithShop',id,_shopId,function(_flag){
+		   dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'changePhoneWithShop',id,_shopId,function(_flag){
 		      if(_flag){
 		      	alert("转移成功");
 		      		location.href=location.href;

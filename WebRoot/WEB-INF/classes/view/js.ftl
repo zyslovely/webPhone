@@ -1,5 +1,8 @@
 
 <#-- js文件加载ftl -->
+<script>
+     var  _cfg_host="${cfg_host!""}"
+</script>
 <#if pageName?exists>
     <script type="text/javascript" src="/js/base/engine.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/base/util.js" charset="utf-8"></script>
