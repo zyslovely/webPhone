@@ -25,7 +25,8 @@ import com.phone.util.StringUtil;
  */
 @Service("dwrWebPhoneBean")
 public class DwrWebPhoneBean {
-	private static final Logger logger = Logger.getLogger(DwrWebPhoneBean.class);
+	private static final Logger logger = Logger
+			.getLogger(DwrWebPhoneBean.class);
 
 	@Resource
 	private PurchaseService purchaseService;
@@ -51,11 +52,13 @@ public class DwrWebPhoneBean {
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		Purchase purchase = purchaseService.getPurchase(id, myUser.getShopId());
-		if (purchase == null || purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
+		if (purchase == null
+				|| purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
 			return false;
 		}
 		logger.info("删除手机操作，id=" + id + " 操作人id=" + userId);
-		return purchaseService.deletePurchase(id, myUser.getUserId(), myUser.getShopId());
+		return purchaseService.deletePurchase(id, myUser.getUserId(),
+				myUser.getShopId());
 	}
 
 	/**
@@ -69,8 +72,10 @@ public class DwrWebPhoneBean {
 		WebContext ctx = WebContextFactory.get();
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
-		logger.info("卖出手机操作，手机id=" + phoneId + " 价格=" + selledPrice + " 操作人id=" + myUser.getUserId());
-		return selledService.addSelled(phoneId, selledPrice, myUser.getUserId(), myUser.getShopId());
+		logger.info("卖出手机操作，手机id=" + phoneId + " 价格=" + selledPrice + " 操作人id="
+				+ myUser.getUserId());
+		return selledService.addSelled(phoneId, selledPrice,
+				myUser.getUserId(), myUser.getShopId());
 	}
 
 	/**
@@ -81,7 +86,8 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean addAccessoryInfo(String name) {
-		return accessoryService.addAccessoryInfo(StringUtil.ToDBC(name.trim().toLowerCase()));
+		return accessoryService.addAccessoryInfo(StringUtil.ToDBC(name.trim()
+				.toLowerCase()));
 	}
 
 	/**
@@ -95,8 +101,10 @@ public class DwrWebPhoneBean {
 		WebContext ctx = WebContextFactory.get();
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
-		logger.info("卖出配件操作，配件id=" + id + " 价格=" + soldPrice + " 操作人id=" + myUser.getUserId());
-		return accessoryService.descCountAccessoryById(id, 1, soldPrice, myUser.getShopId(), myUser.getUserId());
+		logger.info("卖出配件操作，配件id=" + id + " 价格=" + soldPrice + " 操作人id="
+				+ myUser.getUserId());
+		return accessoryService.descCountAccessoryById(id, 1, soldPrice,
+				myUser.getShopId(), myUser.getUserId());
 	}
 
 	/**
@@ -129,8 +137,10 @@ public class DwrWebPhoneBean {
 		if (myUser.getLevel() != ProfileLevel.SuperManager.getValue()) {
 			return false;
 		}
-		logger.info("转移手机操作，手机id=" + phoneId + " 操作人id+" + userId + "  转移到新店id=" + newShopId);
-		return phoneService.changeShop(phoneId, newShopId, myUser.getShopId());
+		logger.info("转移手机操作，手机id=" + phoneId + " 操作人id+" + userId
+				+ "  转移到新店id=" + newShopId);
+		return phoneService.changeShop(phoneId, newShopId, myUser.getShopId(),
+				userId);
 	}
 
 	/**
@@ -142,11 +152,13 @@ public class DwrWebPhoneBean {
 	 * @param count
 	 * @return
 	 */
-	public boolean changeAccessoryWithShop(long id, long newShopId, int changeCount) {
+	public boolean changeAccessoryWithShop(long id, long newShopId,
+			int changeCount) {
 		WebContext ctx = WebContextFactory.get();
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
-		return accessoryService.changeAccessoryWithShop(id, myUser.getShopId(), newShopId, changeCount);
+		return accessoryService.changeAccessoryWithShop(id, myUser.getShopId(),
+				newShopId, changeCount);
 	}
 
 	/**
@@ -157,7 +169,8 @@ public class DwrWebPhoneBean {
 	 * @return
 	 */
 	public boolean addBrand(String brand) {
-		return purchaseService.addNewBrand(StringUtil.ToDBC(brand.trim().toLowerCase()));
+		return purchaseService.addNewBrand(StringUtil.ToDBC(brand.trim()
+				.toLowerCase()));
 	}
 
 	/**
@@ -188,7 +201,8 @@ public class DwrWebPhoneBean {
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		logger.info("购买价格改变，手机id=" + phoneId + " 操作人id=" + userId);
-		return phoneService.purchasePriceChange(phoneId, price, myUser.getShopId());
+		return phoneService.purchasePriceChange(phoneId, price,
+				myUser.getShopId());
 	}
 
 	/**

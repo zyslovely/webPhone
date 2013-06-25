@@ -1,6 +1,7 @@
 package com.phone.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,17 +12,21 @@ import org.springframework.stereotype.Service;
 
 import com.phone.mapper.BrandMapper;
 import com.phone.mapper.DayProfitMapper;
+import com.phone.mapper.OperationMapper;
+import com.phone.mapper.ProfileMapper;
 import com.phone.mapper.ProfitMapper;
 import com.phone.mapper.PurchaseMapper;
 import com.phone.mapper.SelledMapper;
 import com.phone.meta.Brand;
 import com.phone.meta.DayProfit;
+import com.phone.meta.Operation;
 import com.phone.meta.Phone;
 import com.phone.meta.Profile;
 import com.phone.meta.Profit;
 import com.phone.meta.Purchase;
-import com.phone.meta.Selled;
 import com.phone.meta.Purchase.PurchaseStatus;
+import com.phone.meta.Selled;
+import com.phone.meta.Shop;
 import com.phone.service.PhoneService;
 import com.phone.util.HashMapMaker;
 import com.phone.util.ListUtils;
@@ -49,13 +54,20 @@ public class PhoneServiceImpl implements PhoneService {
 	@Resource
 	private DayProfitMapper dayProfitMapper;
 
+	@Resource
+	private OperationMapper operationMapper;
+
+	@Resource
+	private ProfileMapper profileMapper;
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see com.phone.service.PhoneService#getPhoneList(java.lang.String)
 	 */
 	@Override
-	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit, int offset, int status) {
+	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit,
+			int offset, int status) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneModel", phoneModel);
 		hashMap.put("shopId", shopId);
@@ -83,20 +95,26 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @param phoneIdList
 	 * @param purchaseliList
 	 */
-	private void addProfitInfo(List<Phone> phoneList, List<Long> phoneIdList, List<Purchase> purchaseList, long shopId) {
+	private void addProfitInfo(List<Phone> phoneList, List<Long> phoneIdList,
+			List<Purchase> purchaseList, long shopId) {
 		if (ListUtils.isEmptyList(phoneIdList)) {
 			return;
 		}
-		List<Selled> selledList = selledMapper.getSelledListByIds(phoneIdList, shopId);
-		Map<Long, Selled> selledMap = HashMapMaker.listToMap(selledList, "getPhoneid", Selled.class);
-		List<Profit> profitList = profitMapper.getProfitListByIds(phoneIdList, shopId);
-		Map<Long, Profit> profitMap = HashMapMaker.listToMap(profitList, "getPhoneid", Profit.class);
+		List<Selled> selledList = selledMapper.getSelledListByIds(phoneIdList,
+				shopId);
+		Map<Long, Selled> selledMap = HashMapMaker.listToMap(selledList,
+				"getPhoneid", Selled.class);
+		List<Profit> profitList = profitMapper.getProfitListByIds(phoneIdList,
+				shopId);
+		Map<Long, Profit> profitMap = HashMapMaker.listToMap(profitList,
+				"getPhoneid", Profit.class);
 		List<Long> brandIds = new ArrayList<Long>();
 		for (Purchase purchase : purchaseList) {
 			brandIds.add(purchase.getBrandId());
 		}
 		List<Brand> brandList = brandMapper.getBrandListByIds(brandIds);
-		Map<Long, Brand> brandMap = HashMapMaker.listToMap(brandList, "getId", Brand.class);
+		Map<Long, Brand> brandMap = HashMapMaker.listToMap(brandList, "getId",
+				Brand.class);
 		for (Purchase purchase : purchaseList) {
 			Phone phone = new Phone();
 			Selled selled = selledMap.get(purchase.getId());
@@ -133,7 +151,8 @@ public class PhoneServiceImpl implements PhoneService {
 	 * com.phone.service.PhoneService#getPhonesByPhoneCode(java.lang.String)
 	 */
 	@Override
-	public List<Phone> getPhonesByPhoneCode(String phoneCode, long shopId, int status) {
+	public List<Phone> getPhonesByPhoneCode(String phoneCode, long shopId,
+			int status) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneCode", phoneCode);
 		hashMap.put("shopId", shopId);
@@ -156,7 +175,8 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @see com.phone.service.PhoneService#changeShop(java.lang.String, long,
 	 * long)
 	 */
-	public boolean changeShop(long phoneId, long newShopId, long shopId) {
+	public boolean changeShop(long phoneId, long newShopId, long shopId,
+			long operatorUserId) {
 
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", phoneId);
@@ -165,6 +185,20 @@ public class PhoneServiceImpl implements PhoneService {
 		if (purchase.getStatus() != PurchaseStatus.NotSold.getValue()) {
 			return false;
 		}
+		Operation operation = new Operation();
+		Profile profile = profileMapper.getProfile(operatorUserId);
+		Brand brand = brandMapper.getBrandById(purchase.getBrandId());
+		if (profile != null && brand != null) {
+
+			operation.setComment("  由用户" + profile.getName() + " 将手机型号为"
+					+ brand.getBrand() + purchase.getPhoneModel() + " 串号为"
+					+ purchase.getPhoneCode() + " 从" + Shop.getShopName(shopId)
+					+ " 转入到 " + Shop.getShopName(newShopId));
+			operation.setCreateTime(new Date().getTime());
+			operation.setType(0);
+			operationMapper.addOperation(operation);
+		}
+
 		return purchaseMapper.changeShop(phoneId, newShopId) > 0;
 	}
 
@@ -184,10 +218,13 @@ public class PhoneServiceImpl implements PhoneService {
 		}
 		Profit profit = profitMapper.getProfit(map);
 		String dayTime = TimeUtil.getFormatTime(selled.getCreateTime());
-		DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime, DayProfit.PHONE, shopId);
+		DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime,
+				DayProfit.PHONE, shopId);
 		double newTotalProfit = dayProfit.getTotalProfit() - profit.getProfit();
-		double newTotalSell = dayProfit.getTotalSell() - profit.getSelledPrice();
-		if (dayProfitMapper.updateDayProfit(newTotalSell, newTotalProfit, dayTime, DayProfit.PHONE, shopId) > 0) {
+		double newTotalSell = dayProfit.getTotalSell()
+				- profit.getSelledPrice();
+		if (dayProfitMapper.updateDayProfit(newTotalSell, newTotalProfit,
+				dayTime, DayProfit.PHONE, shopId) > 0) {
 			selledMapper.deleteSelled(phoneId);
 			profitMapper.deleteProfit(phoneId);
 			map.put("Status", Purchase.PurchaseStatus.NotSold.getValue());
@@ -208,7 +245,8 @@ public class PhoneServiceImpl implements PhoneService {
 		hashMap.put("phoneid", phoneId);
 		hashMap.put("shopId", shopId);
 		Purchase purchase = purchaseMapper.getPurchase(hashMap);
-		if (purchase == null || purchase.getStatus() == PurchaseStatus.Deleted.getValue()) {
+		if (purchase == null
+				|| purchase.getStatus() == PurchaseStatus.Deleted.getValue()) {
 			return false;
 		}
 		purchaseMapper.updatePurchasePrice(price, shopId, phoneId);
@@ -219,11 +257,15 @@ public class PhoneServiceImpl implements PhoneService {
 			Selled selled = selledMapper.getSelled(map);
 			Profit profit = profitMapper.getProfit(map);
 			String dayTime = TimeUtil.getFormatTime(selled.getCreateTime());
-			DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime, DayProfit.PHONE, shopId);
-			double newTotalProfit = dayProfit.getTotalProfit() + purchase.getPurchasePrice() - price;
-			if (dayProfitMapper.updateDayProfit(dayProfit.getTotalSell(), newTotalProfit, dayTime, DayProfit.PHONE, shopId) > 0) {
+			DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime,
+					DayProfit.PHONE, shopId);
+			double newTotalProfit = dayProfit.getTotalProfit()
+					+ purchase.getPurchasePrice() - price;
+			if (dayProfitMapper.updateDayProfit(dayProfit.getTotalSell(),
+					newTotalProfit, dayTime, DayProfit.PHONE, shopId) > 0) {
 				profit.setPurchasePrice(price);
-				profit.setProfit(profit.getProfit() + purchase.getPurchasePrice() - price);
+				profit.setProfit(profit.getProfit()
+						+ purchase.getPurchasePrice() - price);
 				profitMapper.updateProfit(profit);
 				return true;
 			} else {
@@ -239,7 +281,8 @@ public class PhoneServiceImpl implements PhoneService {
 		hashMap.put("phoneid", phoneId);
 		hashMap.put("shopId", shopId);
 		Purchase purchase = purchaseMapper.getPurchase(hashMap);
-		if (purchase == null || purchase.getStatus() == PurchaseStatus.Deleted.getValue()) {
+		if (purchase == null
+				|| purchase.getStatus() == PurchaseStatus.Deleted.getValue()) {
 			return false;
 		}
 		if (purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
@@ -249,12 +292,17 @@ public class PhoneServiceImpl implements PhoneService {
 			Selled selled = selledMapper.getSelled(map);
 			Profit profit = profitMapper.getProfit(map);
 			String dayTime = TimeUtil.getFormatTime(selled.getCreateTime());
-			DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime, DayProfit.PHONE, shopId);
-			double newTotalProfit = dayProfit.getTotalProfit() + price - selled.getSelledPrice();
-			double newTotalSell = dayProfit.getTotalSell() + price - selled.getSelledPrice();
-			if (dayProfitMapper.updateDayProfit(newTotalSell, newTotalProfit, dayTime, DayProfit.PHONE, shopId) > 0) {
+			DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime,
+					DayProfit.PHONE, shopId);
+			double newTotalProfit = dayProfit.getTotalProfit() + price
+					- selled.getSelledPrice();
+			double newTotalSell = dayProfit.getTotalSell() + price
+					- selled.getSelledPrice();
+			if (dayProfitMapper.updateDayProfit(newTotalSell, newTotalProfit,
+					dayTime, DayProfit.PHONE, shopId) > 0) {
 				profit.setSelledPrice(price);
-				profit.setProfit(profit.getProfit() + price - selled.getSelledPrice());
+				profit.setProfit(profit.getProfit() + price
+						- selled.getSelledPrice());
 				profitMapper.updateProfit(profit);
 
 				selled.setSelledPrice(price);
@@ -274,8 +322,10 @@ public class PhoneServiceImpl implements PhoneService {
 	 * int)
 	 */
 	@Override
-	public List<Phone> getPhoneListNoInventory(long shopId, int limit, int offset) {
-		List<Purchase> purchaseList = purchaseMapper.getNotInventoryList(limit, shopId, offset);
+	public List<Phone> getPhoneListNoInventory(long shopId, int limit,
+			int offset) {
+		List<Purchase> purchaseList = purchaseMapper.getNotInventoryList(limit,
+				shopId, offset);
 		if (ListUtils.isEmptyList(purchaseList)) {
 			return null;
 		}
@@ -296,7 +346,8 @@ public class PhoneServiceImpl implements PhoneService {
 	 * int, int, long)
 	 */
 	@Override
-	public List<Phone> getPhoneListByBrandName(String brandName, int limit, int offset, long shopId) {
+	public List<Phone> getPhoneListByBrandName(String brandName, int limit,
+			int offset, long shopId) {
 		List<Brand> brands = brandMapper.getBrandListByName(brandName);
 		if (ListUtils.isEmptyList(brands)) {
 			return null;
@@ -305,7 +356,8 @@ public class PhoneServiceImpl implements PhoneService {
 		for (Brand brand : brands) {
 			brandIds.add(brand.getId());
 		}
-		List<Purchase> purchaseList = purchaseMapper.getPurchaseListByBrandIds(brandIds, limit, shopId, offset);
+		List<Purchase> purchaseList = purchaseMapper.getPurchaseListByBrandIds(
+				brandIds, limit, shopId, offset);
 		if (ListUtils.isEmptyList(purchaseList)) {
 			return null;
 		}

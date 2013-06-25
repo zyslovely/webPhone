@@ -10,11 +10,16 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.phone.mapper.BrandMapper;
+import com.phone.mapper.OperationMapper;
+import com.phone.mapper.ProfileMapper;
 import com.phone.mapper.PurchaseMapper;
 import com.phone.meta.Brand;
+import com.phone.meta.Operation;
+import com.phone.meta.Profile;
 import com.phone.meta.Purchase;
 import com.phone.meta.Purchase.PurchaseStatus;
 import com.phone.service.PurchaseService;
+import com.phone.util.TimeUtil;
 
 /**
  * @author yunshang_734 E-mail:yunshang_734@163.com
@@ -27,6 +32,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Resource
 	private BrandMapper brandMapper;
 
+	@Resource
+	private ProfileMapper profileMapper;
+
+	@Resource
+	private OperationMapper operationMapper;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -34,8 +45,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * java.lang.String, double, double)
 	 */
 	@Override
-	public boolean addPurchase(String brand, String phoneCode, String phoneModel, double purchasePrice, double DecideSellPrice, long operatorId,
-			long shopId) {
+	public boolean addPurchase(String brand, String phoneCode,
+			String phoneModel, double purchasePrice, double DecideSellPrice,
+			long operatorId, long shopId) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneCode", phoneCode);
 		hashMap.put("shopId", shopId);
@@ -57,7 +69,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		purchase.setStatus(Purchase.PurchaseStatus.NotSold.getValue());
 		purchase.setOperatorId(operatorId);
 		purchase.setShopId(shopId);
-		
+
 		if (purchaseMapper.addPurchase(purchase) > 0) {
 			return true;
 		}
@@ -87,9 +99,25 @@ public class PurchaseServiceImpl implements PurchaseService {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", phoneid);
 		hashMap.put("Status", PurchaseStatus.Deleted.getValue());
+		hashMap.put("shopId", shopId);
+		Purchase purchase = purchaseMapper.getPurchase(hashMap);
+		Profile profile = profileMapper.getProfile(operatorId);
+		Brand brand = brandMapper.getBrandById(purchase.getBrandId());
 		if (purchaseMapper.updatePurchase(hashMap) > 0) {
+			if (profile != null) {
+				Operation operation = new Operation();
+				
+				operation.setComment(" 由用户" + profile.getName()
+						+ " 删除了手机，型号为" + brand.getBrand()
+						+ purchase.getPhoneModel() + " 串号为"
+						+ purchase.getPhoneCode());
+				operation.setCreateTime(new Date().getTime());
+				operation.setType(1);
+				operationMapper.addOperation(operation);
+			}
 			return true;
 		}
+
 		return false;
 	}
 
@@ -100,8 +128,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * java.lang.String)
 	 */
 	@Override
-	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel, int status) {
-		return purchaseMapper.getPurchaseCountByPhoneModel(phoneModel, shopId, status);
+	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel,
+			int status) {
+		return purchaseMapper.getPurchaseCountByPhoneModel(phoneModel, shopId,
+				status);
 	}
 
 	/*
@@ -175,5 +205,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public int getPurchaseCountNotInventory(long shopId) {
 		return purchaseMapper.getPurchaseCountNotInventory(shopId);
+	}
+
+	@Override
+	public List<Operation> getOperationByType(long beginTime, long endTime,
+			int type) {
+		return operationMapper.getOperationsByType(beginTime, endTime, type);
 	}
 }
