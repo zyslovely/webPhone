@@ -38,14 +38,18 @@ public class PhonePubController extends AbstractBaseController {
 	 * @param response
 	 * @return app/profit/list/
 	 */
-	public ModelAndView showPubProfitList(HttpServletRequest request, HttpServletResponse response) {
-		String key = ServletRequestUtils.getStringParameter(request, "key", null);
+	public ModelAndView showPubProfitList(HttpServletRequest request,
+			HttpServletResponse response) {
+		String key = ServletRequestUtils.getStringParameter(request, "key",
+				null);
 		if (StringUtils.isEmpty(key) || !key.equals("zystest123")) {
 			return null;
 		}
-		long shopId = ServletRequestUtils.getLongParameter(request, "shopId", -1L);
+		long shopId = ServletRequestUtils.getLongParameter(request, "shopId",
+				-1L);
 		ModelAndView mv = new ModelAndView("return");
-		int date = ServletRequestUtils.getIntParameter(request, "profitDate", 0);
+		int date = ServletRequestUtils
+				.getIntParameter(request, "profitDate", 0);
 		long startTime = 0;
 		long endTime = 0;
 		if (date == 0) {
@@ -71,8 +75,10 @@ public class PhonePubController extends AbstractBaseController {
 		int limit = 10;
 
 		mv.addObject("profitDate", date);
-		List<ProfitVo> profitVoList = profitService.getProfitList(startTime, endTime, shopId, limit, offset);
-		int totalCount = profitService.getProfitCount(startTime, endTime, shopId);
+		List<ProfitVo> profitVoList = profitService.getProfitList(startTime,
+				endTime, shopId, limit, offset);
+		int totalCount = profitService.getProfitCount(startTime, endTime,
+				shopId);
 		JSONObject returnObject = new JSONObject();
 		if (!ListUtils.isEmptyList(profitVoList)) {
 			double saleTotal = 0, profitTotal = 0;

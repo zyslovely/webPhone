@@ -36,7 +36,9 @@ public interface ProfitMapper {
 	 * @param phoneidList
 	 * @return
 	 */
-	public List<Profit> getProfitListByIds(@Param("phoneidList") List<Long> phoneidList, @Param("shopId") long shopId);
+	public List<Profit> getProfitListByIds(
+			@Param("phoneidList") List<Long> phoneidList,
+			@Param("shopId") long shopId);
 
 	/**
 	 * 通过时间查找Profit列表
@@ -55,7 +57,8 @@ public interface ProfitMapper {
 	 * @param endTime
 	 * @return
 	 */
-	public int getProfitCountByTime(@Param("shopId") long shopId, @Param("startTime") long startTime, @Param("endTime") long endTime);
+	public int getProfitCountByTime(@Param("shopId") long shopId,
+			@Param("startTime") long startTime, @Param("endTime") long endTime);
 
 	/**
 	 * 删除

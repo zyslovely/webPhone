@@ -28,7 +28,8 @@ import com.phone.util.TimeUtil;
 @Service("selledService")
 public class SelledServiceImpl implements SelledService {
 
-	private static final Logger logger = Logger.getLogger(SelledServiceImpl.class);
+	private static final Logger logger = Logger
+			.getLogger(SelledServiceImpl.class);
 
 	@Resource
 	private SelledMapper selledMapper;
@@ -46,7 +47,8 @@ public class SelledServiceImpl implements SelledService {
 	/*
 	 * 
 	 */
-	public boolean addSelled(long phoneid, double selledPrice, long operatorId, long shopId) {
+	public boolean addSelled(long phoneid, double selledPrice, long operatorId,
+			long shopId) {
 		Selled selled = new Selled();
 		selled.setPhoneid(phoneid);
 		selled.setSelledPrice(selledPrice);
@@ -54,13 +56,15 @@ public class SelledServiceImpl implements SelledService {
 		selled.setOperatorId(operatorId);
 		selled.setShopId(shopId);
 		if (selledMapper.addSelled(selled) > 0) {
-			this.updatePurchaseAndProfit(phoneid, selledPrice, operatorId, shopId);
+			this.updatePurchaseAndProfit(phoneid, selledPrice, operatorId,
+					shopId);
 			return true;
 		}
 		return false;
 	}
 
-	private void updatePurchaseAndProfit(long phoneid, double selledPrice, long operatorId, long shopId) {
+	private void updatePurchaseAndProfit(long phoneid, double selledPrice,
+			long operatorId, long shopId) {
 		long nowTime = new Date().getTime();
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", phoneid);
@@ -84,7 +88,8 @@ public class SelledServiceImpl implements SelledService {
 			}
 
 			String dayTime = TimeUtil.getFormatTime(nowTime);
-			DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime, DayProfit.PHONE, shopId);
+			DayProfit dayProfit = dayProfitMapper.getDayProfit(dayTime,
+					DayProfit.PHONE, shopId);
 			if (dayProfit == null) {
 				dayProfit = new DayProfit();
 				dayProfit.setDaytime(dayTime);
@@ -93,8 +98,9 @@ public class SelledServiceImpl implements SelledService {
 				dayProfit.setShopId(shopId);
 				dayProfitMapper.addDayProfit(dayProfit);
 			} else {
-				dayProfitMapper.updateDayProfit(dayProfit.getTotalSell() + profit.getSelledPrice(), dayProfit.getTotalProfit() + profit.getProfit(),
-						dayTime, DayProfit.PHONE, shopId);
+				dayProfitMapper.updateDayProfit(dayProfit.getTotalSell()
+						+ profit.getSelledPrice(), dayProfit.getTotalProfit()
+						+ profit.getProfit(), dayTime, DayProfit.PHONE, shopId);
 			}
 		}
 

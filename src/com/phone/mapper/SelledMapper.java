@@ -26,7 +26,9 @@ public interface SelledMapper {
 	 * @param phoneidList
 	 * @return
 	 */
-	public List<Selled> getSelledListByIds(@Param("phoneidList") List<Long> phoneidList, @Param("shopId") long shopId);
+	public List<Selled> getSelledListByIds(
+			@Param("phoneidList") List<Long> phoneidList,
+			@Param("shopId") long shopId);
 
 	/**
 	 * 查找Selled
