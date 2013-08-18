@@ -49,7 +49,8 @@ public interface PurchaseMapper {
 	 * @param ids
 	 * @return
 	 */
-	public List<Purchase> getPurchaseListByIds(@Param(value = "ids") List<Long> ids);
+	public List<Purchase> getPurchaseListByIds(
+			@Param(value = "ids") List<Long> ids);
 
 	/**
 	 * 通过phoneCode查找Purchase
@@ -67,7 +68,9 @@ public interface PurchaseMapper {
 	 * @param shopId
 	 * @return
 	 */
-	public int getPurchaseCountByPhoneModel(@Param(value = "phoneModel") String phoneModel, @Param(value = "shopId") long shopId,
+	public int getPurchaseCountByPhoneModel(
+			@Param(value = "phoneModel") String phoneModel,
+			@Param(value = "shopId") long shopId,
 			@Param(value = "status") int status);
 
 	/**
@@ -78,7 +81,8 @@ public interface PurchaseMapper {
 	 * @param newShopId
 	 * @return
 	 */
-	public int changeShop(@Param(value = "id") long phoneId, @Param(value = "newShopId") long newShopId);
+	public int changeShop(@Param(value = "id") long phoneId,
+			@Param(value = "newShopId") long newShopId);
 
 	/**
 	 * 更新价格
@@ -86,8 +90,9 @@ public interface PurchaseMapper {
 	 * @auther zyslovely@gmail.com
 	 * @return
 	 */
-	public int updatePurchasePrice(@Param(value = "purchasePrice") double purchasePrice, @Param(value = "shopId") long shopId,
-			@Param(value = "id") long id);
+	public int updatePurchasePrice(
+			@Param(value = "purchasePrice") double purchasePrice,
+			@Param(value = "shopId") long shopId, @Param(value = "id") long id);
 
 	/**
 	 * 更新
@@ -115,7 +120,9 @@ public interface PurchaseMapper {
 	 * @param offset
 	 * @return
 	 */
-	public List<Purchase> getNotInventoryList(@Param(value = "limit") int limit, @Param(value = "shopId") long shopId,
+	public List<Purchase> getNotInventoryList(
+			@Param(value = "limit") int limit,
+			@Param(value = "shopId") long shopId,
 			@Param(value = "offset") int offset);
 
 	/**
@@ -137,8 +144,11 @@ public interface PurchaseMapper {
 	 * @param offset
 	 * @return
 	 */
-	public List<Purchase> getPurchaseListByBrandIds(@Param(value = "list") List<Long> brandIds, @Param(value = "limit") int limit,
-			@Param(value = "shopId") long shopId, @Param(value = "offset") int offset);
+	public List<Purchase> getPurchaseListByBrandIds(
+			@Param(value = "list") List<Long> brandIds,
+			@Param(value = "limit") int limit,
+			@Param(value = "shopId") long shopId,
+			@Param(value = "offset") int offset);
 
 	/**
 	 * 根据品牌得到数量
@@ -148,6 +158,8 @@ public interface PurchaseMapper {
 	 * @param shopId
 	 * @return
 	 */
-	public int getPurchaseCountByBrandIds(@Param(value = "list") List<Long> brandIds, @Param(value = "shopId") long shopId);
+	public int getPurchaseCountByBrandIds(
+			@Param(value = "list") List<Long> brandIds,
+			@Param(value = "shopId") long shopId);
 
 }

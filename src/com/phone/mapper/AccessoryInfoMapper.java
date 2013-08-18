@@ -27,7 +27,8 @@ public interface AccessoryInfoMapper {
 	 * @param name
 	 * @return
 	 */
-	public List<AccessoryInfo> getAccessoryInfo(@Param(value = "name") String name);
+	public List<AccessoryInfo> getAccessoryInfo(
+			@Param(value = "name") String name);
 
 	/**
 	 * 获取所有配件类型

@@ -17,7 +17,8 @@ public interface ProfitService {
 	 * @param endTime
 	 * @return
 	 */
-	public List<ProfitVo> getProfitList(long startTime, long endTime, long shopId, int limit, int offset);
+	public List<ProfitVo> getProfitList(long startTime, long endTime,
+			long shopId, int limit, int offset);
 
 	/**
 	 * 得到利润数量
@@ -38,5 +39,6 @@ public interface ProfitService {
 	 * @param endTime
 	 * @return
 	 */
-	public List<DayProfit> getDayProfitListByTime(String startTime, String endTime, long shopId);
+	public List<DayProfit> getDayProfitListByTime(String startTime,
+			String endTime, long shopId);
 }

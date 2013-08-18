@@ -506,7 +506,7 @@ public class PhoneController extends AbstractBaseController {
 	public ModelAndView operationList(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("operation");
-		
+
 		String beginDate = ServletRequestUtils.getStringParameter(request,
 				"beginDate", "");
 		String endDate = ServletRequestUtils.getStringParameter(request,
@@ -521,8 +521,9 @@ public class PhoneController extends AbstractBaseController {
 			List<Operation> operationList = purchaseService.getOperationByType(
 					startTime, endTime, type);
 			if (!ListUtils.isEmptyList(operationList)) {
-				for(Operation operation:operationList){
-					operation.setCreateTimeStr(TimeUtil.getFormatTimeInMinute(operation.getCreateTime()));
+				for (Operation operation : operationList) {
+					operation.setCreateTimeStr(TimeUtil
+							.getFormatTimeInMinute(operation.getCreateTime()));
 				}
 				mv.addObject("operationList", operationList);
 			}

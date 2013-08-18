@@ -175,6 +175,7 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @see com.phone.service.PhoneService#changeShop(java.lang.String, long,
 	 * long)
 	 */
+	@Override
 	public boolean changeShop(long phoneId, long newShopId, long shopId,
 			long operatorUserId) {
 

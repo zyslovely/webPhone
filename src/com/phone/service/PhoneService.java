@@ -16,7 +16,8 @@ public interface PhoneService {
 	 * @param phoneModel
 	 * @return
 	 */
-	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit, int offset, int status);
+	public List<Phone> getPhoneList(String phoneModel, long shopId, int limit,
+			int offset, int status);
 
 	/**
 	 * 没有被盘点的
@@ -27,7 +28,8 @@ public interface PhoneService {
 	 * @param offset
 	 * @return
 	 */
-	public List<Phone> getPhoneListNoInventory(long shopId, int limit, int offset);
+	public List<Phone> getPhoneListNoInventory(long shopId, int limit,
+			int offset);
 
 	/**
 	 * 通过条形码获取
@@ -36,7 +38,8 @@ public interface PhoneService {
 	 * @param phoneCode
 	 * @return
 	 */
-	public List<Phone> getPhonesByPhoneCode(String phoneCode, long shopId, int status);
+	public List<Phone> getPhonesByPhoneCode(String phoneCode, long shopId,
+			int status);
 
 	/**
 	 * 更改手机库存店铺
@@ -46,7 +49,8 @@ public interface PhoneService {
 	 * @param newShopId
 	 * @return
 	 */
-	public boolean changeShop(long phoneId, long newShopId,long shopId,long operatorUserId);
+	public boolean changeShop(long phoneId, long newShopId, long shopId,
+			long operatorUserId);
 
 	/**
 	 * 退货
@@ -87,7 +91,8 @@ public interface PhoneService {
 	 * @param shopId
 	 * @return
 	 */
-	public List<Phone> getPhoneListByBrandName(String brandName, int limit, int offset, long shopId);
+	public List<Phone> getPhoneListByBrandName(String brandName, int limit,
+			int offset, long shopId);
 
 	/**
 	 * 根据品牌名称获得手机数量

@@ -31,8 +31,11 @@ public interface DayProfitMapper {
 	 * @param dayTime
 	 * @return
 	 */
-	public int updateDayProfit(@Param(value = "totalSell") double totalSell, @Param(value = "totalProfit") double totalProfit,
-			@Param(value = "daytime") String dayTime, @Param(value = "type") int type, @Param(value = "shopId") long shopId);
+	public int updateDayProfit(@Param(value = "totalSell") double totalSell,
+			@Param(value = "totalProfit") double totalProfit,
+			@Param(value = "daytime") String dayTime,
+			@Param(value = "type") int type,
+			@Param(value = "shopId") long shopId);
 
 	/**
 	 * 获得日利润
@@ -41,7 +44,9 @@ public interface DayProfitMapper {
 	 * @param dayTime
 	 * @return
 	 */
-	public DayProfit getDayProfit(@Param(value = "daytime") String dayTime, @Param(value = "type") int type, @Param(value = "shopId") long shopId);
+	public DayProfit getDayProfit(@Param(value = "daytime") String dayTime,
+			@Param(value = "type") int type,
+			@Param(value = "shopId") long shopId);
 
 	/**
 	 * 根据时间获得利润
@@ -51,7 +56,10 @@ public interface DayProfitMapper {
 	 * @param endTime
 	 * @return
 	 */
-	public List<DayProfit> getDayProfitsByDayTime(@Param(value = "beginTime") String beginTime, @Param(value = "endTime") String endTime,
-			@Param(value = "type") int type, @Param(value = "shopId") long shopId);
+	public List<DayProfit> getDayProfitsByDayTime(
+			@Param(value = "beginTime") String beginTime,
+			@Param(value = "endTime") String endTime,
+			@Param(value = "type") int type,
+			@Param(value = "shopId") long shopId);
 
 }

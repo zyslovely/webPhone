@@ -12,14 +12,15 @@ import org.springframework.stereotype.Service;
 import com.phone.mapper.BrandMapper;
 import com.phone.mapper.OperationMapper;
 import com.phone.mapper.ProfileMapper;
+import com.phone.mapper.ProfitMapper;
 import com.phone.mapper.PurchaseMapper;
+import com.phone.mapper.SelledMapper;
 import com.phone.meta.Brand;
 import com.phone.meta.Operation;
 import com.phone.meta.Profile;
 import com.phone.meta.Purchase;
 import com.phone.meta.Purchase.PurchaseStatus;
 import com.phone.service.PurchaseService;
-import com.phone.util.TimeUtil;
 
 /**
  * @author yunshang_734 E-mail:yunshang_734@163.com
@@ -37,6 +38,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	@Resource
 	private OperationMapper operationMapper;
+
+	@Resource
+	private SelledMapper selledMapper;
+
+	@Resource
+	private ProfitMapper profitMapper;
 
 	/*
 	 * (non-Javadoc)
@@ -104,20 +111,28 @@ public class PurchaseServiceImpl implements PurchaseService {
 		Profile profile = profileMapper.getProfile(operatorId);
 		Brand brand = brandMapper.getBrandById(purchase.getBrandId());
 		if (purchaseMapper.updatePurchase(hashMap) > 0) {
+			Map<String, Object> hashMap2 = new HashMap<String, Object>();
+			hashMap2.put("phoneid", phoneid);
+			hashMap2.put("shopId", shopId);
+			boolean succ = false;
+			if (selledMapper.getSelled(hashMap) != null) {
+				succ = selledMapper.deleteSelled(phoneid) > 0
+						&& profitMapper.deleteProfit(phoneid) > 0;
+			}
 			if (profile != null) {
 				Operation operation = new Operation();
-				
-				operation.setComment(" 由用户" + profile.getName()
-						+ " 删除了手机，型号为" + brand.getBrand()
-						+ purchase.getPhoneModel() + " 串号为"
+
+				operation.setComment(" 由用户" + profile.getName() + " 删除了手机，型号为"
+						+ brand.getBrand() + purchase.getPhoneModel() + " 串号为"
 						+ purchase.getPhoneCode());
 				operation.setCreateTime(new Date().getTime());
 				operation.setType(1);
 				operationMapper.addOperation(operation);
 			}
-			return true;
+			if (succ == true) {
+				return true;
+			}
 		}
-
 		return false;
 	}
 
@@ -140,6 +155,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * @see com.phone.service.PurchaseService#getPurchaseByPhoneCode(long,
 	 * java.lang.String)
 	 */
+	@Override
 	public Purchase getPurchaseByPhoneCode(long shopId, String phoneCode) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("shopId", shopId);

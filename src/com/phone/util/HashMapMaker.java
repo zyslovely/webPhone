@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * hashMapMaker
+ * 
  * @author apple
  * 
  */
@@ -15,7 +16,8 @@ public final class HashMapMaker {
 
 	}
 
-	public static <T> Map<Long, T> listToMap(List<T> list, String methodName, Class class1) {
+	public static <T> Map<Long, T> listToMap(List<T> list, String methodName,
+			Class class1) {
 		if (list == null || list.size() == 0) {
 			return new HashMap<Long, T>();
 		}
