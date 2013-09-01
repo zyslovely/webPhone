@@ -10,8 +10,14 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.phone.mapper.BrandMapper;
+import com.phone.mapper.OperationMapper;
+import com.phone.mapper.ProfileMapper;
+import com.phone.mapper.ProfitMapper;
 import com.phone.mapper.PurchaseMapper;
+import com.phone.mapper.SelledMapper;
 import com.phone.meta.Brand;
+import com.phone.meta.Operation;
+import com.phone.meta.Profile;
 import com.phone.meta.Purchase;
 import com.phone.meta.Purchase.PurchaseStatus;
 import com.phone.service.PurchaseService;
@@ -26,6 +32,18 @@ public class PurchaseServiceImpl implements PurchaseService {
 	private PurchaseMapper purchaseMapper;
 	@Resource
 	private BrandMapper brandMapper;
+
+	@Resource
+	private ProfileMapper profileMapper;
+
+	@Resource
+	private OperationMapper operationMapper;
+
+	@Resource
+	private SelledMapper selledMapper;
+
+	@Resource
+	private ProfitMapper profitMapper;
 
 	/*
 	 * (non-Javadoc)
@@ -58,6 +76,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		purchase.setStatus(Purchase.PurchaseStatus.NotSold.getValue());
 		purchase.setOperatorId(operatorId);
 		purchase.setShopId(shopId);
+
 		if (purchaseMapper.addPurchase(purchase) > 0) {
 			return true;
 		}
@@ -87,8 +106,32 @@ public class PurchaseServiceImpl implements PurchaseService {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", phoneid);
 		hashMap.put("Status", PurchaseStatus.Deleted.getValue());
+		hashMap.put("shopId", shopId);
+		Purchase purchase = purchaseMapper.getPurchase(hashMap);
+		Profile profile = profileMapper.getProfile(operatorId);
+		Brand brand = brandMapper.getBrandById(purchase.getBrandId());
 		if (purchaseMapper.updatePurchase(hashMap) > 0) {
-			return true;
+			Map<String, Object> hashMap2 = new HashMap<String, Object>();
+			hashMap2.put("phoneid", phoneid);
+			hashMap2.put("shopId", shopId);
+			boolean succ = false;
+			if (selledMapper.getSelled(hashMap) != null) {
+				succ = selledMapper.deleteSelled(phoneid) > 0
+						&& profitMapper.deleteProfit(phoneid) > 0;
+			}
+			if (profile != null) {
+				Operation operation = new Operation();
+
+				operation.setComment(" 由用户" + profile.getName() + " 删除了手机，型号为"
+						+ brand.getBrand() + purchase.getPhoneModel() + " 串号为"
+						+ purchase.getPhoneCode());
+				operation.setCreateTime(new Date().getTime());
+				operation.setType(1);
+				operationMapper.addOperation(operation);
+			}
+			if (succ == true) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -142,6 +185,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return brandMapper.addBrand(brand) > 0;
 	}
 
+<<<<<<< HEAD
 	@Override
 	public int getPurchaseCountByBrand(long shopId, String brand, int status) {
 		long brandId = brandMapper.getBrandByBrand(brand);
@@ -150,5 +194,49 @@ public class PurchaseServiceImpl implements PurchaseService {
 					status);
 		}
 		return 0;
+=======
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#addInventoryPhone(long)
+	 */
+	@Override
+	public boolean addInventoryPhone(long phoneId, long shopId) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("phoneid", phoneId);
+		hashMap.put("shopId", shopId);
+		Purchase purchase = purchaseMapper.getPurchase(hashMap);
+		if (purchase == null) {
+			return false;
+		}
+		purchase.setInventory(Purchase.DONE);
+		return purchaseMapper.updatePurchaseWithMeta(purchase) > 0;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#resetAllInventory(long)
+	 */
+	@Override
+	public boolean resetAllInventory(long shopId) {
+		return purchaseMapper.resetAllInventory(shopId) > 0;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PurchaseService#getPurchaseCountNotInventory(long)
+	 */
+	@Override
+	public int getPurchaseCountNotInventory(long shopId) {
+		return purchaseMapper.getPurchaseCountNotInventory(shopId);
+	}
+
+	@Override
+	public List<Operation> getOperationByType(long beginTime, long endTime,
+			int type) {
+		return operationMapper.getOperationsByType(beginTime, endTime, type);
+>>>>>>> master1
 	}
 }

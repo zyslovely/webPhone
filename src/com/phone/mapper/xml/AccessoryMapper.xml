@@ -109,6 +109,7 @@
 		;
 	</select>
 
+<<<<<<< HEAD
 	<update id="updateAccessoryUnitPriceByid" flushCache="true"
 		statementType="PREPARED">
 		UPDATE
@@ -138,4 +139,10 @@
 			#{item} 
 	     </foreach>
 	</select>
+=======
+	<delete id="deleteAccessory" flushCache="true" statementType="PREPARED">
+		delete from TB_Accessory
+		where id=#{id} and shopId=#{shopId};
+	</delete>
+>>>>>>> master1
 </mapper>

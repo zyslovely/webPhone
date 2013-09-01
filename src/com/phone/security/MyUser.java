@@ -11,6 +11,7 @@ public class MyUser {
 
 	private long userId;
 	private long shopId;
+	private int level;
 	private String sessionStr;
 	public static boolean isTest = true;
 	public static long testUserId = 2L;
@@ -40,11 +41,20 @@ public class MyUser {
 		this.sessionStr = sessionStr;
 	}
 
+<<<<<<< HEAD
 	public static MyUser setTestUser() {
 		MyUser myUser = new MyUser();
 		myUser.setUserId(2/* MyUser.testUserId */);
 		myUser.setShopId(2/* MyUser.testShopId */);
 		return myUser;
+=======
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+>>>>>>> master1
 	}
 
 	public static long getMyUser(HttpServletRequest request) {

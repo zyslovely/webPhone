@@ -2,6 +2,7 @@ package com.phone.service;
 
 import java.util.List;
 
+import com.phone.meta.Operation;
 import com.phone.meta.Purchase;
 
 /**
@@ -49,6 +50,19 @@ public interface PurchaseService {
 	 */
 	public int getPurchaseCountByPhoneModel(long shopId, String phoneModel,
 			int status);
+<<<<<<< HEAD
+=======
+
+	/**
+	 * 没有盘点的手机数量
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param shopId
+	 * @param phoneModel
+	 * @return
+	 */
+	public int getPurchaseCountNotInventory(long shopId);
+>>>>>>> master1
 
 	/**
 	 * 通过phoneCode获取入库
@@ -77,6 +91,7 @@ public interface PurchaseService {
 	public boolean addNewBrand(String brandName);
 
 	/**
+<<<<<<< HEAD
 	 * 得到所有的手机数量
 	 * 
 	 * @auther zyslovely@gmail.com
@@ -85,4 +100,25 @@ public interface PurchaseService {
 	 * @return
 	 */
 	public int getPurchaseCountByBrand(long shopId, String brandId, int status);
+=======
+	 * 重置盘点
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param shopId
+	 * @return
+	 */
+	public boolean resetAllInventory(long shopId);
+
+	/**
+	 * 添加盘点
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param phoneId
+	 * @return
+	 */
+	public boolean addInventoryPhone(long phoneId, long shopId);
+
+	public List<Operation> getOperationByType(long beginTime, long endTime,
+			int type);
+>>>>>>> master1
 }

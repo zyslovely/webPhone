@@ -25,6 +25,7 @@ public class Accessory implements Serializable {
 	private long accessoryInfoId;
 	private long operatorId;
 	private long shopId;
+	private int status;
 
 	private String createTimeStr;
 	/**

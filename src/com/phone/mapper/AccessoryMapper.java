@@ -86,6 +86,7 @@ public interface AccessoryMapper {
 			@Param(value = "shopId") long shopId);
 
 	/**
+<<<<<<< HEAD
 	 * 改变配件购入价格
 	 * 
 	 * @param unitPrice
@@ -102,10 +103,17 @@ public interface AccessoryMapper {
 	 * 
 	 * @param id
 	 * @param shopId
+=======
+	 * 删除
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param id
+>>>>>>> master1
 	 * @return
 	 */
 	public int deleteAccessory(@Param(value = "id") long id,
 			@Param(value = "shopId") long shopId);
+<<<<<<< HEAD
 
 	/**
 	 * 
@@ -115,4 +123,6 @@ public interface AccessoryMapper {
 	 */
 	public List<Accessory> getAccessoryListByIds(
 			@Param(value = "accessoryIdList") List<Long> accessoryIdList);
+=======
+>>>>>>> master1
 }

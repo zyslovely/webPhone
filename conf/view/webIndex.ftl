@@ -41,7 +41,7 @@ textarea, input, select{
 	height:20px;
 	FONT-SIZE: 12px;}
 </style>
-	
+
 <body style="background-color: rgb(243, 243, 243);">
 <div style="width: 50%; margin: 100px auto auto;">
     <h1 style="text-align: center; font-size: 60px;">天宝手机管理系统</h1>
@@ -52,7 +52,7 @@ textarea, input, select{
 </body>
 </html>
 </#escape>
-		
+
 <#include "js.ftl">
 
 </script>

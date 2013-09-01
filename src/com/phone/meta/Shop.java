@@ -47,4 +47,14 @@ public class Shop implements Serializable {
 	public void setCreateTime(long createTime) {
 		CreateTime = createTime;
 	}
+
+	public static String getShopName(long id) {
+		if (id == 1) {
+			return "宜美手机店";
+		} else if (id == 2) {
+			return "天宝手机店";
+		} else {
+			return "正泰手机店";
+		}
+	}
 }

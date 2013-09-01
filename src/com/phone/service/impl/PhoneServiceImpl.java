@@ -1,6 +1,7 @@
 package com.phone.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,21 +12,24 @@ import org.springframework.stereotype.Service;
 
 import com.phone.mapper.BrandMapper;
 import com.phone.mapper.DayProfitMapper;
+import com.phone.mapper.OperationMapper;
+import com.phone.mapper.ProfileMapper;
 import com.phone.mapper.ProfitMapper;
 import com.phone.mapper.PurchaseMapper;
 import com.phone.mapper.SelledMapper;
 import com.phone.meta.Brand;
 import com.phone.meta.DayProfit;
+import com.phone.meta.Operation;
 import com.phone.meta.Phone;
 import com.phone.meta.Profile;
 import com.phone.meta.Profit;
 import com.phone.meta.Purchase;
-import com.phone.meta.Selled;
 import com.phone.meta.Purchase.PurchaseStatus;
+import com.phone.meta.Selled;
+import com.phone.meta.Shop;
 import com.phone.service.PhoneService;
 import com.phone.util.HashMapMaker;
 import com.phone.util.ListUtils;
-import com.phone.util.StringUtil;
 import com.phone.util.TimeUtil;
 
 /**
@@ -50,6 +54,7 @@ public class PhoneServiceImpl implements PhoneService {
 	@Resource
 	private DayProfitMapper dayProfitMapper;
 
+<<<<<<< HEAD
 	private void fix() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		for (int i = 1; i < 4; i++) {
@@ -77,6 +82,13 @@ public class PhoneServiceImpl implements PhoneService {
 		}
 
 	}
+=======
+	@Resource
+	private OperationMapper operationMapper;
+
+	@Resource
+	private ProfileMapper profileMapper;
+>>>>>>> master1
 
 	/*
 	 * (non-Javadoc)
@@ -148,6 +160,7 @@ public class PhoneServiceImpl implements PhoneService {
 			if (brand != null) {
 				phone.setBrand(brand.getBrand());
 			}
+			phone.setInventory(purchase.getInventory());
 			phone.setShopName(Profile.getShopName(purchase.getShopId()));
 			phone.setPhoneId(purchase.getId());
 			phone.setPhoneCode(purchase.getPhoneCode());
@@ -193,19 +206,44 @@ public class PhoneServiceImpl implements PhoneService {
 	 * long)
 	 */
 	@Override
+<<<<<<< HEAD
 	public boolean changeShop(String phoneCode, long shopId, long newShopId) {
+=======
+	public boolean changeShop(long phoneId, long newShopId, long shopId,
+			long operatorUserId) {
+
+>>>>>>> master1
 		Map<String, Object> hashMap = new HashMap<String, Object>();
-		hashMap.put("phoneCode", phoneCode);
+		hashMap.put("phoneid", phoneId);
 		hashMap.put("shopId", shopId);
+<<<<<<< HEAD
 		Purchase purchase = purchaseMapper.getPurchaseByPhoneCode(hashMap);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("phoneid", purchase.getId());
 		map.put("shopId", shopId);
 		if (selledMapper.getSelled(map) != null
 				|| profitMapper.getProfit(map) != null) {
+=======
+		Purchase purchase = purchaseMapper.getPurchase(hashMap);
+		if (purchase.getStatus() != PurchaseStatus.NotSold.getValue()) {
+>>>>>>> master1
 			return false;
 		}
-		return (purchaseMapper.changeShop(phoneCode, shopId, newShopId) > 0);
+		Operation operation = new Operation();
+		Profile profile = profileMapper.getProfile(operatorUserId);
+		Brand brand = brandMapper.getBrandById(purchase.getBrandId());
+		if (profile != null && brand != null) {
+
+			operation.setComment("  由用户" + profile.getName() + " 将手机型号为"
+					+ brand.getBrand() + purchase.getPhoneModel() + " 串号为"
+					+ purchase.getPhoneCode() + " 从" + Shop.getShopName(shopId)
+					+ " 转入到 " + Shop.getShopName(newShopId));
+			operation.setCreateTime(new Date().getTime());
+			operation.setType(0);
+			operationMapper.addOperation(operation);
+		}
+
+		return purchaseMapper.changeShop(phoneId, newShopId) > 0;
 	}
 
 	/*
@@ -321,6 +359,7 @@ public class PhoneServiceImpl implements PhoneService {
 		return true;
 	}
 
+<<<<<<< HEAD
 	@Override
 	public List<Phone> getPhoneListByBrand(String brand, long shopId,
 			int limit, int offset, int status) {
@@ -333,6 +372,19 @@ public class PhoneServiceImpl implements PhoneService {
 		hashMap.put("offset", offset);
 		List<Purchase> purchaseList = purchaseMapper
 				.getPurchaseListByBrand(hashMap);
+=======
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.phone.service.PhoneService#getPhoneListNoInventory(long, int,
+	 * int)
+	 */
+	@Override
+	public List<Phone> getPhoneListNoInventory(long shopId, int limit,
+			int offset) {
+		List<Purchase> purchaseList = purchaseMapper.getNotInventoryList(limit,
+				shopId, offset);
+>>>>>>> master1
 		if (ListUtils.isEmptyList(purchaseList)) {
 			return null;
 		}
@@ -344,4 +396,59 @@ public class PhoneServiceImpl implements PhoneService {
 		this.addProfitInfo(phoneList, phoneIdList, purchaseList, shopId);
 		return phoneList;
 	}
+<<<<<<< HEAD
+=======
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.phone.service.PhoneService#getPhoneListByBrandName(java.lang.String,
+	 * int, int, long)
+	 */
+	@Override
+	public List<Phone> getPhoneListByBrandName(String brandName, int limit,
+			int offset, long shopId) {
+		List<Brand> brands = brandMapper.getBrandListByName(brandName);
+		if (ListUtils.isEmptyList(brands)) {
+			return null;
+		}
+		List<Long> brandIds = new ArrayList<Long>();
+		for (Brand brand : brands) {
+			brandIds.add(brand.getId());
+		}
+		List<Purchase> purchaseList = purchaseMapper.getPurchaseListByBrandIds(
+				brandIds, limit, shopId, offset);
+		if (ListUtils.isEmptyList(purchaseList)) {
+			return null;
+		}
+		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());
+		for (Purchase purchase : purchaseList) {
+			phoneIdList.add(purchase.getId());
+		}
+		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
+		this.addProfitInfo(phoneList, phoneIdList, purchaseList, shopId);
+		return phoneList;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.phone.service.PhoneService#getPhoneCountByBrandName(java.lang.String,
+	 * long)
+	 */
+	@Override
+	public int getPhoneCountByBrandName(String brandName, long shopId) {
+		List<Brand> brands = brandMapper.getBrandListByName(brandName);
+		if (ListUtils.isEmptyList(brands)) {
+			return 0;
+		}
+		List<Long> brandIds = new ArrayList<Long>();
+		for (Brand brand : brands) {
+			brandIds.add(brand.getId());
+		}
+		return purchaseMapper.getPurchaseCountByBrandIds(brandIds, shopId);
+	}
+>>>>>>> master1
 }

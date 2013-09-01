@@ -81,8 +81,12 @@ public interface PurchaseMapper {
 	 * @param newShopId
 	 * @return
 	 */
+<<<<<<< HEAD
 	public int changeShop(@Param(value = "phoneCode") String phoneCode,
 			@Param(value = "shopId") long shopId,
+=======
+	public int changeShop(@Param(value = "id") long phoneId,
+>>>>>>> master1
 			@Param(value = "newShopId") long newShopId);
 
 	/**
@@ -96,11 +100,80 @@ public interface PurchaseMapper {
 			@Param(value = "shopId") long shopId, @Param(value = "id") long id);
 
 	/**
+<<<<<<< HEAD
 	 * 
 	 * @param purchase
 	 * @return
 	 */
 	public int updatePurchasea(Purchase purchase);
+=======
+	 * 更新
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param purchase
+	 * @return
+	 */
+	public int updatePurchaseWithMeta(Purchase purchase);
+
+	/**
+	 * 重置盘点
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @return
+	 */
+	public int resetAllInventory(@Param(value = "shopId") long shopId);
+
+	/**
+	 * 得到没有在盘点中的
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param limit
+	 * @param shopId
+	 * @param offset
+	 * @return
+	 */
+	public List<Purchase> getNotInventoryList(
+			@Param(value = "limit") int limit,
+			@Param(value = "shopId") long shopId,
+			@Param(value = "offset") int offset);
+
+	/**
+	 * 没有盘点的数量
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param shopId
+	 * @return
+	 */
+	public int getPurchaseCountNotInventory(@Param(value = "shopId") long shopId);
+
+	/**
+	 * 通过品牌获得
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param brandIds
+	 * @param limit
+	 * @param shopId
+	 * @param offset
+	 * @return
+	 */
+	public List<Purchase> getPurchaseListByBrandIds(
+			@Param(value = "list") List<Long> brandIds,
+			@Param(value = "limit") int limit,
+			@Param(value = "shopId") long shopId,
+			@Param(value = "offset") int offset);
+
+	/**
+	 * 根据品牌得到数量
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param brandIds
+	 * @param shopId
+	 * @return
+	 */
+	public int getPurchaseCountByBrandIds(
+			@Param(value = "list") List<Long> brandIds,
+			@Param(value = "shopId") long shopId);
+>>>>>>> master1
 
 	/**
 	 * 通过品牌获取

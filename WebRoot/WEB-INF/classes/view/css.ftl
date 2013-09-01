@@ -11,6 +11,11 @@
     	    <link type="text/css" rel="stylesheet" href="/css/alert/jquery.alert.css" media="all"/>
     	<#break>
     	<#case "profitList">
+<<<<<<< HEAD
+=======
+    	    <link type="text/css" rel="stylesheet" href="/css/flexigrid.css" media="all"/>
+    	    
+>>>>>>> master1
     	<#break>
     	<#case "phoneAdd">
     	    <link type="text/css" rel="stylesheet" href="/css/alert/jquery.alert.css" media="all"/>

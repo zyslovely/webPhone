@@ -12,6 +12,7 @@
 		<result property="Status" column="Status" />
 		<result property="operatorId" column="operatorId" />
 		<result property="shopId" column="shopId" />
+		<result property="Inventory" column="Inventory" />
 	</resultMap>
 
 	<insert id="addPurchase" parameterType="Purchase">
@@ -25,7 +26,8 @@
 		CreateTime,
 		Status,
 		operatorId,
-		shopId
+		shopId,
+		inventory
 		)VALUES(
 		#{brandId},
 		#{phoneCode},
@@ -35,7 +37,8 @@
 		#{CreateTime},
 		#{Status},
 		#{operatorId},
-		#{shopId}
+		#{shopId},
+		#{inventory}
 		)
 		<selectKey keyProperty="id" resultType="long">
 			SELECT
@@ -129,9 +132,7 @@
 		TB_Phone_Purchase
 		set shopId=#{newShopId}
 		WHERE
-		phoneCode =
-		#{phoneCode}
-		and shopId=#{shopId};
+		id=#{id};
 	</update>
 
 	<update id="updatePurchasePrice" flushCache="true"
@@ -146,17 +147,18 @@
 		and shopId=#{shopId};
 	</update>
 
-	<update id="updatePurchasea" parameterType="Purchase"
+	<update id="updatePurchaseWithMeta" parameterType="Purchase"
 		flushCache="true" statementType="PREPARED">
 		UPDATE
 		TB_Phone_Purchase
 		set
-		phoneCode=#{phoneCode},phoneModel=#{phoneModel}
+		phoneCode=#{phoneCode},phoneModel=#{phoneModel},inventory=#{inventory}
 		WHERE
 		id =
 		#{id};
 	</update>
 
+<<<<<<< HEAD
 	<select id="getPurchaseListByBrand" parameterType="hashMap"
 		resultMap="purchaseMap">
 		SELECT * from TB_Phone_Purchase
@@ -170,12 +172,27 @@
 		order
 		by
 		CreateTime desc
+=======
+	<update id="resetAllInventory" flushCache="true" statementType="PREPARED">
+		UPDATE
+		TB_Phone_Purchase
+		set
+		inventory=0 where shopId=#{shopId};
+	</update>
+
+	<select id="getNotInventoryList" resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase
+		WHERE status = 0
+		and shopId = #{shopId}
+		and inventory=0
+>>>>>>> master1
 		<if test="offset >=0 ">
 			limit
 			#{limit}
 			offset
 			#{offset}
 		</if>
+<<<<<<< HEAD
 		;
 	</select>
 
@@ -188,6 +205,51 @@
 		2>status
 		and shopId =
 		#{shopId} and brandId=#{brandId}
+=======
+	</select>
+
+
+	<!-- 查询入库 -->
+	<select id="getPurchaseCountNotInventory" resultType="int">
+		SELECT
+		count(*) from TB_Phone_Purchase where
+		status = 0
+		and shopId =
+		#{shopId}
+		and inventory=0 and 2>status
+		;
+	</select>
+
+	<select id="getPurchaseListByBrandIds" resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase where
+		(brandId in
+		<foreach item="item" collection="list" index="index" open="("
+			separator="," close=")">
+			#{item} 
+	     </foreach>
+		) and shopId = #{shopId} and 2>status
+		<if test="offset >=0 ">
+			limit
+			#{limit}
+			offset
+			#{offset}
+		</if>
+		;
+	</select>
+
+	<!-- 查询入库 -->
+	<select id="getPurchaseCountByBrandIds" resultType="int">
+		SELECT
+		count(*) from TB_Phone_Purchase where
+		(brandId in
+		<foreach item="item" collection="list" index="index" open="("
+			separator="," close=")">
+			#{item} 
+	     </foreach>
+		)
+		and shopId =
+		#{shopId} and 2>status
+>>>>>>> master1
 		;
 	</select>
 </mapper>

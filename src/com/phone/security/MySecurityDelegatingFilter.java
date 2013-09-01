@@ -72,6 +72,7 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 			String actionName = ServletRequestUtils.getStringParameter(
 					httpRequest, "action", "null");
 			if (actionName != null && actionName.equals("login")) {
+<<<<<<< HEAD
 
 				if (MyUser.isTest) {
 					MyUser myUser = MyUser.setTestUser();
@@ -79,6 +80,8 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 					arg2.doFilter(request, response);
 					return;
 				}
+=======
+>>>>>>> master1
 				String userName = ServletRequestUtils.getStringParameter(
 						httpRequest, "username", null);
 				String passWord = ServletRequestUtils.getStringParameter(
@@ -96,6 +99,7 @@ public class MySecurityDelegatingFilter extends HttpServlet implements Filter {
 					myUser.setUserId(profile.getUserId());
 					myUser.setSessionStr(httpRequest.getSession().getId());
 					myUser.setShopId(profile.getShopId());
+					myUser.setLevel(profile.getLevel());
 					userMap.put(myUser.getUserId(), myUser);
 
 					httpRequest.getSession().setAttribute("login", true);

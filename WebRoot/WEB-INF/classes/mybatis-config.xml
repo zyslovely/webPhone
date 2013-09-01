@@ -13,6 +13,7 @@
 		<typeAlias alias="AccessorySold" type="com.phone.meta.AccessorySold" />
 		<typeAlias alias="AccessoryProfit" type="com.phone.meta.AccessoryProfit" />
 		<typeAlias alias="DayProfit" type="com.phone.meta.DayProfit" />
+		<typeAlias alias="Operation" type="com.phone.meta.Operation" />
 
 	</typeAliases>
 	<mappers>
@@ -27,5 +28,6 @@
 		<mapper resource="com/phone/mapper/xml/AccessorySoldMapper.xml" />
 		<mapper resource="com/phone/mapper/xml/AccessoryProfitMapper.xml" />
 		<mapper resource="com/phone/mapper/xml/DayProfitMapper.xml" />
+		<mapper resource="com/phone/mapper/xml/OperationMapper.xml" />
 	</mappers>
 </configuration>

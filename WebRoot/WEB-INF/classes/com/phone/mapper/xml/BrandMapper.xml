@@ -35,10 +35,26 @@
 		TB_Phone_Brand group by brand;
 	</select>
 
+<<<<<<< HEAD
 	<select id="getBrandByBrand" resultType="long">
 		SELECT
 		count(*) from
 		TB_Phone_Brand where brand like
 		CONCAT('%','${brand}','%');
+=======
+
+	<select id="getBrandListByName" resultMap="brandMap">
+		SELECT
+		* from TB_Phone_Brand where 
+		<if test="brand != null and brand !=''">
+		 upper(brand) like CONCAT('%','${brand}','%')
+		</if>
+		;
+	</select>
+	
+	<select id="getBrandById" resultMap="brandMap">
+		SELECT * from
+		TB_Phone_Brand where id=#{id}
+>>>>>>> master1
 	</select>
 </mapper>

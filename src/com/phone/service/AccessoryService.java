@@ -118,6 +118,7 @@ public interface AccessoryService {
 			long newShopId, int count);
 
 	/**
+<<<<<<< HEAD
 	 * 修改购入价格
 	 * 
 	 * @param accessoryId
@@ -133,6 +134,12 @@ public interface AccessoryService {
 	 * @param id
 	 * @param userId
 	 * @param shopId
+=======
+	 * 删除
+	 * 
+	 * @auther zyslovely@gmail.com
+	 * @param id
+>>>>>>> master1
 	 * @return
 	 */
 	public boolean deleteAccessory(long id, long shopId);
