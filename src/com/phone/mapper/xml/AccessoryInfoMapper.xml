@@ -40,4 +40,14 @@
 		id =
 		#{id};
 	</select>
+
+	<select id="getAccessoryInfoByIds" resultMap="accessoryInfoMap"
+		parameterType="list">
+		SELECT * from TB_Accessory_Info where
+		id in
+		<foreach item="item" collection="accessoryInfoIdList" index="index"
+			open="(" separator="," close=")">
+			#{item} 
+	     </foreach>
+	</select>
 </mapper>
