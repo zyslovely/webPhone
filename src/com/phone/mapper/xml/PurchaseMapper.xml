@@ -222,4 +222,10 @@
 		#{shopId} and 2>status
 		;
 	</select>
+
+	<select id="getTotalCostOfNotSelled" resultType="double">
+		Select
+		SUM(purchasePrice) from TB_Phone_Purchase where shopId=#{shopId} and
+		status=#{status};
+	</select>
 </mapper>
