@@ -22,6 +22,7 @@ import com.phone.meta.DayProfit;
 import com.phone.meta.Operation;
 import com.phone.meta.Phone;
 import com.phone.meta.ProfitVo;
+import com.phone.meta.Purchase;
 import com.phone.security.MySecurityDelegatingFilter;
 import com.phone.security.MyUser;
 import com.phone.service.AccessoryService;
@@ -261,6 +262,9 @@ public class PhoneController extends AbstractBaseController {
 		int totalPhoneCount = purchaseService.getPurchaseCountByPhoneModel(
 				myUser.getShopId(), null, 0);
 		mv.addObject("totalPhoneCount", totalPhoneCount);
+		double totalCostOfNotSelled = purchaseService.totalCostOfNotSelled(
+				myUser.getShopId(), Purchase.PurchaseStatus.NotSold.getValue());
+		mv.addObject("totalCostOfNotSelled", totalCostOfNotSelled);
 		return mv;
 	}
 
