@@ -253,6 +253,7 @@ public class PhoneController extends AbstractBaseController {
 							+ phone.getPurchasePrice();
 				}
 			}
+
 			mv.addObject("totalCostOfNotSelled", totalCostOfNotSelled);
 			mv.addObject("phoneTotalCount",
 					ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
