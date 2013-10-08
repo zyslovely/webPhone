@@ -245,6 +245,15 @@ public class PhoneController extends AbstractBaseController {
 		}
 
 		if (!ListUtils.isEmptyList(phoneList)) {
+			double totalCostOfNotSelled = 0;
+			for (Phone phone : phoneList) {
+				if (phone.getStatus() == Purchase.PurchaseStatus.NotSold
+						.getValue()) {
+					totalCostOfNotSelled = totalCostOfNotSelled
+							+ phone.getPurchasePrice();
+				}
+			}
+			mv.addObject("totalCostOfNotSelled", totalCostOfNotSelled);
 			mv.addObject("phoneTotalCount",
 					ListUtils.isEmptyList(phoneList) ? 0 : phoneList.size());
 			mv.addObject("phoneModel", phoneModel);
@@ -262,9 +271,6 @@ public class PhoneController extends AbstractBaseController {
 		int totalPhoneCount = purchaseService.getPurchaseCountByPhoneModel(
 				myUser.getShopId(), null, 0);
 		mv.addObject("totalPhoneCount", totalPhoneCount);
-		double totalCostOfNotSelled = purchaseService.totalCostOfNotSelled(
-				myUser.getShopId(), Purchase.PurchaseStatus.NotSold.getValue());
-		mv.addObject("totalCostOfNotSelled", totalCostOfNotSelled);
 		return mv;
 	}
 
