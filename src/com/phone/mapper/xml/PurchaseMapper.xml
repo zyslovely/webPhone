@@ -225,7 +225,10 @@
 
 	<select id="getTotalCostOfNotSelled" resultType="double">
 		Select
-		SUM(purchasePrice) from TB_Phone_Purchase where shopId=#{shopId} and
-		status=#{status};
+		SUM(purchasePrice) from TB_Phone_Purchase where
+		<if test="status!=null and status>=0">
+			status= ${status} and
+		</if>
+		shopId=#{shopId};
 	</select>
 </mapper>
