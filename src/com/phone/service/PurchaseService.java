@@ -107,13 +107,4 @@ public interface PurchaseService {
 
 	public List<Operation> getOperationByType(long beginTime, long endTime,
 			int type);
-
-	/**
-	 * 未卖出手机资本总量
-	 * 
-	 * @param shopId
-	 * @param status
-	 * @return
-	 */
-	public double totalCostOfNotSelled(long shopId, int status);
 }

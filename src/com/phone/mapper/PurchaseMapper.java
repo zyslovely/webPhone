@@ -161,14 +161,4 @@ public interface PurchaseMapper {
 	public int getPurchaseCountByBrandIds(
 			@Param(value = "list") List<Long> brandIds,
 			@Param(value = "shopId") long shopId);
-
-	/**
-	 * 未卖出手机资本总量
-	 * 
-	 * @param shopId
-	 * @param status
-	 * @return
-	 */
-	public double getTotalCostOfNotSelled(@Param(value = "shopId") long shopId,
-			@Param(value = "status") int status);
 }
