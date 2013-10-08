@@ -222,4 +222,15 @@
 		#{shopId} and 2>status
 		;
 	</select>
+
+	<select id="getPurchaseByStatus" resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase
+		WHERE
+		<if test="status>=0">
+			status= ${status} and
+		</if>
+		2> status
+		and shopId = #{shopId}
+		;
+	</select>
 </mapper>

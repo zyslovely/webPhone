@@ -107,4 +107,11 @@ public interface PurchaseService {
 
 	public List<Operation> getOperationByType(long beginTime, long endTime,
 			int type);
+
+	/**
+	 * 根据status获取所有Purchase
+	 * 
+	 * @return
+	 */
+	public List<Purchase> getPurchaseByStatus(long shopId, int status);
 }

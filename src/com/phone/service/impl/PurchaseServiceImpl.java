@@ -228,4 +228,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 			int type) {
 		return operationMapper.getOperationsByType(beginTime, endTime, type);
 	}
+
+	@Override
+	public List<Purchase> getPurchaseByStatus(long shopId, int status) {
+		return purchaseMapper.getPurchaseByStatus(shopId, status);
+	}
 }
