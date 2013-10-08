@@ -13,7 +13,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 	
 <body style="height:1000px;">
 <h2 style="font-size: 25px;color: blue;margin-bottom:30px;"><a href="/phone/index/">返回</a></h2>
-<h1 style="font-size: 20px;color: red;margin-bottom:30px;">手机查询页面(未卖出的总量${totalPhoneCount!0})</h1>
+<h1 style="font-size: 20px;color: red;margin-bottom:30px;">手机查询页面(未卖出的总量${totalPhoneCount!0},未卖出手机成本总数为${totalCostOfNotSelled!0})</h1>
 
 <form action="/phone/list/" target="_self"/>
 <div>
@@ -50,7 +50,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 
 <#if phoneList?exists>
 <p>
-   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页,总共${searchPhonetotalCount!0}个手机,当前未卖出手机成本总数为${totalCostOfNotSelled!0}</span>。
+   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页,总共${searchPhonetotalCount!0}个手机.</span>。
    <#if extPage gt 0><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${extPage!0}&inventory=${inventory!0}&status=${status!-1}&brandName=${brandName!""}">上一页</a></#if>
    <#if nextPage lt totalPage+1><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${nextPage!0}&inventory=${inventory!0}&status=${status!-1}&brandName=${brandName!""}">下一页</a></#if>
 </p>
