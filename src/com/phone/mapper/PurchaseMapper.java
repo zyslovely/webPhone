@@ -161,4 +161,15 @@ public interface PurchaseMapper {
 	public int getPurchaseCountByBrandIds(
 			@Param(value = "list") List<Long> brandIds,
 			@Param(value = "shopId") long shopId);
+
+	/**
+	 * 根据status获取Purchase
+	 * 
+	 * @param shopId
+	 * @param status
+	 * @return
+	 */
+	public List<Purchase> getPurchaseByStatus(
+			@Param(value = "shopId") long shopId,
+			@Param(value = "status") int status);
 }
