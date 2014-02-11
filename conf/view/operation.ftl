@@ -23,7 +23,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
         <input class="Wdate" name="endDate" type="text" onClick="WdatePicker()" <#if endDate?exists>value="${endDate!""}"</#if>>
         <input type="radio" name="type" value="1" <#if type==1>checked</#if> /> 删除手机记录
         <input type="radio" name="type" value="0" <#if type==0>checked</#if>/>  转移手机记录
-        <input type="radio" name="type" value="2" <#if type==0>checked</#if>/>  退回手机记录
+        <input type="radio" name="type" value="2" <#if type==2>checked</#if>/>  退回手机记录
     </div>
     <input type="submit" value="提交"/>
 </div>
