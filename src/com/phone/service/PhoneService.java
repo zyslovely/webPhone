@@ -59,7 +59,7 @@ public interface PhoneService {
 	 * @param phoneId
 	 * @return
 	 */
-	public boolean returnPhone(long phoneId, long shopId);
+	public boolean returnPhone(long phoneId, long shopId, long operatorUserId);
 
 	/**
 	 * 修改购入价格
