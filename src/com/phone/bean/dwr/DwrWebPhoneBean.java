@@ -185,7 +185,7 @@ public class DwrWebPhoneBean {
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
 		logger.info("手机退货操作，手机id=" + phoneId + " 操作人id=" + userId);
-		return phoneService.returnPhone(phoneId, myUser.getShopId());
+		return phoneService.returnPhone(phoneId, myUser.getShopId(), userId);
 	}
 
 	/**

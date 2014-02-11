@@ -209,11 +209,12 @@ public class PhoneServiceImpl implements PhoneService {
 	 * @see com.phone.service.PhoneService#returnPhone(long)
 	 */
 	@Override
-	public boolean returnPhone(long phoneId, long shopId) {
+	public boolean returnPhone(long phoneId, long shopId, long operatorUserId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("phoneid", phoneId);
 		map.put("shopId", shopId);
 		Selled selled = selledMapper.getSelled(map);
+		Purchase purchase = purchaseMapper.getPurchase(map);
 		if (selled == null) {
 			return false;
 		}
@@ -231,6 +232,18 @@ public class PhoneServiceImpl implements PhoneService {
 			map.put("Status", Purchase.PurchaseStatus.NotSold.getValue());
 			purchaseMapper.updatePurchase(map);
 			return true;
+		}
+		Operation operation = new Operation();
+		Profile profile = profileMapper.getProfile(operatorUserId);
+		Brand brand = brandMapper.getBrandById(purchase.getBrandId());
+		if (profile != null && brand != null) {
+
+			operation.setComment("  由用户" + profile.getName() + " 将手机型号为"
+					+ brand.getBrand() + purchase.getPhoneModel() + " 串号为"
+					+ purchase.getPhoneCode() + " 的手机退货");
+			operation.setCreateTime(new Date().getTime());
+			operation.setType(2);
+			operationMapper.addOperation(operation);
 		}
 		return false;
 	}
