@@ -236,7 +236,8 @@ public class PhoneServiceImpl implements PhoneService {
 		Operation operation = new Operation();
 		Profile profile = profileMapper.getProfile(operatorUserId);
 		Brand brand = brandMapper.getBrandById(purchase.getBrandId());
-		if (profile != null && brand != null) {
+		// if (profile != null && brand != null)
+		{
 
 			operation.setComment("  由用户" + profile.getName() + " 将手机型号为"
 					+ brand.getBrand() + purchase.getPhoneModel() + " 串号为"
