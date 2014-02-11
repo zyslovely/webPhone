@@ -231,7 +231,6 @@ public class PhoneServiceImpl implements PhoneService {
 			profitMapper.deleteProfit(phoneId);
 			map.put("Status", Purchase.PurchaseStatus.NotSold.getValue());
 			purchaseMapper.updatePurchase(map);
-			return true;
 		}
 		Operation operation = new Operation();
 		Profile profile = profileMapper.getProfile(operatorUserId);
@@ -245,7 +244,7 @@ public class PhoneServiceImpl implements PhoneService {
 			operation.setType(2);
 			operationMapper.addOperation(operation);
 		}
-		return false;
+		return true;
 	}
 
 	/*
