@@ -22,7 +22,6 @@ import com.phone.meta.DayProfit;
 import com.phone.meta.Operation;
 import com.phone.meta.Phone;
 import com.phone.meta.ProfitVo;
-import com.phone.meta.Purchase;
 import com.phone.security.MySecurityDelegatingFilter;
 import com.phone.security.MyUser;
 import com.phone.service.AccessoryService;
@@ -202,7 +201,7 @@ public class PhoneController extends AbstractBaseController {
 			mv.addObject("searchPhonetotalCount", totalCount);
 		} else if (!StringUtils.isEmpty(brandName)) {
 			phoneList = phoneService.getPhoneListByBrandName(brandName, limit,
-					offset, myUser.getShopId());
+					offset, myUser.getShopId(),status);
 
 			int totalCount = phoneService.getPhoneCountByBrandName(brandName,
 					myUser.getShopId());

@@ -92,7 +92,7 @@ public interface PhoneService {
 	 * @return
 	 */
 	public List<Phone> getPhoneListByBrandName(String brandName, int limit,
-			int offset, long shopId);
+			int offset, long shopId,int status);
 
 	/**
 	 * 根据品牌名称获得手机数量

@@ -107,8 +107,8 @@
 		id in
 		<foreach item="item" collection="ids" index="index" open="("
 			separator="," close=")">
-			#{item} 
-	     </foreach>
+			#{item}
+		</foreach>
 		;
 	</select>
 
@@ -196,9 +196,9 @@
 		(brandId in
 		<foreach item="item" collection="list" index="index" open="("
 			separator="," close=")">
-			#{item} 
-	     </foreach>
-		) and shopId = #{shopId} and 2>status
+			#{item}
+		</foreach>
+		) and shopId = #{shopId} and 2>status and status = #{status}
 		<if test="offset >=0 ">
 			limit
 			#{limit}
@@ -215,11 +215,22 @@
 		(brandId in
 		<foreach item="item" collection="list" index="index" open="("
 			separator="," close=")">
-			#{item} 
-	     </foreach>
+			#{item}
+		</foreach>
 		)
 		and shopId =
 		#{shopId} and 2>status
+		;
+	</select>
+
+	<select id="getPurchaseByStatus" resultMap="purchaseMap">
+		SELECT * from TB_Phone_Purchase
+		WHERE
+		<if test="status>=0">
+			status= ${status} and
+		</if>
+		2> status
+		and shopId = #{shopId}
 		;
 	</select>
 </mapper>

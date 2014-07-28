@@ -148,7 +148,8 @@ public interface PurchaseMapper {
 			@Param(value = "list") List<Long> brandIds,
 			@Param(value = "limit") int limit,
 			@Param(value = "shopId") long shopId,
-			@Param(value = "offset") int offset);
+			@Param(value = "offset") int offset,
+			@Param(value = "status") int status);
 
 	/**
 	 * 根据品牌得到数量

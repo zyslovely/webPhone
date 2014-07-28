@@ -360,7 +360,7 @@ public class PhoneServiceImpl implements PhoneService {
 	 */
 	@Override
 	public List<Phone> getPhoneListByBrandName(String brandName, int limit,
-			int offset, long shopId) {
+			int offset, long shopId, int status) {
 		List<Brand> brands = brandMapper.getBrandListByName(brandName);
 		if (ListUtils.isEmptyList(brands)) {
 			return null;
@@ -370,7 +370,7 @@ public class PhoneServiceImpl implements PhoneService {
 			brandIds.add(brand.getId());
 		}
 		List<Purchase> purchaseList = purchaseMapper.getPurchaseListByBrandIds(
-				brandIds, limit, shopId, offset);
+				brandIds, limit, shopId, offset, status);
 		if (ListUtils.isEmptyList(purchaseList)) {
 			return null;
 		}

@@ -50,7 +50,7 @@ div.outset {border-style: none;width: 20%;height: 300px;float:left;clean:both}
 
 <#if phoneList?exists>
 <p>
-   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页,总共${searchPhonetotalCount!1}个手机</span>。
+   <span style="color:red">当前第${nowPage!0}页，总共${totalPage!0}页,总共${searchPhonetotalCount!0}个手机.</span>。
    <#if extPage gt 0><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${extPage!0}&inventory=${inventory!0}&status=${status!-1}&brandName=${brandName!""}">上一页</a></#if>
    <#if nextPage lt totalPage+1><a href="/phone/list/?phoneModel=${phoneModel!""}&toPage=${nextPage!0}&inventory=${inventory!0}&status=${status!-1}&brandName=${brandName!""}">下一页</a></#if>
 </p>
