@@ -200,9 +200,10 @@ public class PhoneController extends AbstractBaseController {
 
 			mv.addObject("searchPhonetotalCount", totalCount);
 		} else if (!StringUtils.isEmpty(brandName)) {
+			logger.info("showPhoneList get by brandName");
 			phoneList = phoneService.getPhoneListByBrandName(brandName, limit,
 					offset, myUser.getShopId(),status);
-
+			logger.info("showPhoneList get phoneList  ");
 			int totalCount = phoneService.getPhoneCountByBrandName(brandName,
 					myUser.getShopId());
 			if (totalCount % limit == 0) {

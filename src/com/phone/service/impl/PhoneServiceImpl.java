@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.phone.mapper.BrandMapper;
@@ -39,6 +40,8 @@ import com.phone.util.TimeUtil;
 @Service("phoneService")
 public class PhoneServiceImpl implements PhoneService {
 
+	private static final Logger logger = Logger
+			.getLogger(PhoneServiceImpl.class);
 	@Resource
 	private PurchaseMapper purchaseMapper;
 
@@ -365,6 +368,7 @@ public class PhoneServiceImpl implements PhoneService {
 		if (ListUtils.isEmptyList(brands)) {
 			return null;
 		}
+		logger.info("showPhoneList get by brancds size = " + brands.size());
 		List<Long> brandIds = new ArrayList<Long>();
 		for (Brand brand : brands) {
 			brandIds.add(brand.getId());
@@ -374,12 +378,16 @@ public class PhoneServiceImpl implements PhoneService {
 		if (ListUtils.isEmptyList(purchaseList)) {
 			return null;
 		}
+		logger.info("showPhoneList get by purchaseList size = "
+				+ purchaseList.size());
 		List<Long> phoneIdList = new ArrayList<Long>(purchaseList.size());
 		for (Purchase purchase : purchaseList) {
 			phoneIdList.add(purchase.getId());
 		}
 		List<Phone> phoneList = new ArrayList<Phone>(purchaseList.size());
+		logger.info("showPhoneList get by phoneList size = " + phoneList.size());
 		this.addProfitInfo(phoneList, phoneIdList, purchaseList, shopId);
+		logger.info("showPhoneList get by phoneList size = " + phoneList.size());
 		return phoneList;
 	}
 
