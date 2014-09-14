@@ -198,7 +198,10 @@
 			separator="," close=")">
 			#{item}
 		</foreach>
-		) and shopId = #{shopId} and 2>status and status = #{status}
+		) and shopId = #{shopId} and 2>status  
+		<if test="status >=0 ">
+	 	and status = #{status}
+		</if>
 		<if test="offset >=0 ">
 			limit
 			#{limit}

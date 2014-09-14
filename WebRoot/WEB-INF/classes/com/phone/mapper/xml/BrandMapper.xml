@@ -26,8 +26,8 @@
 		id in
 		<foreach item="item" collection="brandIdList" index="index"
 			open="(" separator="," close=")">
-			#{item} 
-	     </foreach>
+			#{item}
+		</foreach>
 	</select>
 
 	<select id="getAllBrandList" resultType="string">
@@ -38,15 +38,17 @@
 
 	<select id="getBrandListByName" resultMap="brandMap">
 		SELECT
-		* from TB_Phone_Brand where 
+		* from TB_Phone_Brand where
 		<if test="brand != null and brand !=''">
-		 upper(brand) like CONCAT('%','${brand}','%')
+			upper(brand) like CONCAT('%','${brand}','%')
 		</if>
+		order by id desc
 		;
 	</select>
-	
+
 	<select id="getBrandById" resultMap="brandMap">
 		SELECT * from
-		TB_Phone_Brand where id=#{id}
+		TB_Phone_Brand
+		where id=#{id}
 	</select>
 </mapper>
