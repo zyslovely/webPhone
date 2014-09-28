@@ -102,7 +102,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * @see com.phone.service.PurchaseService#deletePurchase(long, int)
 	 */
 	@Override
-	public boolean deletePurchase(long phoneid, long operatorId, long shopId) {
+	public boolean deletePurchase(long phoneid, long operatorId, long shopId, String str) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", phoneid);
 		hashMap.put("Status", PurchaseStatus.Deleted.getValue());
@@ -124,7 +124,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 				operation.setComment(" 由用户" + profile.getName() + " 删除了手机，型号为"
 						+ brand.getBrand() + purchase.getPhoneModel() + " 串号为"
-						+ purchase.getPhoneCode());
+						+ purchase.getPhoneCode() + "，原因是 ："+str);
 				operation.setCreateTime(new Date().getTime());
 				operation.setType(1);
 				operationMapper.addOperation(operation);

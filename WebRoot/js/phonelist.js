@@ -49,13 +49,16 @@ function submitReturnCB(_flag){
 function phoneDelete(id){
 	
 	jConfirm('确定要删除么','删除操作',function(_flag){
-	if(_flag){
-		dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'deletePhoneById',id,submitCB);
-	}else{
-		
-	}
-	});
-	
+		var str=prompt("请输入删除理由","");
+	    if(str)
+	    {
+	    	if(_flag){
+	    		dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'deletePhoneById',id,str,submitCB);
+	    	}else{
+	    		
+	    	}
+	    }
+	})
 };
 
 function phoneSell(id,purchasePrice){

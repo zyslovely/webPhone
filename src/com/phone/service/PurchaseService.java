@@ -38,7 +38,7 @@ public interface PurchaseService {
 	 * @param Status
 	 * @return
 	 */
-	public boolean deletePurchase(long phoneid, long operatorId, long shopId);
+	public boolean deletePurchase(long phoneid, long operatorId, long shopId, String str);
 
 	/**
 	 * 得到所有的手机数量

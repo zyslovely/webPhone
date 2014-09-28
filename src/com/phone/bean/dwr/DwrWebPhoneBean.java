@@ -7,8 +7,8 @@ import org.directwebremoting.WebContext;
 import org.directwebremoting.WebContextFactory;
 import org.springframework.stereotype.Service;
 
-import com.phone.meta.Purchase;
 import com.phone.meta.Profile.ProfileLevel;
+import com.phone.meta.Purchase;
 import com.phone.meta.Purchase.PurchaseStatus;
 import com.phone.security.MySecurityDelegatingFilter;
 import com.phone.security.MyUser;
@@ -47,7 +47,7 @@ public class DwrWebPhoneBean {
 	 * @param phoneId
 	 * @return
 	 */
-	public boolean deletePhoneById(long id) {
+	public boolean deletePhoneById(long id,String str) {
 		WebContext ctx = WebContextFactory.get();
 		Long userId = MyUser.getMyUser(ctx.getHttpServletRequest());
 		MyUser myUser = MySecurityDelegatingFilter.userMap.get(userId);
@@ -56,9 +56,9 @@ public class DwrWebPhoneBean {
 				|| purchase.getStatus() == PurchaseStatus.Sold.getValue()) {
 			return false;
 		}
-		logger.info("删除手机操作，id=" + id + " 操作人id=" + userId);
+		logger.info("删除手机操作，id=" + id + " 操作人id=" + userId + "删除理由" + str);
 		return purchaseService.deletePurchase(id, myUser.getUserId(),
-				myUser.getShopId());
+				myUser.getShopId(), str);
 	}
 
 	/**
