@@ -48,17 +48,13 @@ function submitReturnCB(_flag){
 
 function phoneDelete(id){
 	
-	jConfirm('确定要删除么','删除操作',function(_flag){
-		var str=prompt("请输入删除理由","");
-	    if(str)
-	    {
-	    	if(_flag){
-	    		dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'deletePhoneById',id,str,submitCB);
-	    	}else{
-	    		
-	    	}
-	    }
-	})
+	 jPrompt('确定要删除么：', '删除操作', '',function(_reason){
+	    	
+	     if(_reason!=null){
+	    	 dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'deletePhoneById',id,str,submitCB);
+	   	   }
+	 });
+	 
 };
 
 function phoneSell(id,purchasePrice){
