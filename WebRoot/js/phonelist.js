@@ -48,10 +48,10 @@ function submitReturnCB(_flag){
 
 function phoneDelete(id){
 	
-	 jPrompt('确定要删除么：', '删除操作', '',function(_reason){
+	 jPrompt('请输入删除理由：', '删除操作', '',function(_reason){
 	    	
 	     if(_reason!=null){
-	    	 dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'deletePhoneById',id,str,submitCB);
+	    	 dwr.engine._execute(_cfg_host+"/dwr/", 'WebPhoneBean', 'deletePhoneById',id,_reason,submitCB);
 	   	   }
 	 });
 	 
