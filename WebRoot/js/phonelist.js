@@ -54,13 +54,13 @@ function phoneDelete(id) {
 
 	jPrompt('请输入删除理由：', '删除操作', '', function(_reason) {
 
-		if (_reason != null) {
+		if (_reason) {
 			dwr.engine._execute(_cfg_host + "/dwr/", 'WebPhoneBean',
 					'deletePhoneById', id, _reason, function(_flag) {
 						if (_flag) {
-							alert("卖出成功");
+							alert("删除成功");
 						} else {
-							alert("卖出失败");
+							alert("删除失败");
 						}
 					});
 		} else {
