@@ -102,7 +102,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 * @see com.phone.service.PurchaseService#deletePurchase(long, int)
 	 */
 	@Override
-	public boolean deletePurchase(long phoneid, long operatorId, long shopId, String str) {
+	public boolean deletePurchase(long phoneid, long operatorId, long shopId,
+			String str) {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("phoneid", phoneid);
 		hashMap.put("Status", PurchaseStatus.Deleted.getValue());
@@ -110,11 +111,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 		Purchase purchase = purchaseMapper.getPurchase(hashMap);
 		Profile profile = profileMapper.getProfile(operatorId);
 		Brand brand = brandMapper.getBrandById(purchase.getBrandId());
-		if (purchaseMapper.updatePurchase(hashMap) > 0) {
+		boolean succ = false;
+		succ = (purchaseMapper.updatePurchase(hashMap) > 0);
+		if (succ) {
 			Map<String, Object> hashMap2 = new HashMap<String, Object>();
 			hashMap2.put("phoneid", phoneid);
 			hashMap2.put("shopId", shopId);
-			boolean succ = false;
 			if (selledMapper.getSelled(hashMap) != null) {
 				succ = selledMapper.deleteSelled(phoneid) > 0
 						&& profitMapper.deleteProfit(phoneid) > 0;
@@ -124,7 +126,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 				operation.setComment(" 由用户" + profile.getName() + " 删除了手机，型号为"
 						+ brand.getBrand() + purchase.getPhoneModel() + " 串号为"
-						+ purchase.getPhoneCode() + "，原因是 ："+str);
+						+ purchase.getPhoneCode() + "，原因是 ：" + str);
 				operation.setCreateTime(new Date().getTime());
 				operation.setType(1);
 				operationMapper.addOperation(operation);
