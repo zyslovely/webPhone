@@ -189,6 +189,13 @@ public class PhoneServiceImpl implements PhoneService {
 		if (purchase.getStatus() != PurchaseStatus.NotSold.getValue()) {
 			return false;
 		}
+		Map<String, Object> existHashMap = new HashMap<String, Object>();
+		hashMap.put("phoneCode", purchase.getPhoneCode());
+		hashMap.put("shopId", newShopId);
+		Purchase existPurchase = purchaseMapper.getPurchaseByPhoneCode(existHashMap);
+		if (null != existPurchase) {
+			return false;
+		}
 		Operation operation = new Operation();
 		Profile profile = profileMapper.getProfile(operatorUserId);
 		Brand brand = brandMapper.getBrandById(purchase.getBrandId());
